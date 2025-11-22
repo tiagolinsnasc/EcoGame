@@ -88,7 +88,7 @@ func _on_hurtbox_body_entered(_body: Node2D) -> void:
 		queue_free()
 	else:
 		print("Perdeu vida")
-		#ray não está colidindo (Suspeito que seja alguma configuração do RayCast2D
+		#ray não está colidindo (Suspeito que seja alguma configuração do RayCast2D ver
 		#if ray_right.is_colliding():
 		if animation.scale.x == 1:
 			print("Direita")
