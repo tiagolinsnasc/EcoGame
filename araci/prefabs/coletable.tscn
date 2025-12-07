@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3gdkslwlckvn"]
+[gd_scene load_steps=13 format=3 uid="uid://c3gdkslwlckvn"]
 
 [ext_resource type="Script" uid="uid://cd6e3anjnxfnr" path="res://scripts/coin.gd" id="1_14qdg"]
-[ext_resource type="Texture2D" uid="uid://ccbjmwg13sj1a" path="res://n_assets/Sasonal Tilesets/6 - Meus Tales/coletavel1.png" id="1_uv4cb"]
 [ext_resource type="Texture2D" uid="uid://cwadcu777kp11" path="res://n_assets/Mini FX, Items & UI/Effects/Bright_Sparkle (16 x 16).png" id="2_s6s78"]
+[ext_resource type="Texture2D" uid="uid://d2ajltttwnvee" path="res://n_assets/n_scenes/elements/evidenceAnime.png" id="3_s6s78"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v34kk"]
 atlas = ExtResource("2_s6s78")
@@ -20,21 +20,17 @@ region = Rect2(40, 0, 20, 16)
 atlas = ExtResource("2_s6s78")
 region = Rect2(60, 0, 20, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uv4cb"]
-atlas = ExtResource("1_uv4cb")
-region = Rect2(3, 0, 24, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_14qdg"]
-atlas = ExtResource("1_uv4cb")
-region = Rect2(27, 0, 24, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s6s78"]
-atlas = ExtResource("1_uv4cb")
-region = Rect2(51, 0, 24, 20)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdrm1"]
-atlas = ExtResource("1_uv4cb")
-region = Rect2(75, 0, 24, 20)
+atlas = ExtResource("3_s6s78")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jfh5"]
+atlas = ExtResource("3_s6s78")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pehme"]
+atlas = ExtResource("3_s6s78")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hcci3"]
 animations = [{
@@ -57,16 +53,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uv4cb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_14qdg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s6s78")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_wdrm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jfh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pehme")
 }],
 "loop": true,
 "name": &"idle",
@@ -85,8 +78,9 @@ script = ExtResource("1_14qdg")
 [node name="amination_coin" type="AnimatedSprite2D" parent="coin"]
 scale = Vector2(0.41666666, 0.39999998)
 sprite_frames = SubResource("SpriteFrames_hcci3")
-animation = &"collect"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.9565333
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="coin"]
 shape = SubResource("RectangleShape2D_uv4cb")

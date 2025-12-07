@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c738o3mpr3is3"]
+
+[ext_resource type="Script" uid="uid://2xxpyqrpv1g6" path="res://scripts/goal.gd" id="1_15wru"]
+[ext_resource type="Texture2D" uid="uid://btcmp3dvriq8w" path="res://conj1.png" id="2_bnsmo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3wvb"]
+size = Vector2(66, 79)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cnojs"]
+
+[node name="goal" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_15wru")
+
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -39)
+texture = ExtResource("2_bnsmo")
+region_enabled = true
+region_rect = Rect2(130, 56, 64, 78)
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -40.5)
+shape = SubResource("RectangleShape2D_b3wvb")
+
+[node name="anime" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cnojs")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

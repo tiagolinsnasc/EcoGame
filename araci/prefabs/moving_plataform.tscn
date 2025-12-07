@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bj80s1ob0y7u5"]
 
-[ext_resource type="Texture2D" uid="uid://dcs1uv32nr1h4" path="res://n_assets/Sasonal Tilesets/5 - Misc. universal tiles/Blocks (16 x 16).png" id="1_hdtt3"]
 [ext_resource type="Script" uid="uid://cheawq7j8hpbl" path="res://scripts/moving_plataform.gd" id="1_kqqyq"]
+[ext_resource type="Texture2D" uid="uid://bicp10p23m5oi" path="res://n_assets/n_scenes/elements/elements02.png" id="2_kqqyq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqqyq"]
-size = Vector2(32, 16)
+size = Vector2(71, 14)
 
 [node name="moving_plataform" type="Node2D"]
 script = ExtResource("1_kqqyq")
@@ -13,10 +13,11 @@ script = ExtResource("1_kqqyq")
 collision_layer = 2
 
 [node name="sprite_plataform" type="Sprite2D" parent="plataform"]
-texture = ExtResource("1_hdtt3")
+texture = ExtResource("2_kqqyq")
 region_enabled = true
-region_rect = Rect2(96, 64, 32, 16)
+region_rect = Rect2(2, 192, 72, 16)
 
 [node name="collision" type="CollisionShape2D" parent="plataform"]
+position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_kqqyq")
 one_way_collision = true

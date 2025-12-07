@@ -1,5 +1,5 @@
 shader_type canvas_item;
-uniform float move_speed = 0.2;
+uniform float move_speed = 0.05;
 
 void vertex() {
 	// Called for every vertex the material is visible on.

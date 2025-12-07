@@ -1,0 +1,141 @@
+[gd_scene load_steps=16 format=3 uid="uid://frp3ffhtt8li"]
+
+[ext_resource type="Script" uid="uid://d35c2d0nrks3j" path="res://scripts/enemy_patrol.gd" id="1_172ag"]
+[ext_resource type="Texture2D" uid="uid://fhmskuwye5q8" path="res://n_assets/n_scenes/elements/estorninho.png" id="2_lsbg7"]
+[ext_resource type="Texture2D" uid="uid://dh517b6h4o20p" path="res://n_assets/n_scenes/elements/estorninhoHurt.png" id="3_172ag"]
+[ext_resource type="Script" uid="uid://drm74705d80l0" path="res://scripts/hitbox_patrol.gd" id="4_172ag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0xqj"]
+atlas = ExtResource("2_lsbg7")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4giag"]
+atlas = ExtResource("2_lsbg7")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irtl7"]
+atlas = ExtResource("2_lsbg7")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsbg7"]
+atlas = ExtResource("3_172ag")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irtl7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0xqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4giag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irtl7")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsbg7")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y10go"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxv7g"]
+size = Vector2(18, 3)
+
+[sub_resource type="Curve2D" id="Curve2D_fajwe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -129)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_172ag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_h7w04"]
+resource_name = "flying"
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ims68"]
+_data = {
+&"RESET": SubResource("Animation_172ag"),
+&"flying": SubResource("Animation_h7w04")
+}
+
+[node name="base_patrol" type="Node2D"]
+
+[node name="enemy_patrol" type="CharacterBody2D" parent="."]
+editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox"
+collision_layer = 4
+script = ExtResource("1_172ag")
+
+[node name="animation_enemy" type="AnimatedSprite2D" parent="enemy_patrol"]
+sprite_frames = SubResource("SpriteFrames_irtl7")
+animation = &"flying"
+autoplay = "flying"
+
+[node name="collisions" type="CollisionShape2D" parent="enemy_patrol"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_y10go")
+
+[node name="hitbox_patrol" type="Area2D" parent="enemy_patrol"]
+script = ExtResource("4_172ag")
+
+[node name="collision_patrol" type="CollisionShape2D" parent="enemy_patrol/hitbox_patrol"]
+position = Vector2(-1, -6.5)
+shape = SubResource("RectangleShape2D_kxv7g")
+
+[node name="path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_fajwe")
+
+[node name="path_follow2D" type="PathFollow2D" parent="path2D"]
+rotates = false
+
+[node name="remote" type="RemoteTransform2D" parent="path2D/path_follow2D"]
+remote_path = NodePath("../../../enemy_patrol")
+
+[node name="spawn_enemy" type="Marker2D" parent="."]
+
+[node name="anime" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ims68")
+}
+autoplay = "flying"
+speed_scale = 0.3
+
+[connection signal="animation_finished" from="enemy_patrol/animation_enemy" to="enemy_patrol" method="_on_animation_enemy_animation_finished"]
+[connection signal="body_entered" from="enemy_patrol/hitbox_patrol" to="enemy_patrol/hitbox_patrol" method="_on_body_entered"]
