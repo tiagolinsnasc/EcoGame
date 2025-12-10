@@ -4,7 +4,7 @@ signal dialog_finished()
 
 var texts_to_display: Array[String] = []
 var curret_index:int = 0
-var typing_speed:float = 0.05
+@export var typing_speed:float = 0.05
 var is_typing:bool = false
 
 @onready var text_label: Label = $text_container/text_label

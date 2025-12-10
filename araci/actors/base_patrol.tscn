@@ -113,6 +113,9 @@ position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_y10go")
 
 [node name="hitbox_patrol" type="Area2D" parent="enemy_patrol"]
+editor_description = "A mascara do hitbox está disabilitada (não ser morto pelo player"
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("4_172ag")
 
 [node name="collision_patrol" type="CollisionShape2D" parent="enemy_patrol/hitbox_patrol"]

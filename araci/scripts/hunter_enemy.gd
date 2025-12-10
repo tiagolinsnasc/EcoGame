@@ -25,15 +25,12 @@ func _ready() -> void:
 	shoot_timer.stop()             # começa parado 
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout) #ADD
 	
-#Transferido para o script do hitbox
-#func _on_hitbox_hunter_body_entered(_body: Node2D) -> void:
-	#anime.pause() #Pausa a nimação do AnimationPlay, evita que o enemy se mova na execução do hurt
-	#animation.play("hurt")
 
-func _on_animation_animation_finished() -> void:
-	if animation.animation == "hurt":
-		queue_free()
-		Globals.score += enemy_score
+#Transferido para o script do hitbox - removido - problemas com o tempo de execução do hurt
+#func _on_animation_animation_finished() -> void:
+	#if animation.animation == "hurt":
+		#queue_free()
+		#Globals.score += enemy_score
 
 
 #Cria uma instância da bala (BULLET)

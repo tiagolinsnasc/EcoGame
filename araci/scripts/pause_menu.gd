@@ -2,7 +2,6 @@ extends CanvasLayer
 
 @onready var resume_btn: Button = $menu_holder/resume_btn
 
-
 func _ready() -> void:
 	visible = false
 	resume_btn.grab_focus()#habilita o teclado para selcionar a opção

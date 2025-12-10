@@ -13,7 +13,13 @@ func start_dialog(texts: Array[String], dialog_position: Vector2):
 		get_tree().current_scene.add_child(dialog_box)
 	
 		dialog_box.texts_to_display = texts
-		dialog_box.global_position = dialog_position
+		
+		# Ajuste para mover mais acima (por exemplo, 100 pixels)
+		var offset_y = -100
+		dialog_box.global_position = dialog_position + Vector2(0, offset_y)
+		
+		#dialog_box.global_position = dialog_position
+		
 		dialog_box.show_text()
 		is_showing_dialog = true
 		

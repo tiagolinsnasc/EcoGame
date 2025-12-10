@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdytm7hn8ndvs"]
+[gd_scene load_steps=12 format=3 uid="uid://bdytm7hn8ndvs"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_34jws"]
 [ext_resource type="Texture2D" uid="uid://t8kdkh2w833b" path="res://n_assets/Mini Pixel Pack 1/4 - Binny/Moving (16 x 16).png" id="1_ho334"]
 [ext_resource type="Texture2D" uid="uid://w1xygfjenclh" path="res://n_assets/Mini Pixel Pack 1/4 - Binny/Protected (16 x 16).png" id="3_u1dkd"]
 [ext_resource type="Texture2D" uid="uid://gqckj1ol856d" path="res://n_assets/Mini Pixel Pack 1/4 - Binny/Idle (16 x 16).png" id="4_dpeei"]
@@ -184,7 +183,6 @@ size = Vector2(6, 1)
 [node name="single_enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_34jws")
 
 [node name="colisor_enemy" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)

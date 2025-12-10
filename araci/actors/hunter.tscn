@@ -104,7 +104,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -251,7 +251,7 @@ script = ExtResource("1_vtgop")
 [node name="animation" type="AnimatedSprite2D" parent="hunter_enemy"]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_8wjfi")
-animation = &"idlle"
+animation = &"shot"
 autoplay = "walk"
 
 [node name="bullet_position" type="Marker2D" parent="hunter_enemy/animation"]
@@ -271,10 +271,10 @@ shape = SubResource("RectangleShape2D_vua1l")
 debug_color = Color(0.75686276, 0, 0.3529412, 0.89411765)
 
 [node name="player_detect_left" type="RayCast2D" parent="hunter_enemy"]
-target_position = Vector2(-307, 0)
+target_position = Vector2(-218, 0)
 
 [node name="player_detect_right" type="RayCast2D" parent="hunter_enemy"]
-target_position = Vector2(253, 1)
+target_position = Vector2(232, -1)
 
 [node name="shoot_timer" type="Timer" parent="hunter_enemy"]
 

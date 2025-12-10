@@ -1,12 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://cfsgj11b2edkd"]
+[gd_scene load_steps=22 format=3 uid="uid://cfsgj11b2edkd"]
 
 [ext_resource type="Script" uid="uid://cxlu3j3vkegb8" path="res://scripts/lumberjack.gd" id="1_i02ca"]
 [ext_resource type="Texture2D" uid="uid://bhw7xiw8n7tk7" path="res://n_assets/n_tiles_actors/Madereiro_sem_armas.png" id="1_ynqkg"]
 [ext_resource type="PackedScene" uid="uid://c0tmfg4m68kla" path="res://prefabs/hitbox_lumberjack.tscn" id="3_cjxak"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ynqkg"]
-atlas = ExtResource("1_ynqkg")
-region = Rect2(0, 1280, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tfp1k"]
 atlas = ExtResource("1_ynqkg")
@@ -71,9 +67,6 @@ region = Rect2(512, 704, 64, 64)
 [sub_resource type="SpriteFrames" id="SpriteFrames_s64gy"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ynqkg")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tfp1k")
 }, {
@@ -151,8 +144,6 @@ SPEED = 500.0
 sprite_frames = SubResource("SpriteFrames_s64gy")
 animation = &"hurt"
 autoplay = "walk"
-frame = 4
-frame_progress = 1.0
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
