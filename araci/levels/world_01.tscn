@@ -1361,7 +1361,7 @@ size = Vector2(7, 283)
 size = Vector2(1234, 46.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmex4"]
-size = Vector2(32, 17)
+size = Vector2(47, 207.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imfvm"]
 size = Vector2(199.69614, 20.676811)
@@ -1418,7 +1418,7 @@ size = Vector2(1969.0469, 41.1875)
 size = Vector2(374.94116, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3cvst"]
-size = Vector2(2515, 48)
+size = Vector2(350, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0sqnv"]
 size = Vector2(21, 207.5)
@@ -1642,8 +1642,11 @@ debug_color = Color(0, 0.9647059, 0.5176471, 0.49803922)
 [node name="cabure_popup" parent="." instance=ExtResource("18_brbtt")]
 position = Vector2(8138, 194)
 
+[node name="hit_pop" parent="cabure_popup" index="2"]
+dialog_texts = Array[String](["Olá, aventureira!", "Yaguareté, nossa protetora, foi morta, provavelmente por caçadores.", "Pare os invasores e continue coletando as avidências.", "A floresta precisa de você!"])
+
 [node name="Araci" parent="." instance=ExtResource("13_brbtt")]
-position = Vector2(4381, 115)
+position = Vector2(8043, 236)
 
 [node name="araci_start_position" type="Marker2D" parent="."]
 editor_description = "Permite que o sistema use a localização do Mark2D para posicionar o Player no início do cenário, quando não tiver checkpointe obtido"
@@ -1660,6 +1663,10 @@ shape = SubResource("RectangleShape2D_ovq2m")
 
 [node name="mini_wall01" type="CollisionShape2D" parent="static_ground"]
 position = Vector2(222, 166.5)
+shape = SubResource("RectangleShape2D_gmex4")
+
+[node name="mini_wall02" type="CollisionShape2D" parent="static_ground"]
+position = Vector2(9039.5, 119.25)
 shape = SubResource("RectangleShape2D_gmex4")
 
 [node name="ground_collision02" type="CollisionShape2D" parent="static_ground"]
@@ -1737,7 +1744,7 @@ position = Vector2(8531.529, 265)
 shape = SubResource("RectangleShape2D_15tky")
 
 [node name="ground_collision20" type="CollisionShape2D" parent="static_ground"]
-position = Vector2(9970.5, 247)
+position = Vector2(8888, 247)
 shape = SubResource("RectangleShape2D_3cvst")
 
 [node name="static_InitialWall" type="StaticBody2D" parent="."]
@@ -1963,10 +1970,16 @@ position = Vector2(1751, 118)
 position = Vector2(3535, 172)
 
 [node name="maina3" parent="enemies" instance=ExtResource("40_brbtt")]
-position = Vector2(3626, 145)
+position = Vector2(3623, 176)
 
 [node name="maina" parent="enemies/maina3" index="0"]
-speed = 900.0
+speed = 1000.0
+
+[node name="anime" parent="enemies/maina3/maina" index="0"]
+speed_scale = 2.0
+
+[node name="animator" parent="enemies/maina3" index="2"]
+speed_scale = 0.866
 
 [node name="maina4" parent="enemies" instance=ExtResource("40_brbtt")]
 position = Vector2(3718, 159)

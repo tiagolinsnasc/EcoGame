@@ -31,8 +31,7 @@ func show_text():
 		_type_text(texts_to_display[curret_index])
 	else:
 		_close_dialog()
-		
-		
+				
 func _type_text(text:String):
 	for i in range(text.length()):
 		text_label.text += text[i]
@@ -40,6 +39,7 @@ func _type_text(text:String):
 		
 	is_typing = false
 	indicator.visible = true
+	#Só pausa após exibir o primeiro texto, solução provisória: manter um primeiro texto curto
 	get_tree().paused = true
 	
 func _close_dialog():

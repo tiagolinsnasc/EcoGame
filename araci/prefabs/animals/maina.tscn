@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://frp3ffhtt8li"]
+[gd_scene load_steps=15 format=3 uid="uid://frp3ffhtt8li"]
 
 [ext_resource type="Texture2D" uid="uid://fhmskuwye5q8" path="res://n_assets/n_scenes/elements/estorninho.png" id="1_433o2"]
 [ext_resource type="Script" uid="uid://dkr1q4mfbn2e7" path="res://scripts/enemies/animal_enemy_maina.gd" id="1_cj5fn"]
@@ -54,42 +54,37 @@ size = Vector2(18, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cj5fn"]
 size = Vector2(28, 20)
 
-[sub_resource type="Curve2D" id="Curve2D_fajwe"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -129)
-}
-point_count = 2
-
 [sub_resource type="Animation" id="Animation_172ag"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
+tracks/0/path = NodePath("maina:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_h7w04"]
 resource_name = "flying"
+length = 2.0
 loop_mode = 2
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("path2D/path_follow2D:progress_ratio")
-tracks/0/interp = 1
+tracks/0/path = NodePath("maina:position")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [Vector2(0, 0), Vector2(7, -104)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ims68"]
@@ -101,7 +96,7 @@ _data = {
 [node name="maina" type="Node2D"]
 
 [node name="maina" type="CharacterBody2D" parent="."]
-editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox"
+editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox. Speed só funciona para seres terrestres, para aumentar a velocidade alterar o spped scale do animator"
 collision_layer = 16
 collision_mask = 258
 script = ExtResource("1_cj5fn")
@@ -131,15 +126,6 @@ debug_color = Color(0.9394873, 1.5209317e-05, 0.6213183, 0.41960785)
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_cj5fn")
 debug_color = Color(0.93344843, 0.15352938, 0.523355, 0.41960785)
-
-[node name="path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_fajwe")
-
-[node name="path_follow2D" type="PathFollow2D" parent="path2D"]
-rotates = false
-
-[node name="remote" type="RemoteTransform2D" parent="path2D/path_follow2D"]
-remote_path = NodePath("../../../maina")
 
 [node name="spawn_enemy" type="Marker2D" parent="."]
 

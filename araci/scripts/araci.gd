@@ -252,7 +252,7 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25) -> void:
 	invincible = true
 	is_hurt = true
 	estado = "hurt"
-
+	print("Chamou take damage, deveria mudar de cor")
 	# ✅ reduz vida
 	if Globals.player_life > 0:
 		Globals.player_life -= 1
@@ -265,9 +265,17 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25) -> void:
 
 	# Tween para suavizar knockback e piscada
 	var tween: Tween = get_tree().create_tween()
+
+	# Knockback suaviza em paralelo
 	tween.parallel().tween_property(self, "knockback_vector", Vector2.ZERO, duration)
-	tween.parallel().tween_property(animation, "modulate", Color(1, 0, 0), duration * 0.5)
-	tween.parallel().tween_property(animation, "modulate", Color(1, 1, 1), duration * 0.5)
+
+	# Cor: primeiro vermelho, depois branco (sequencial)
+	animation.modulate = Color(1, 0, 0) # já começa vermelho
+	tween.tween_property(animation, "modulate", Color(1, 1, 1), 0.1)
+	tween.tween_property(animation, "modulate", Color(1, 0, 0), 0.1)
+	tween.tween_property(animation, "modulate", Color(1, 1, 1), 0.1)
+	tween.tween_property(animation, "modulate", Color(1, 0, 0), 0.1) # piscada extra
+	tween.tween_property(animation, "modulate", Color(1, 1, 1), 0.1) # volta ao normal
 
 	# ✅ espera o knockback acabar
 	await get_tree().create_timer(duration).timeout

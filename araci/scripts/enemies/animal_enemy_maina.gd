@@ -4,12 +4,8 @@ extends EnemyBase
 
 @onready var anime: AnimatedSprite2D = $anime
 
-func _physics_process(delta: float) -> void:
-	if is_dead:
-		return
-	if not is_on_floor():
-		velocity += get_gravity() * speed * delta
-		$"../../maina3/path2D/path_follow2D".progress += speed * delta
+func _physics_process(_delta: float) -> void:
+	pass
 
 func play_anim(anime_name: String) -> void:
 	anime.play(anime_name)
