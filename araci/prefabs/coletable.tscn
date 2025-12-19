@@ -72,7 +72,7 @@ size = Vector2(10, 10)
 [node name="coin" type="Node2D"]
 
 [node name="coin" type="Area2D" parent="."]
-collision_layer = 8
+collision_layer = 512
 script = ExtResource("1_14qdg")
 
 [node name="amination_coin" type="AnimatedSprite2D" parent="coin"]

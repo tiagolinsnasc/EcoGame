@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://nqgw18mplheq"]
+
+[ext_resource type="Script" uid="uid://dh6qlibvgpvne" path="res://scripts/enemies/animal_enemy_wild_boar.gd" id="1_o3w5c"]
+[ext_resource type="Texture2D" uid="uid://bhv6hfml54b4h" path="res://n_assets/n_scenes/elements/african_snail.png" id="2_o3w5c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ossi"]
+atlas = ExtResource("2_o3w5c")
+region = Rect2(0, 0, 40, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c01cy"]
+atlas = ExtResource("2_o3w5c")
+region = Rect2(40, 0, 40, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li7gr"]
+atlas = ExtResource("2_o3w5c")
+region = Rect2(80, 0, 40, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5snv5"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"atack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ossi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c01cy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li7gr")
+}],
+"loop": true,
+"name": &"run",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbcpb"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrgn4"]
+size = Vector2(28.5, 17)
+
+[node name="african_snail" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 257
+script = ExtResource("1_o3w5c")
+speed = 200.0
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5snv5")
+animation = &"run"
+autoplay = "run"
+frame = 2
+frame_progress = 0.6535479
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_tbcpb")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(33, 0)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(1, 1)
+target_position = Vector2(29, 22)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="enemy_hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(1.75, 6.5)
+shape = SubResource("RectangleShape2D_qrgn4")
+debug_color = Color(0.90198725, 0.028006515, 0.7500692, 0.41960785)

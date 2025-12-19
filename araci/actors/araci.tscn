@@ -1,9 +1,10 @@
-[gd_scene load_steps=45 format=3 uid="uid://ba3xbkuiqhtyn"]
+[gd_scene load_steps=47 format=3 uid="uid://ba3xbkuiqhtyn"]
 
 [ext_resource type="Script" uid="uid://bb2ju11ra7y1h" path="res://scripts/araci.gd" id="1_wp837"]
 [ext_resource type="Texture2D" uid="uid://dsakuawpkov3a" path="res://n_assets/n_tiles_actors/Araci_machado.png" id="2_mtxgc"]
 [ext_resource type="Texture2D" uid="uid://difhr0v8xt0hy" path="res://n_assets/n_tiles_actors/Araci_completo.png" id="3_n0p0v"]
 [ext_resource type="Texture2D" uid="uid://bbkmjeo5br6x6" path="res://n_assets/n_tiles_actors/Araci_arco.png" id="4_bogxa"]
+[ext_resource type="Script" uid="uid://h1u85ekk7hxc" path="res://scripts/stompbox.gd" id="5_mtxgc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtxgc"]
 atlas = ExtResource("2_mtxgc")
@@ -31,15 +32,15 @@ region = Rect2(148, 0, 74, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tayuc"]
 atlas = ExtResource("3_n0p0v")
-region = Rect2(0, 2048, 64, 64)
+region = Rect2(0, 2368, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d22gr"]
 atlas = ExtResource("3_n0p0v")
-region = Rect2(64, 2048, 64, 64)
+region = Rect2(64, 2368, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_826ax"]
 atlas = ExtResource("3_n0p0v")
-region = Rect2(128, 2048, 64, 64)
+region = Rect2(128, 2368, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bogxa"]
 atlas = ExtResource("3_n0p0v")
@@ -174,7 +175,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sn7bh")
 }],
-"loop": true,
+"loop": false,
 "name": &"atack",
 "speed": 5.0
 }, {
@@ -292,20 +293,22 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k88e7")
 }],
-"loop": true,
-"name": &"shot",
+"loop": false,
+"name": &"shoot",
 "speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wp837"]
-size = Vector2(17, 46)
+size = Vector2(26, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bogxa"]
+size = Vector2(31, 1.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_422x3"]
-size = Vector2(27, 48)
+size = Vector2(32, 50)
 
 [node name="Araci" type="CharacterBody2D"]
-position = Vector2(0, -16)
-collision_mask = 166
+collision_mask = 272
 script = ExtResource("1_wp837")
 
 [node name="animator" type="AnimationPlayer" parent="."]
@@ -314,22 +317,36 @@ script = ExtResource("1_wp837")
 texture_filter = 1
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_0yxgj")
-animation = &"idle"
+animation = &"hurt"
 
-[node name="colisor" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1)
+[node name="body" type="CollisionShape2D" parent="."]
+editor_description = "Apenas deve detectar chão, paredes e física em geral. Não deve aceitar dano."
+position = Vector2(-1, -1.5)
 shape = SubResource("RectangleShape2D_wp837")
 
+[node name="stompbox" type="Area2D" parent="." groups=["player_stomp"]]
+editor_description = "Deve ser usado nos pés do player, apenas causa dano aos inimigos quando o player cai por cima."
+collision_layer = 4
+collision_mask = 64
+script = ExtResource("5_mtxgc")
+
+[node name="collision" type="CollisionShape2D" parent="stompbox"]
+position = Vector2(-1, 24)
+shape = SubResource("RectangleShape2D_bogxa")
+debug_color = Color(0.06188646, 0.5499494, 0.9184627, 0.41960785)
+
 [node name="hurtbox" type="Area2D" parent="."]
-collision_layer = 64
-collision_mask = 4
+editor_description = "Área 2D para detectar danos, ataques e contato com inimigos. Em caso de atiarar projéteis, colocar na camada ly_player_projectile."
+collision_layer = 2
+collision_mask = 1200
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(0.5, -1)
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_422x3")
 debug_color = Color(0.9019608, 0, 0.101960786, 0.39215687)
 
 [node name="remote" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("..")
 
 [node name="ray_right" type="RayCast2D" parent="."]
 position = Vector2(1, 0)
@@ -343,4 +360,6 @@ target_position = Vector2(-21, 0)
 collision_mask = 4
 hit_from_inside = true
 
+[connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
+[connection signal="body_entered" from="stompbox" to="stompbox" method="_on_body_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0tmfg4m68kla"]
-
-[ext_resource type="Script" uid="uid://cfxh0oc4o5agr" path="res://scripts/hitbox_lumberjack.gd" id="1_bxdc6"]
-
-[node name="hitbox_lumberjack" type="Area2D"]
-collision_layer = 32
-script = ExtResource("1_bxdc6")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

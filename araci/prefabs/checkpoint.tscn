@@ -125,7 +125,7 @@ animations = [{
 size = Vector2(22, 26)
 
 [node name="checkpoint" type="Area2D"]
-collision_layer = 2
+collision_layer = 2048
 script = ExtResource("1_jmy7n")
 
 [node name="anime" type="AnimatedSprite2D" parent="."]

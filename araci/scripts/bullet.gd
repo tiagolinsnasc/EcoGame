@@ -12,7 +12,7 @@ func _on_visible_on_screen_enabler_2d_screen_exited() -> void:
 	queue_free()
 	
 var knockback_vector := Vector2.ZERO
-var knockback_power := 0
+var knockback_power := 2
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Araci":

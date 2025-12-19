@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjp0412nixqac"]
+
+[ext_resource type="Texture2D" uid="uid://bqfhn41q87u1j" path="res://n_assets/n_scenes/elements/cabure.png" id="1_86322"]
+[ext_resource type="Script" uid="uid://bi5wr0he3m4ip" path="res://scripts/hit_pop.gd" id="2_g3tjt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vmtb"]
+size = Vector2(12, 13.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ub3r"]
+size = Vector2(17.000061, 131.78635)
+
+[node name="cabure_popup" type="StaticBody2D"]
+collision_layer = 2048
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_86322")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, -28)
+shape = SubResource("RectangleShape2D_3vmtb")
+
+[node name="hit_pop" type="Area2D" parent="."]
+position = Vector2(0, -28)
+scale = Vector2(1, 0.18970104)
+collision_layer = 2
+script = ExtResource("2_g3tjt")
+dialog_texts = Array[String](["Yaguareté, nossa protetora, foi morta, provavelmente por caçadores.", "Pare os invasores e continue coletando as avidências.", "A floresta precisa de você!"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_pop"]
+position = Vector2(7.500061, 18.450073)
+rotation = -3.1415925
+shape = SubResource("RectangleShape2D_4ub3r")
+
+[connection signal="body_entered" from="hit_pop" to="hit_pop" method="_on_body_entered"]

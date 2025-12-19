@@ -1,24 +1,23 @@
 [gd_scene load_steps=16 format=3 uid="uid://frp3ffhtt8li"]
 
-[ext_resource type="Script" uid="uid://d35c2d0nrks3j" path="res://scripts/enemy_patrol.gd" id="1_172ag"]
-[ext_resource type="Texture2D" uid="uid://fhmskuwye5q8" path="res://n_assets/n_scenes/elements/estorninho.png" id="2_lsbg7"]
-[ext_resource type="Texture2D" uid="uid://dh517b6h4o20p" path="res://n_assets/n_scenes/elements/estorninhoHurt.png" id="3_172ag"]
-[ext_resource type="Script" uid="uid://drm74705d80l0" path="res://scripts/hitbox_patrol.gd" id="4_172ag"]
+[ext_resource type="Texture2D" uid="uid://fhmskuwye5q8" path="res://n_assets/n_scenes/elements/estorninho.png" id="1_433o2"]
+[ext_resource type="Script" uid="uid://dkr1q4mfbn2e7" path="res://scripts/enemies/animal_enemy_maina.gd" id="1_cj5fn"]
+[ext_resource type="Texture2D" uid="uid://dh517b6h4o20p" path="res://n_assets/n_scenes/elements/estorninhoHurt.png" id="2_cj5fn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0xqj"]
-atlas = ExtResource("2_lsbg7")
+atlas = ExtResource("1_433o2")
 region = Rect2(0, 0, 36, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4giag"]
-atlas = ExtResource("2_lsbg7")
+atlas = ExtResource("1_433o2")
 region = Rect2(36, 0, 36, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irtl7"]
-atlas = ExtResource("2_lsbg7")
+atlas = ExtResource("1_433o2")
 region = Rect2(72, 0, 36, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lsbg7"]
-atlas = ExtResource("3_172ag")
+atlas = ExtResource("2_cj5fn")
 region = Rect2(0, 0, 36, 36)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_irtl7"]
@@ -51,6 +50,9 @@ radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxv7g"]
 size = Vector2(18, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj5fn"]
+size = Vector2(28, 20)
 
 [sub_resource type="Curve2D" id="Curve2D_fajwe"]
 _data = {
@@ -96,31 +98,39 @@ _data = {
 &"flying": SubResource("Animation_h7w04")
 }
 
-[node name="base_patrol" type="Node2D"]
+[node name="maina" type="Node2D"]
 
-[node name="enemy_patrol" type="CharacterBody2D" parent="."]
+[node name="maina" type="CharacterBody2D" parent="."]
 editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox"
-collision_layer = 4
-script = ExtResource("1_172ag")
+collision_layer = 16
+collision_mask = 258
+script = ExtResource("1_cj5fn")
 
-[node name="animation_enemy" type="AnimatedSprite2D" parent="enemy_patrol"]
+[node name="anime" type="AnimatedSprite2D" parent="maina"]
 sprite_frames = SubResource("SpriteFrames_irtl7")
 animation = &"flying"
 autoplay = "flying"
 
-[node name="collisions" type="CollisionShape2D" parent="enemy_patrol"]
+[node name="body" type="CollisionShape2D" parent="maina"]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_y10go")
 
-[node name="hitbox_patrol" type="Area2D" parent="enemy_patrol"]
+[node name="enemy_head" type="Area2D" parent="maina"]
 editor_description = "A mascara do hitbox está disabilitada (não ser morto pelo player"
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("4_172ag")
+collision_layer = 64
+collision_mask = 4
 
-[node name="collision_patrol" type="CollisionShape2D" parent="enemy_patrol/hitbox_patrol"]
+[node name="collision" type="CollisionShape2D" parent="maina/enemy_head"]
 position = Vector2(-1, -6.5)
 shape = SubResource("RectangleShape2D_kxv7g")
+debug_color = Color(0.9394873, 1.5209317e-05, 0.6213183, 0.41960785)
+
+[node name="enemy_hitbox" type="Area2D" parent="maina"]
+
+[node name="collision" type="CollisionShape2D" parent="maina/enemy_hitbox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_cj5fn")
+debug_color = Color(0.93344843, 0.15352938, 0.523355, 0.41960785)
 
 [node name="path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_fajwe")
@@ -129,16 +139,13 @@ curve = SubResource("Curve2D_fajwe")
 rotates = false
 
 [node name="remote" type="RemoteTransform2D" parent="path2D/path_follow2D"]
-remote_path = NodePath("../../../enemy_patrol")
+remote_path = NodePath("../../../maina")
 
 [node name="spawn_enemy" type="Marker2D" parent="."]
 
-[node name="anime" type="AnimationPlayer" parent="."]
+[node name="animator" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ims68")
 }
 autoplay = "flying"
 speed_scale = 0.3
-
-[connection signal="animation_finished" from="enemy_patrol/animation_enemy" to="enemy_patrol" method="_on_animation_enemy_animation_finished"]
-[connection signal="body_entered" from="enemy_patrol/hitbox_patrol" to="enemy_patrol/hitbox_patrol" method="_on_body_entered"]

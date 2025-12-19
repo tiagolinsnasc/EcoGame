@@ -72,7 +72,7 @@ size = Vector2(8, 6)
 [node name="life" type="Node2D"]
 
 [node name="life" type="Area2D" parent="."]
-collision_layer = 8
+collision_layer = 512
 script = ExtResource("1_rliay")
 
 [node name="amination_life" type="AnimatedSprite2D" parent="life"]

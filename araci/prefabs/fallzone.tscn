@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://o6saeb4suhv" path="res://scripts/lallzone.gd" id="1_30tyj"]
 
 [node name="fallzone" type="Area2D"]
-editor_description = "Área que detecta a quedo do player (requer um collisionshape2d)"
-collision_layer = 2
+editor_description = "Área que detecta a queda do player (requer um collisionshape2d, quando instanciada)"
+collision_layer = 1024
 script = ExtResource("1_30tyj")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

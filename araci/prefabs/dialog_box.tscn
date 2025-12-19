@@ -17,7 +17,7 @@ offset_bottom = -9.960003
 scale = Vector2(0.9187663, 1)
 size_flags_vertical = 6
 script = ExtResource("1_d17km")
-typing_speed = 0.025
+typing_speed = 0.02
 
 [node name="bg_dialog_box" type="NinePatchRect" parent="."]
 layout_mode = 2

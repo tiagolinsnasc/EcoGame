@@ -22,8 +22,8 @@ _data = {
 
 [node name="falling-plataform" type="AnimatableBody2D"]
 position = Vector2(1, 0)
-collision_layer = 2
-collision_mask = 0
+collision_layer = 256
+collision_mask = 8321
 script = ExtResource("1_wei8p")
 
 [node name="colision_falling_plataform" type="CollisionShape2D" parent="."]

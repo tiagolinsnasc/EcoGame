@@ -9,7 +9,7 @@ size = Vector2(66, 79)
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cnojs"]
 
 [node name="goal" type="Area2D"]
-collision_layer = 2
+collision_layer = 2048
 script = ExtResource("1_15wru")
 
 [node name="sprite" type="Sprite2D" parent="."]

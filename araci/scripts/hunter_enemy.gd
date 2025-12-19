@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-@onready var anime: AnimationPlayer = $"../anime"
-@onready var animation: AnimatedSprite2D = $animation
+@onready var animator: AnimationPlayer = $"../animator"
+@onready var anime: AnimatedSprite2D = $anime
 @export var enemy_score := 150
 @onready var path_follow_hunter: PathFollow2D = $"../path/path_follow_hunter"
-@onready var bullet_position: Marker2D = $animation/bullet_position
+@onready var bullet_position: Marker2D = $anime/bullet_position
 
 @onready var player_detect_left: RayCast2D = $player_detect_left
 @onready var player_detect_right: RayCast2D = $player_detect_right
@@ -18,8 +18,8 @@ var player: Node2D = null   # referência ao player detectado
 
 
 func _ready() -> void:
-	anime.play("hunter_patrol")
-	animation.play("walk")
+	animator.play("hunter_patrol")
+	anime.play("walk")
 	shoot_timer.wait_time = 1.0
 	shoot_timer.one_shot = false   # repete automaticamente
 	shoot_timer.stop()             # começa parado 
@@ -35,7 +35,7 @@ func _ready() -> void:
 
 #Cria uma instância da bala (BULLET)
 func shoot_bullet():
-	animation.play("shot")
+	anime.play("shot")
 	# espera 2 segundos antes de criar a bala
 	await get_tree().create_timer(0.5).timeout
 	
@@ -76,17 +76,17 @@ func _process(_delta):
 
 func start_attack():
 	attacking = true
-	anime.pause()              # pausa patrulha
+	animator.pause()              # pausa patrulha
 	
 	path_follow_hunter.set_process(false)
 
 	# virar para Araci (sprite + patrulha)
 	if player.global_position.x < global_position.x:
-		animation.scale.x = -abs(original_scale_x)  # vira sprite para esquerda
+		anime.scale.x = -abs(original_scale_x)  # vira sprite para esquerda
 	else: 
-		animation.scale.x = abs(original_scale_x)   # vira sprite para direita
+		anime.scale.x = abs(original_scale_x)   # vira sprite para direita
 	
-	animation.play("idlle")   # ou "shot" quando for atirar
+	anime.play("idlle")   # ou "shot" quando for atirar
 	shoot_timer.start()       # começa a atirar
 	#Atira
 	#shoot_bullet()
@@ -96,11 +96,11 @@ func stop_attack():
 	shoot_timer.stop()         # para de atirar
 	
 	# volta para o lado original
-	animation.scale.x = original_scale_x
+	anime.scale.x = original_scale_x
 	path_follow_hunter.set_process(true)   # retoma movimento do PathFollow
 	
-	anime.play("hunter_patrol")# volta a andar
-	animation.play("walk")        # volta a animação visual de andar
+	animator.play("hunter_patrol")# volta a andar
+	anime.play("walk")        # volta a animação visual de andar
 	
 func _on_shoot_timer_timeout():
 	if attacking:
