@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=4 uid="uid://b4ac07chpkwuh"]
+[gd_scene load_steps=97 format=4 uid="uid://b4ac07chpkwuh"]
 
 [ext_resource type="Script" uid="uid://rrcccix26aeh" path="res://scripts/world_01.gd" id="1_gmex4"]
 [ext_resource type="Texture2D" uid="uid://cfmvolocmwr6i" path="res://n_assets/n_scenes/bgs/5 - Sky_color.png" id="2_gmex4"]
@@ -1360,6 +1360,9 @@ size = Vector2(7, 283)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovq2m"]
 size = Vector2(1234, 46.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lxqv"]
+size = Vector2(29.5, 16.125)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmex4"]
 size = Vector2(47, 207.5)
 
@@ -1415,7 +1418,7 @@ size = Vector2(272.1875, 41.1875)
 size = Vector2(1969.0469, 41.1875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_15tky"]
-size = Vector2(374.94116, 10)
+size = Vector2(374.94116, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3cvst"]
 size = Vector2(350, 48)
@@ -1646,7 +1649,7 @@ position = Vector2(8138, 194)
 dialog_texts = Array[String](["Olá, aventureira!", "Yaguareté, nossa protetora, foi morta, provavelmente por caçadores.", "Pare os invasores e continue coletando as avidências.", "A floresta precisa de você!"])
 
 [node name="Araci" parent="." instance=ExtResource("13_brbtt")]
-position = Vector2(8043, 236)
+position = Vector2(-14, 100)
 
 [node name="araci_start_position" type="Marker2D" parent="."]
 editor_description = "Permite que o sistema use a localização do Mark2D para posicionar o Player no início do cenário, quando não tiver checkpointe obtido"
@@ -1662,8 +1665,8 @@ position = Vector2(407, 198.75)
 shape = SubResource("RectangleShape2D_ovq2m")
 
 [node name="mini_wall01" type="CollisionShape2D" parent="static_ground"]
-position = Vector2(222, 166.5)
-shape = SubResource("RectangleShape2D_gmex4")
+position = Vector2(222.25, 167.0625)
+shape = SubResource("RectangleShape2D_8lxqv")
 
 [node name="mini_wall02" type="CollisionShape2D" parent="static_ground"]
 position = Vector2(9039.5, 119.25)
@@ -1740,7 +1743,7 @@ position = Vector2(7358.4766, 244)
 shape = SubResource("RectangleShape2D_5nrxn")
 
 [node name="ground_collision19" type="CollisionShape2D" parent="static_ground"]
-position = Vector2(8531.529, 265)
+position = Vector2(8531.529, 263.5)
 shape = SubResource("RectangleShape2D_15tky")
 
 [node name="ground_collision20" type="CollisionShape2D" parent="static_ground"]
@@ -2236,6 +2239,8 @@ script = ExtResource("29_8lxqv")
 
 [node name="yaguarete" parent="objects" instance=ExtResource("35_lqgom")]
 position = Vector2(8275, 251)
+collision_layer = 8192
+collision_mask = 256
 
 [connection signal="body_entered" from="popup/hit_pop" to="popup/hit_pop" method="_on_body_entered"]
 [connection signal="body_entered" from="popup/first_contact" to="popup/first_contact" method="_on_body_entered"]

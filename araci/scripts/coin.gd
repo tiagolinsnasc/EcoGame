@@ -23,7 +23,7 @@ func _on_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: in
 	Globals.coins += coins
 	#print("Coletou evidência")
 	if Globals.coins == 1 and !Globals.flag_grab_one_evidence:
-		var hud = get_tree().root.get_node("World-01/interface/HUD/control")
+		var hud = get_tree().root.get_node("World-02/interface/HUD/control")
 		hud.show_notification("Você coletou uma evidência! Elas são importantes para finalizar a fase.", evid_image, 10.0)
 		Globals.flag_grab_one_evidence = true
 		#hud.show_notification("Coletou evidência!")

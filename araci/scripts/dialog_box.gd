@@ -11,7 +11,6 @@ var is_typing:bool = false
 @onready var indicator: TextureRect = $indicator
 @onready var tween: Tween = get_tree().create_tween()
 
-
 func _ready() -> void:
 	pivot_offset = size /2
 	self.scale = Vector2.ZERO

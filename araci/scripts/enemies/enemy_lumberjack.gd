@@ -13,3 +13,6 @@ func _on_direction_changed() -> void:
 
 func _on_anime_animation_finished() -> void:
 	on_anim_finished(anime.animation)
+	
+func take_damage():
+	queue_free() # ou lógica de vida/morte

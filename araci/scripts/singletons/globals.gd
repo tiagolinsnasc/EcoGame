@@ -9,6 +9,7 @@ var flag_grab_one_life = false
 var flag_grab_one_evidence = false
 var flag_grab_one_checkpoint = false
 var flag_grab_one_information = false
+var flag_grab_one_animal_in_trap = false
 
 #Criados para permitir o mecanismo de checkpoint:
 var araci = null #Carregado em world.gd

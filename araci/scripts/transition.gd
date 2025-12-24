@@ -11,7 +11,6 @@ func change_scene(path, delay = 1.5):
 	await scene_transiction.finished
 	assert(get_tree().change_scene_to_file(path) == OK)
 
-
 func show_new_scene():
 	var show_transiction = get_tree().create_tween()
 	show_transiction.tween_property(color_rect,"threshold",0.0,0.5).from(1.0)

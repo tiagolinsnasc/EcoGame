@@ -308,7 +308,7 @@ size = Vector2(31, 1.75)
 size = Vector2(32, 50)
 
 [node name="Araci" type="CharacterBody2D"]
-collision_mask = 272
+collision_mask = 400
 script = ExtResource("1_wp837")
 
 [node name="animator" type="AnimationPlayer" parent="."]
@@ -362,4 +362,5 @@ hit_from_inside = true
 
 [connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
 [connection signal="body_entered" from="stompbox" to="stompbox" method="_on_body_entered"]
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

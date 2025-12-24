@@ -252,7 +252,7 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25) -> void:
 	invincible = true
 	is_hurt = true
 	estado = "hurt"
-	print("Chamou take damage, deveria mudar de cor")
+	#print("Chamou take damage, deveria mudar de cor")
 	# ✅ reduz vida
 	if Globals.player_life > 0:
 		Globals.player_life -= 1
@@ -324,7 +324,17 @@ func _on_anime_animation_finished() -> void:
 			estado = "idle"
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-		print("Araci levou dano") 
+		#print("Araci levou dano") 
 		var direction_jump:float = sign(global_position.x - body.global_position.x) 
 		var knockback:Vector2 = Vector2(600 * direction_jump, -350) 
+		take_damage(knockback)
+
+#Requer configuração dos grupos (Permite dano quando em uma área especificada em groups
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	# Se a área for uma armadilha recorrente
+	#Quando tem armadilhas de dano recorrente (não desarmam)
+	#Quando a armadilha desarma após o primeiro dano o script que controla o dano é no script da armadilha
+	if area.is_in_group("appellant traps"):
+		var direction_jump:float = sign(global_position.x - area.global_position.x)
+		var knockback:Vector2 = Vector2(600 * direction_jump, -350)
 		take_damage(knockback)
