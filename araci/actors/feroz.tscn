@@ -1,10 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://bsecwsynxsn8y"]
+[gd_scene load_steps=15 format=3 uid="uid://bsecwsynxsn8y"]
 
-[ext_resource type="Script" uid="uid://bnba5jujc64mx" path="res://scripts/character_body_2d.gd" id="1_hc8tf"]
+[ext_resource type="Script" uid="uid://bnba5jujc64mx" path="res://scripts/feroz.gd" id="1_hc8tf"]
 [ext_resource type="Texture2D" uid="uid://d26l4lavhgd13" path="res://n_assets/n_tiles_actors/feroz.png" id="1_lp83t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p3gg"]
 size = Vector2(37, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb1fn"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(48, 132, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foe6v"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(96, 132, 48, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_70vaj"]
 atlas = ExtResource("1_lp83t")
@@ -40,6 +48,17 @@ region = Rect2(96, 86, 48, 43)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5p3gg"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb1fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foe6v")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_70vaj")
@@ -91,18 +110,21 @@ animations = [{
 collision_layer = 8192
 collision_mask = 256
 script = ExtResource("1_hc8tf")
+attack_cooldown = 20.0
 
 [node name="body" type="CollisionShape2D" parent="CharacterBody2D"]
+editor_description = "Ficou acima do srite para ter a noção de profundidade e para sobrepor o cenário da base."
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_5p3gg")
 
 [node name="animation" type="AnimationPlayer" parent="CharacterBody2D"]
 
 [node name="anime" type="AnimatedSprite2D" parent="CharacterBody2D"]
-z_index = 210
 sprite_frames = SubResource("SpriteFrames_5p3gg")
-animation = &"jump"
+animation = &"attack"
 autoplay = "idlle"
+frame = 1
+frame_progress = 0.34630197
 
 [node name="enemy_detect" type="RayCast2D" parent="CharacterBody2D"]
 target_position = Vector2(243, 0)

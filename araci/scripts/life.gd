@@ -20,8 +20,7 @@ func _on_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: in
 	await $CollisionShape2D.call_deferred("queue_free") #Espera a colisão acabar (impede que uma coin seja coletada duas vezes)
 	Globals.player_life += life
 	if !Globals.flag_grab_one_life:
-		var hud = get_tree().root.get_node("World-02/interface/HUD/control")
-		hud.show_notification("Você ganhou uma vida!",life_image,5.0)
+		Globals.show_side_mensage("Você ganhou uma vida!",life_image,5.0)
 		Globals.flag_grab_one_life = true
 		#hud.show_notification("Coletou evidência!")
 	#print("Coletou vida")

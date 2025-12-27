@@ -12,9 +12,8 @@ func _on_body_entered(body: Node2D):
 		return
 	activate_checkpoit()
 	
-	if !Globals.flag_grab_one_checkpoint:
-		var hud = get_tree().root.get_node("World-02/interface/HUD/control")
-		hud.show_notification("Você chegou a um checkpoint!",tree_image,5.0)
+	if !Globals.flag_grab_one_checkpoint and is_instance_valid(Globals.hud):
+		Globals.hud.show_notification("Você chegou a um checkpoint!",tree_image,5.0)
 		Globals.flag_grab_one_checkpoint = true
 
 func activate_checkpoit():

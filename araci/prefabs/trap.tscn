@@ -22,6 +22,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l2l1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2l1q")
 }],
 "loop": false,
 "name": &"action",
@@ -43,7 +46,6 @@ debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jsfuh")
 animation = &"action"
-frame = 1
 frame_progress = 1.0
 
 [connection signal="area_entered" from="trap_area" to="." method="_on_trap_area_area_entered"]

@@ -14,6 +14,8 @@ func _ready() -> void:
 	
 	Globals.araci.follow_camera(camera)
 	Globals.araci.player_has_died.connect(reload_game)
+	#Associa Araci ao pet
+	Globals.set_player(araci)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

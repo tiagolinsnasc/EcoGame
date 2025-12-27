@@ -3,6 +3,12 @@
 extends EnemyBase
 
 @onready var anime: AnimatedSprite2D = $anime
+@onready var animator: AnimationPlayer = $"../animator"
+#Scale speed é tipico apenas das aves, é a velocidade vertical
+@export var velocity_scale_speed := 0.3
+
+func _ready():
+	animator.speed_scale = velocity_scale_speed
 
 func _physics_process(_delta: float) -> void:
 	pass

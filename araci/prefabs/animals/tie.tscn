@@ -71,7 +71,7 @@ _data = {
 [node name="tie" type="Node2D"]
 
 [node name="tie" type="CharacterBody2D" parent="."]
-collision_layer = 16
+collision_layer = 8192
 collision_mask = 2
 
 [node name="anime" type="AnimatedSprite2D" parent="tie"]

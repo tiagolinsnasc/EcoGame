@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var max_speed: float = 200.0
 @export var acceleration: float = 600.0
 @export var gravity: float = 900.0
-@export var stop_threshold: float = 16.0
+@export var stop_threshold: float = 50.0
 
 # Configurações de combate e raycasts
 @export var attack_distance: float = 200.0
@@ -24,17 +24,31 @@ extends CharacterBody2D
 @export var ground_check_down_y: float = 48.0
 @export var obstacle_check_forward_x: float = 24.0
 
+# Variáveis para ajustar a espera entre os ataques
+@export var attack_cooldown: float = 60   # tempo em segundos
+var can_attack: bool = true
+
 var ground_miss_frames: int = 0
 var current_target: Node = null
 
+# Estado de ativação do pet
+var active: bool = false
+
+func _ready(): 
+	#Garante que o pet sempre recebe a instância atual do Player
+	player = Globals.araci
+	Globals.pet = self
+	
+
 func _physics_process(delta: float):
-	if not player:
+	if not active or not player:
 		return
 
 	# --- Desaparecer se muito longe ---
 	var dist = global_position.distance_to(player.global_position)
 	if dist > max_distance:
 		visible = false
+		#print("Feroz ficou para trás!")
 		return
 	else:
 		visible = true
@@ -45,8 +59,43 @@ func _physics_process(delta: float):
 	else:
 		velocity.y = 0.0
 
-	# --- Se não está atacando, segue o player ---
-	if current_target == null:
+	# --- Atualizar direção dos RayCasts ---
+	_update_raycasts_direction()
+
+	# --- Pulo automático ---
+	if is_on_floor():
+		if ground_check and not ground_check.is_colliding():
+			ground_miss_frames += 1
+			if ground_miss_frames > 3:
+				velocity.y = jump_force
+				ground_miss_frames = 0
+		else:
+			ground_miss_frames = 0
+
+		if obstacle_check and obstacle_check.is_colliding():
+			var hit = obstacle_check.get_collider()
+			if hit and not hit.is_in_group("enemies"):
+				velocity.y = jump_force
+
+	# --- Lógica de movimento ---
+	if current_target and is_instance_valid(current_target) and can_attack:
+		# Persegue inimigo
+		var dx = current_target.global_position.x - global_position.x
+		var dir = sign(dx)
+		velocity.x = move_toward(velocity.x, dir * max_speed, acceleration * delta)
+
+		# virar para o inimigo
+		anime.scale.x = 1 if dx > 0 else -1
+
+		# atacar (bote) só quando o RayCast curto detectar
+		if obstacle_check and obstacle_check.is_colliding():
+			var hit2 = obstacle_check.get_collider()
+			if hit2 and hit2.is_in_group("enemies"):
+				_attack(hit2)
+				current_target = null
+				velocity.x = 0
+	else:
+		# Se não há alvo ou está em cooldown → segue o player
 		var target_x = player.global_position.x - follow_distance * anime.scale.x
 		var distance_x = target_x - global_position.x
 
@@ -56,52 +105,8 @@ func _physics_process(delta: float):
 		else:
 			velocity.x = move_toward(velocity.x, 0.0, acceleration * delta)
 
-		# Virar para o player só quando não está atacando
-		if player.global_position.x > global_position.x:
-			anime.scale.x = 1
-		else:
-			anime.scale.x = -1
-
-	# --- Atualizar direção dos RayCasts ---
-	_update_raycasts_direction()
-
-	# --- Pulo automático ---
-	# --- Pulo automático ---
-	if is_on_floor():
-		# Sem piso à frente → tolerância antes de pular
-		if ground_check and not ground_check.is_colliding():
-			ground_miss_frames += 1
-			if ground_miss_frames > 3:
-				velocity.y = jump_force
-				ground_miss_frames = 0
-		else:
-			ground_miss_frames = 0
-
-		# Obstáculo à frente -> pular, mas só se não for inimigo
-		if obstacle_check and obstacle_check.is_colliding():
-			var hit = obstacle_check.get_collider()
-			if hit and not hit.is_in_group("enemies"):
-				velocity.y = jump_force
-
-	# --- Perseguir alvo quando existe ---
-	if current_target and is_instance_valid(current_target):
-		var dx = current_target.global_position.x - global_position.x
-		var dir = sign(dx)
-		velocity.x = move_toward(velocity.x, dir * max_speed, acceleration * delta)
-
-		# virar para o inimigo
-		if dx > 0:
-			anime.scale.x = 1
-		else:
-			anime.scale.x = -1
-
-		# atacar só quando o RayCast curto detectar
-		if obstacle_check and obstacle_check.is_colliding():
-			var hit = obstacle_check.get_collider()
-			if hit and hit.is_in_group("enemies"):
-				_attack(hit)
-				current_target = null
-				velocity.x = 0
+		# Virar para o player
+		anime.scale.x = 1 if player.global_position.x > global_position.x else -1
 
 	# --- Idle/Run/Jump automático ---
 	if not is_on_floor():
@@ -119,12 +124,23 @@ func _physics_process(delta: float):
 
 
 func _input(event):
-	if event.is_action_pressed("feroz_companion_attack"):
+	if event.is_action_pressed("call_feroz"):
+		if Globals.flag_pw_feroz_enable:
+			active = !active
+			visible = active
+			if active and is_instance_valid(player):
+				# Se estiver muito longe, teleporta para perto do player
+				if global_position.distance_to(player.global_position) > max_distance:
+					global_position = player.global_position + Vector2(-follow_distance, 0)
+			else:
+				current_target = null
+				velocity = Vector2.ZERO
+
+	if event.is_action_pressed("feroz_companion_attack") and active and can_attack:
 		_set_target_for_attack()
 
 
 func _set_target_for_attack():
-	# usa o RayCast longo apenas como radar
 	if enemy_detec and enemy_detec.is_colliding():
 		var hit = enemy_detec.get_collider()
 		if hit and hit.is_in_group("enemies"):
@@ -145,11 +161,24 @@ func _update_raycasts_direction():
 
 
 func _attack(target: Node):
-	anime.play("run")
+	if not can_attack:
+		return
+
+	anime.play("attack")
 	if target.has_method("take_damage"):
 		target.take_damage()
 	velocity.x = 0
 
+	can_attack = false
+	Globals.update_pet_icon(false)
+	_start_attack_cooldown()
+
 
 func _sit_and_bark():
 	anime.play("sit_bark")
+
+
+func _start_attack_cooldown():
+	await get_tree().create_timer(attack_cooldown).timeout
+	can_attack = true
+	Globals.update_pet_icon(true)

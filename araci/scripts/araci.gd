@@ -6,13 +6,16 @@ extends CharacterBody2D
 
 ## Altura máxima do pulo
 @export var jump_height := 120.0
+## Fator de multiplicação para o superpulo
+@export var superjump_factor := 3
+
 ## Tempo até o topo do pulo                 
 @export var max_time_to_peak := 0.5            
 ## Tempo da queda
 @export var max_time_to_fall := 0.6
 
 ## Velocidade máxima no chão
-@export var max_speed := 200.0                  
+@export var max_speed := 150.0                  
 @export var acceleration := 2000.0              # Aceleração horizontal
 @export var deceleration := 1800.0              # Desaceleração horizontal
 @export var apex_bonus := 80.0                  # Bônus de controle no topo do pulo
@@ -79,6 +82,8 @@ func _ready() -> void:
 	fall_gravity = (2.0 * jump_height) / pow(max_time_to_fall, 2.0)
 	# Velocidade inicial do pulo (negativa = para cima)
 	jump_velocity = -sqrt(2.0 * gravity * jump_height)
+	#Atualiza a instância de Araci em globals
+	Globals.araci = self
 
 
 # ============================================================
@@ -114,19 +119,39 @@ func _physics_process(delta: float) -> void:
 	else:
 		jump_buffer -= delta
 
+	## --------------------------------------------------------
+	## PULO (COYOTE + BUFFER) E ESTADO "JUMP"
+	## Cancel window permite cancelar ataque/tiro com pulo
+	## --------------------------------------------------------
+	#if jump_buffer > 0.0 and (coyote_timer > 0.0 or can_cancel):
+		#velocity.y = jump_velocity
+		#jump_buffer = 0.0
+		#coyote_timer = 0.0
+		#estado = "jump"
+		#tempo_pulo = 0.1   # pequeno tempo para segurar o estado de pulo
+#
+	#if tempo_pulo > 0.0:
+		#tempo_pulo -= delta
+
 	# --------------------------------------------------------
-	# PULO (COYOTE + BUFFER) E ESTADO "JUMP"
-	# Cancel window permite cancelar ataque/tiro com pulo
-	# --------------------------------------------------------
+# PULO (COYOTE + BUFFER) E ESTADO "JUMP"
+# --------------------------------------------------------
 	if jump_buffer > 0.0 and (coyote_timer > 0.0 or can_cancel):
-		velocity.y = jump_velocity
+		#Macanimsmo do superpulo pular x vezes mais quando segura o W + BARRA
+		# Se W (superjump) estiver pressionado e flag ativa
+		if Input.is_action_pressed("call_superjump") and Globals.flag_pw_superjump:
+			#print("Superpulo")
+			var super_height = jump_height * superjump_factor  # aumenta altura do pulo
+			var super_velocity = -sqrt(2.0 * gravity * super_height)
+			velocity.y = super_velocity
+		else:
+			# Pulo normal
+			velocity.y = jump_velocity
+
 		jump_buffer = 0.0
 		coyote_timer = 0.0
 		estado = "jump"
-		tempo_pulo = 0.1   # pequeno tempo para segurar o estado de pulo
-
-	if tempo_pulo > 0.0:
-		tempo_pulo -= delta
+		tempo_pulo = 0.1
 
 	# --------------------------------------------------------
 	# GRAVIDADE COM PULO VARIÁVEL
