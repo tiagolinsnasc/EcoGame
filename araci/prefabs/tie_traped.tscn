@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://blqnv2ldi7eh6"]
 
 [ext_resource type="Script" uid="uid://dp2r5j1e12x3f" path="res://scripts/animal_traped.gd" id="1_7hokl"]
-[ext_resource type="Texture2D" uid="uid://fy6uuwn55jxg" path="res://n_assets/n_scenes/elements/trapped_tie.png" id="2_7hokl"]
+[ext_resource type="Texture2D" uid="uid://b6k3y38ts10n6" path="res://n_assets/n_scenes/elements/trapped_bird.png" id="2_7hokl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_js2i7"]
 atlas = ExtResource("2_7hokl")
@@ -49,7 +49,6 @@ script = ExtResource("1_7hokl")
 sprite_frames = SubResource("SpriteFrames_h43th")
 animation = &"move"
 autoplay = "move"
-frame = 3
 frame_progress = 0.100724846
 
 [node name="area" type="Area2D" parent="."]

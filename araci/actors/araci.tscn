@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://ba3xbkuiqhtyn"]
+[gd_scene load_steps=53 format=3 uid="uid://ba3xbkuiqhtyn"]
 
 [ext_resource type="Script" uid="uid://bb2ju11ra7y1h" path="res://scripts/araci.gd" id="1_wp837"]
 [ext_resource type="Texture2D" uid="uid://dsakuawpkov3a" path="res://n_assets/n_tiles_actors/Araci_machado.png" id="2_mtxgc"]
@@ -69,6 +69,30 @@ region = Rect2(64, 1856, 64, 62)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ynmy"]
 atlas = ExtResource("3_n0p0v")
 region = Rect2(0, 1856, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rllmr"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(0, 3392, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwq3j"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(64, 3392, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yowmn"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(128, 3392, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bm2rx"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(192, 3392, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65qpe"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(256, 3392, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlpj5"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(320, 3392, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7vvf"]
 atlas = ExtResource("3_n0p0v")
@@ -226,6 +250,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_rllmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwq3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yowmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bm2rx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65qpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlpj5")
+}],
+"loop": false,
+"name": &"pet_attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_p7vvf")
 }, {
 "duration": 1.0,
@@ -296,6 +343,11 @@ animations = [{
 "loop": false,
 "name": &"shoot",
 "speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"teleport",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wp837"]
@@ -310,14 +362,16 @@ size = Vector2(32, 50)
 [node name="Araci" type="CharacterBody2D"]
 collision_mask = 400
 script = ExtResource("1_wp837")
+teleport_distance = 128.0
 
 [node name="animator" type="AnimationPlayer" parent="."]
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
+z_index = 300
 texture_filter = 1
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_0yxgj")
-animation = &"hurt"
+animation = &"idle"
 
 [node name="body" type="CollisionShape2D" parent="."]
 editor_description = "Apenas deve detectar chão, paredes e física em geral. Não deve aceitar dano."

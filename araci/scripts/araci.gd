@@ -25,6 +25,9 @@ extends CharacterBody2D
 ## Tempo para registrar o pulo antes de tocar o chão
 @export var jump_buffer_time := 0.12            
 
+@export var teleport_distance := 64.0   # distância em pixels
+@export var teleport_delay := 0.1       # tempo "sumido" antes de reaparecer
+
 # ============================================================
 # CANCEL WINDOW - Desativa o ataque quando inicia a animação e logo após pula
 # ============================================================
@@ -57,8 +60,8 @@ var knockback_vector := Vector2.ZERO
 var knockback_power := 20
 
 var estado := "idle"
-var tempo_pulo: float = 0.0
-var tempo_tiro: float = 0.0
+var time_jump: float = 0.0
+var time_shoot: float = 0.0
 var cooldown_tiro: float = 0.5
 
 signal player_has_died()
@@ -104,8 +107,8 @@ func _physics_process(delta: float) -> void:
 	# --------------------------------------------------------
 	# ATUALIZAÇÃO DE TIMERS (TIRO E JANELAS DE PULO)
 	# --------------------------------------------------------
-	if tempo_tiro > 0.0:
-		tempo_tiro -= delta
+	if time_shoot > 0.0:
+		time_shoot -= delta
 
 	# Coyote time
 	if on_floor:
@@ -128,10 +131,10 @@ func _physics_process(delta: float) -> void:
 		#jump_buffer = 0.0
 		#coyote_timer = 0.0
 		#estado = "jump"
-		#tempo_pulo = 0.1   # pequeno tempo para segurar o estado de pulo
+		#time_jump = 0.1   # pequeno tempo para segurar o estado de pulo
 #
-	#if tempo_pulo > 0.0:
-		#tempo_pulo -= delta
+	#if time_jump > 0.0:
+		#time_jump -= delta
 
 	# --------------------------------------------------------
 # PULO (COYOTE + BUFFER) E ESTADO "JUMP"
@@ -151,7 +154,7 @@ func _physics_process(delta: float) -> void:
 		jump_buffer = 0.0
 		coyote_timer = 0.0
 		estado = "jump"
-		tempo_pulo = 0.1
+		time_jump = 0.1
 
 	# --------------------------------------------------------
 	# GRAVIDADE COM PULO VARIÁVEL
@@ -166,6 +169,12 @@ func _physics_process(delta: float) -> void:
 		# Subindo normalmente
 		velocity.y += gravity * delta
 
+	# Se está em pet_attack, não atualiza movimento
+	if estado == "pet_attack":
+		velocity.x = 0
+		move_and_slide()
+		return
+
 	# --------------------------------------------------------
 	# MOVIMENTO HORIZONTAL
 	# --------------------------------------------------------
@@ -174,39 +183,52 @@ func _physics_process(delta: float) -> void:
 	# Apex bonus → mais controle no topo do pulo
 	var apex: float = clamp(abs(velocity.y) / 200.0, 0.0, 1.0)
 	var apex_speed: float = lerp(apex_bonus, 0.0, apex)
+	
+	#ignora ações quando estiver na animação de pet ataque, caso contrário, corre enquanto anima
+	if estado != "pet_attack" and estado != "teleport":
+		if input_dir != 0.0:
+			velocity.x = move_toward(velocity.x, input_dir * (max_speed + apex_speed), acceleration * delta)
+			animation.scale.x = input_dir
 
-	if input_dir != 0.0:
-		velocity.x = move_toward(velocity.x, input_dir * (max_speed + apex_speed), acceleration * delta)
-		animation.scale.x = input_dir
+			# Cancel window: movimento cancela ataque/tiro
+			if can_cancel and estado in ["shoot", "atack"]:
+				estado = "run"
 
-		# Cancel window: movimento cancela ataque/tiro
-		if can_cancel and estado in ["shoot", "atack"]:
-			estado = "run"
+			# Só define run se não estiver em ações prioritárias
+			if on_floor and estado not in ["shoot", "atack", "hurt", "jump", "pet_attack"]:
+				estado = "run"
+		else:
+			velocity.x = move_toward(velocity.x, 0.0, deceleration * delta)
 
-		# Só define run se não estiver em ações prioritárias
-		if on_floor and estado not in ["shoot", "atack", "hurt", "jump"]:
-			estado = "run"
-	else:
-		velocity.x = move_toward(velocity.x, 0.0, deceleration * delta)
-
-		# Se está no chão, parado e não está em outra ação, fica idle
-		if on_floor and estado not in ["shoot", "atack", "hurt", "jump"]:
-			estado = "idle"
+			# Se está no chão, parado e não está em outra ação, fica idle
+			if on_floor and estado not in ["shoot", "atack", "hurt", "jump", "pet_attack"]:
+				estado = "idle"
 
 	# --------------------------------------------------------
 	# TIRO E ATAQUE
 	# Agora com cancel window
 	# --------------------------------------------------------
-	if Input.is_action_just_pressed("shoot") and tempo_tiro <= 0.0:
+	if Input.is_action_just_pressed("shoot") and time_shoot <= 0.0:
 		estado = "shoot"
-		tempo_tiro = cooldown_tiro
+		time_shoot = cooldown_tiro
 		_start_cancel_window()
 
-	if Input.is_action_just_pressed("atack") and tempo_tiro <= 0.0:
+	if Input.is_action_just_pressed("atack") and time_shoot <= 0.0:
 		estado = "atack"
-		tempo_tiro = cooldown_tiro
+		time_shoot = cooldown_tiro
 		_start_cancel_window()
 
+	if Input.is_action_just_pressed("feroz_companion_attack"):
+		estado = "pet_attack"
+		_start_cancel_window()
+
+	# --------------------------------------------------------
+	# TELETRANSPORTE
+	# --------------------------------------------------------
+	if Input.is_action_just_pressed("teleport") and Globals.flag_pw_teletransport:
+		estado = "teleport"
+		_teleport()
+		
 	# --------------------------------------------------------
 	# APLICA KNOCKBACK (apenas visual, o real está no bloco is_hurt)
 	# --------------------------------------------------------
@@ -253,6 +275,10 @@ func _physics_process(delta: float) -> void:
 			animation.play("idle")
 		"hurt":
 			animation.play("hurt")
+		"pet_attack":
+			animation.play("pet_attack")
+		"teleport":
+			animation.play("teleport")
 
 
 # ============================================================
@@ -341,9 +367,9 @@ func follow_camera(camera: Node2D) -> void:
 	remote_transform.remote_path = camera.get_path()
 
 func _on_anime_animation_finished() -> void:
-	if estado in ["shoot", "atack"]:
-		# Se estiver andando, volta para run
-		if abs(velocity.x) > 10 and is_on_floor():
+	if estado in ["shoot", "atack", "pet_attack", "teleport"]:
+		var input_dir := Input.get_axis("ui_left", "ui_right")
+		if input_dir != 0 and is_on_floor():
 			estado = "run"
 		else:
 			estado = "idle"
@@ -363,3 +389,27 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		var direction_jump:float = sign(global_position.x - area.global_position.x)
 		var knockback:Vector2 = Vector2(600 * direction_jump, -350)
 		take_damage(knockback)
+
+func _teleport():
+	var dir = sign(animation.scale.x)
+	if dir == 0:
+		dir = 1
+
+	var target_pos = global_position + Vector2(teleport_distance * dir, 0)
+
+	visible = false
+	await get_tree().create_timer(teleport_delay).timeout
+
+	global_position = target_pos
+	velocity.x = 0
+
+	visible = true
+
+	# volta para idle ou run imediatamente
+	if is_on_floor():
+		if abs(velocity.x) > 10:
+			estado = "run"
+		else:
+			estado = "idle"
+	else:
+		estado = "jump"

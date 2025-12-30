@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://fp2fluhv4tkl"]
+[gd_scene load_steps=14 format=3 uid="uid://fp2fluhv4tkl"]
 
 [ext_resource type="Script" uid="uid://d23x1xcybo516" path="res://scripts/HUD_control.gd" id="1_d2vfn"]
 [ext_resource type="Texture2D" uid="uid://cqaffg3apibcq" path="res://n_assets/n_scenes/elements/evidence.png" id="2_4mrx2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://djhhl42wtcpav" path="res://n_assets/n_scenes/elements/superjump_icon.png" id="5_5nuor"]
 [ext_resource type="PackedScene" uid="uid://cld48nqlrn0gc" path="res://prefabs/pause_menu.tscn" id="5_oi3g5"]
 [ext_resource type="Script" uid="uid://cmp1wmf0e631p" path="res://scripts/transition.gd" id="6_65w62"]
+[ext_resource type="Texture2D" uid="uid://c0uwlw5hpsrs2" path="res://n_assets/n_scenes/elements/teleport_icon.png" id="6_oi3g5"]
 [ext_resource type="Shader" uid="uid://bbmgisch40bx7" path="res://shaders/transition_shader.gdshader" id="7_dwta8"]
 [ext_resource type="Script" uid="uid://1wrsvp04wutf" path="res://scripts/color_rect.gd" id="8_efhi4"]
 
@@ -99,6 +100,11 @@ key_text = "Q"
 layout_mode = 2
 icon_texture = ExtResource("5_5nuor")
 key_text = "W"
+
+[node name="powerupIcon3" parent="HUD/control/container/powerups_container" instance=ExtResource("3_4mrx2")]
+layout_mode = 2
+icon_texture = ExtResource("6_oi3g5")
+key_text = "T"
 
 [node name="life_conteiner" type="HBoxContainer" parent="HUD/control/container"]
 layout_mode = 2

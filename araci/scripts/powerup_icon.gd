@@ -12,7 +12,7 @@ func _ready():
 	key_label.text = key_text
 
 # Atualiza cor/borda conforme disponibilidade
-func set_attack_available(available: bool):
+func set_available(available: bool):
 	print("set_attack_available chamado:", available)
 	if available:
 		# cor normal

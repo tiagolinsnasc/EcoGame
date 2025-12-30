@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://i6dshl5wpqg1"]
+
+[ext_resource type="Script" uid="uid://dfxf308rm1c8x" path="res://scripts/big_fire.gd" id="1_vafyd"]
+[ext_resource type="Texture2D" uid="uid://3a5nddis3twe" path="res://n_assets/n_scenes/elements/big_fire_w03.png" id="2_vafyd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vafyd"]
+size = Vector2(39, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vafyd"]
+atlas = ExtResource("2_vafyd")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv1sn"]
+atlas = ExtResource("2_vafyd")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cqqe"]
+atlas = ExtResource("2_vafyd")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsfuh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vafyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv1sn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cqqe")
+}],
+"loop": true,
+"name": &"action",
+"speed": 5.0
+}]
+
+[node name="big_fire" type="Node2D"]
+script = ExtResource("1_vafyd")
+
+[node name="fire_area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="fire_area"]
+position = Vector2(7.5, -5)
+shape = SubResource("RectangleShape2D_vafyd")
+debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jsfuh")
+animation = &"action"
+autoplay = "action"
+frame_progress = 0.4261406
+
+[connection signal="area_entered" from="fire_area" to="." method="_on_fire_area_area_entered"]

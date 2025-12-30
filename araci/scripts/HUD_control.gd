@@ -12,6 +12,8 @@ func _ready():
 	#Passa o hud para o Globals para controle dos cooldowns
 	Globals.hud = self
 	Globals.update_pet_visibility()
+	Globals.update_super_jump_visibility()
+	Globals.update_teleport_visibility()
 	
 	
 func _process(_delta: float):
@@ -67,6 +69,9 @@ func show_notification(text: String, image: Texture2D = null, duration := 2.0):
 
 #mecanismo de exibição de icones correspondente aos power ups disponíveis
 @onready var powerups_box = $container/powerups_container
+@onready var pet = $container/powerups_container/powerupIcon
+@onready var super_jump = $container/powerups_container/powerupIcon2
+@onready var teleport = $container/powerups_container/powerupIcon3
 
 func add_powerup(texture: Texture2D, key: String):
 	var icon_scene = preload("res://prefabs/powerup_icon.tscn")
@@ -76,5 +81,15 @@ func add_powerup(texture: Texture2D, key: String):
 
 ##Permite deixar o icone desabilitado
 func update_pet_icon(available: bool):
-	$container/powerups_container/powerupIcon.set_attack_available(available)
+	pet.set_available(available)
+	#print("PetIcon existe? ", $container/powerups_container/powerupIcon)
+	
+##Permite deixar o icone do superpulo desabilitado
+func update_superjump(available: bool):
+	super_jump.set_attack_available(available)
+	#print("PetIcon existe? ", $container/powerups_container/powerupIcon)
+	
+##Permite deixar o icone do teletransporte desabilitado
+func update_teleport(available: bool):
+	teleport.set_attack_available(available)
 	#print("PetIcon existe? ", $container/powerups_container/powerupIcon)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=4 uid="uid://b4ac07chpkwuh"]
+[gd_scene load_steps=87 format=4 uid="uid://b4ac07chpkwuh"]
 
 [ext_resource type="Script" uid="uid://rrcccix26aeh" path="res://scripts/world.gd" id="1_gmex4"]
 [ext_resource type="Texture2D" uid="uid://cfmvolocmwr6i" path="res://n_assets/n_scenes/bgs/5 - Sky_color.png" id="2_gmex4"]
@@ -18,14 +18,13 @@
 [ext_resource type="Script" uid="uid://2t06pqifwiki" path="res://scripts/first_contact.gd" id="17_yftww"]
 [ext_resource type="PackedScene" uid="uid://bjp0412nixqac" path="res://prefabs/cabure_popup.tscn" id="18_brbtt"]
 [ext_resource type="PackedScene" uid="uid://lntsrumo4fv5" path="res://prefabs/life.tscn" id="18_imfvm"]
-[ext_resource type="Script" uid="uid://bo7hr01n47pap" path="res://scripts/spikes_area.gd" id="18_jt6s7"]
 [ext_resource type="PackedScene" uid="uid://dhr78op1qxo35" path="res://prefabs/animals/wild_boar.tscn" id="19_0uwfl"]
 [ext_resource type="Texture2D" uid="uid://bqfhn41q87u1j" path="res://n_assets/n_scenes/elements/cabure.png" id="19_7k4mt"]
 [ext_resource type="PackedScene" uid="uid://cv3d74gba7jjh" path="res://prefabs/animals/jaguar.tscn" id="21_0uwfl"]
-[ext_resource type="Texture2D" uid="uid://cpiu5pl3dyxdf" path="res://n_assets/n_scenes/elements/natural_spikes1.png" id="24_7k4mt"]
 [ext_resource type="PackedScene" uid="uid://cnrioc3pxgi53" path="res://prefabs/checkpoint.tscn" id="25_hhdoi"]
 [ext_resource type="PackedScene" uid="uid://c738o3mpr3is3" path="res://prefabs/goal.tscn" id="26_15tky"]
 [ext_resource type="PackedScene" uid="uid://bs7xct0fss16l" path="res://prefabs/animals/anteater.tscn" id="27_qh8on"]
+[ext_resource type="PackedScene" uid="uid://be7p8k1o2ya7p" path="res://prefabs/spikes_area.tscn" id="29_7k4mt"]
 [ext_resource type="PackedScene" uid="uid://dienyhwvyyjae" path="res://prefabs/fallzone.tscn" id="30_14a6h"]
 [ext_resource type="PackedScene" uid="uid://fp2fluhv4tkl" path="res://prefabs/interface.tscn" id="32_0uwfl"]
 [ext_resource type="PackedScene" uid="uid://dqt0jckn53c02" path="res://prefabs/animals/tie.tscn" id="34_ud1nb"]
@@ -1440,9 +1439,6 @@ size = Vector2(53.5, 23.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hhdoi"]
 size = Vector2(35.875, 16.375)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_le3as"]
-size = Vector2(615, 28)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14a6h"]
 size = Vector2(9299, 39)
 
@@ -2032,22 +2028,8 @@ position = Vector2(7704, 247)
 [node name="anteater2" parent="peaceful_animals" instance=ExtResource("27_qh8on")]
 position = Vector2(4596, 198)
 
-[node name="spikes_area" type="Area2D" parent="."]
+[node name="spikes_area" parent="." instance=ExtResource("29_7k4mt")]
 position = Vector2(2863, 246)
-collision_layer = 1024
-script = ExtResource("18_jt6s7")
-
-[node name="collision" type="CollisionShape2D" parent="spikes_area"]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_le3as")
-
-[node name="spikes" type="Sprite2D" parent="spikes_area"]
-texture_repeat = 2
-position = Vector2(-0.75000435, 0)
-scale = Vector2(1.0024712, 1)
-texture = ExtResource("24_7k4mt")
-region_enabled = true
-region_rect = Rect2(1, 0, 607, 29)
 
 [node name="fallzone" parent="." instance=ExtResource("30_14a6h")]
 position = Vector2(100, 346)
@@ -2068,7 +2050,6 @@ collision_mask = 256
 
 [connection signal="body_entered" from="popup/hit_pop" to="popup/hit_pop" method="_on_body_entered"]
 [connection signal="body_entered" from="popup/first_contact" to="popup/first_contact" method="_on_body_entered"]
-[connection signal="body_entered" from="spikes_area" to="spikes_area" method="_on_body_entered"]
 
 [editable path="cabure_popup"]
 [editable path="enemies/maina3"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://3yl7x7apjdgw"]
+[gd_scene load_steps=29 format=3 uid="uid://3yl7x7apjdgw"]
 
 [ext_resource type="Script" uid="uid://co8xvbsqcjv2b" path="res://scripts/enemies/enemy_female_guard.gd" id="1_qr1xi"]
 [ext_resource type="Texture2D" uid="uid://ck1tf2yr8tij6" path="res://n_assets/n_tiles_actors/Guarda_mulher.png" id="2_yebr2"]
@@ -46,10 +46,6 @@ region = Rect2(199, 1290, 63, 55)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4lq63"]
 atlas = ExtResource("2_yebr2")
 region = Rect2(262, 1290, 63, 55)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h80av"]
-atlas = ExtResource("2_yebr2")
-region = Rect2(325, 1290, 63, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uieii"]
 atlas = ExtResource("2_yebr2")
@@ -135,9 +131,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4lq63")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h80av")
 }],
 "loop": false,
 "name": &"hurt",

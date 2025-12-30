@@ -15,7 +15,7 @@ func start_dialog(texts: Array[String], dialog_position: Vector2):
 		dialog_box.texts_to_display = texts
 		
 		# Ajuste para mover mais acima (por exemplo, 100 pixels)
-		var offset_y = -100
+		var offset_y = -50
 		dialog_box.global_position = dialog_position + Vector2(0, offset_y)
 		
 		#dialog_box.global_position = dialog_position
