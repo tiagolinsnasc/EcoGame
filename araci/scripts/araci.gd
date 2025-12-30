@@ -28,6 +28,11 @@ extends CharacterBody2D
 @export var teleport_distance := 64.0   # distância em pixels
 @export var teleport_delay := 0.1       # tempo "sumido" antes de reaparecer
 
+##Controle do PET (Feroz)
+@export var pet_scene: PackedScene = preload("res://actors/feroz.tscn")
+var pet_instance: Node = null
+
+
 # ============================================================
 # CANCEL WINDOW - Desativa o ataque quando inicia a animação e logo após pula
 # ============================================================
@@ -88,6 +93,27 @@ func _ready() -> void:
 	#Atualiza a instância de Araci em globals
 	Globals.araci = self
 
+# ============================================================
+# Funções do PET
+# ============================================================
+func spawn_pet():
+	pet_instance = pet_scene.instantiate()
+	get_parent().add_child(pet_instance)
+	pet_instance.global_position = global_position + Vector2(32, 0) # aparece ao lado
+	
+func despawn_pet():
+	if pet_instance != null:
+		pet_instance.queue_free()
+		pet_instance = null
+
+# ============================================================
+# ANIMAÇÃO UPGRADE - TOCADA QUANDO OBTEM NOVOS POWERUPS
+# ============================================================
+
+func play_upgrade():
+	estado = "upgrade"
+	velocity = Vector2.ZERO   # trava movimento
+	animation.play("upgrade")
 
 # ============================================================
 # LOOP PRINCIPAL DE FÍSICA
@@ -99,7 +125,8 @@ func _physics_process(delta: float) -> void:
 	# --------------------------------------------------------
 	# ✅ BLOQUEIA MOVIMENTO DURANTE KNOCKBACK
 	# --------------------------------------------------------
-	if is_hurt:
+	if is_hurt or estado == "upgrade":
+		#velocity = Vector2.ZERO
 		velocity = knockback_vector
 		move_and_slide()
 		return
@@ -217,6 +244,12 @@ func _physics_process(delta: float) -> void:
 		estado = "atack"
 		time_shoot = cooldown_tiro
 		_start_cancel_window()
+
+	if Input.is_action_just_pressed("call_feroz"):
+		if pet_instance == null:
+			spawn_pet()
+		else:
+			despawn_pet()
 
 	if Input.is_action_just_pressed("feroz_companion_attack"):
 		estado = "pet_attack"
@@ -367,7 +400,7 @@ func follow_camera(camera: Node2D) -> void:
 	remote_transform.remote_path = camera.get_path()
 
 func _on_anime_animation_finished() -> void:
-	if estado in ["shoot", "atack", "pet_attack", "teleport"]:
+	if estado in ["shoot", "atack", "pet_attack", "teleport", "upgrade"]:
 		var input_dir := Input.get_axis("ui_left", "ui_right")
 		if input_dir != 0 and is_on_floor():
 			estado = "run"

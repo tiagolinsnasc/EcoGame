@@ -38,10 +38,12 @@ func _ready():
 	#Garante que o pet sempre recebe a instância atual do Player
 	player = Globals.araci
 	Globals.pet = self
+	active = true
 	
 
 func _physics_process(delta: float):
 	if not active or not player:
+		print("Pet não ativo ou sem referência do player")
 		return
 
 	# --- Desaparecer se muito longe ---

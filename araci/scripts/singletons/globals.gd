@@ -12,7 +12,7 @@ var flag_grab_one_information = false
 var flag_grab_one_animal_in_trap = false
 
 #Controle de powerups
-var flag_pw_feroz_enable = false
+var flag_pw_feroz_enable = true
 var flag_pw_superjump = false
 var flag_pw_teletransport = false
 

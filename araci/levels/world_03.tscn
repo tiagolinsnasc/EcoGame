@@ -2725,7 +2725,7 @@ position = Vector2(14066, 309)
 next_level = "res://levels/world_02.tscn"
 
 [node name="Araci" parent="." instance=ExtResource("17_36tbm")]
-position = Vector2(13135, 292)
+position = Vector2(-3, 192)
 
 [node name="araci_start_position" type="Marker2D" parent="."]
 editor_description = "Permite que o sistema use a localização do Mark2D para posicionar o Player no início do cenário, quando não tiver checkpointe obtido"
@@ -3164,6 +3164,10 @@ position = Vector2(11847, 312)
 position = Vector2(31.75, 0)
 shape = SubResource("RectangleShape2D_4cqjh")
 
+[node name="blue_poison" parent="objects" instance=ExtResource("45_7r0q1")]
+editor_description = "Porção azul. Ativa o poweup do superpulo."
+position = Vector2(13698, 246)
+
 [node name="traps" type="Node2D" parent="."]
 
 [node name="trap" parent="traps" instance=ExtResource("42_ciyyv")]
@@ -3231,9 +3235,6 @@ shape = SubResource("RectangleShape2D_u6qp6")
 [node name="spikes" parent="spikes_area" index="1"]
 texture = ExtResource("35_1pyfj")
 region_rect = Rect2(1, 0, 208, 29)
-
-[node name="blue_poison" parent="." instance=ExtResource("45_7r0q1")]
-position = Vector2(13217, 267)
 
 [editable path="move_plataforms/moving_plataform_v"]
 [editable path="move_plataforms/moving_plataform_v_2"]

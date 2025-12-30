@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://ba3xbkuiqhtyn"]
+[gd_scene load_steps=54 format=3 uid="uid://ba3xbkuiqhtyn"]
 
 [ext_resource type="Script" uid="uid://bb2ju11ra7y1h" path="res://scripts/araci.gd" id="1_wp837"]
 [ext_resource type="Texture2D" uid="uid://dsakuawpkov3a" path="res://n_assets/n_tiles_actors/Araci_machado.png" id="2_mtxgc"]
@@ -74,14 +74,6 @@ region = Rect2(0, 1856, 64, 62)
 atlas = ExtResource("3_n0p0v")
 region = Rect2(0, 3392, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vwq3j"]
-atlas = ExtResource("3_n0p0v")
-region = Rect2(64, 3392, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yowmn"]
-atlas = ExtResource("3_n0p0v")
-region = Rect2(128, 3392, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_bm2rx"]
 atlas = ExtResource("3_n0p0v")
 region = Rect2(192, 3392, 64, 64)
@@ -89,10 +81,6 @@ region = Rect2(192, 3392, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_65qpe"]
 atlas = ExtResource("3_n0p0v")
 region = Rect2(256, 3392, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tlpj5"]
-atlas = ExtResource("3_n0p0v")
-region = Rect2(320, 3392, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7vvf"]
 atlas = ExtResource("3_n0p0v")
@@ -178,6 +166,22 @@ region = Rect2(704, 0, 64, 57)
 atlas = ExtResource("4_bogxa")
 region = Rect2(768, 0, 64, 57)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oirkp"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(384, 2304, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv8fg"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(320, 2304, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3quk"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(256, 2304, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21aje"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(192, 2304, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_0yxgj"]
 animations = [{
 "frames": [{
@@ -253,23 +257,14 @@ animations = [{
 "texture": SubResource("AtlasTexture_rllmr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vwq3j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yowmn")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_bm2rx")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_65qpe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tlpj5")
 }],
 "loop": false,
 "name": &"pet_attack",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -347,6 +342,23 @@ animations = [{
 "frames": [],
 "loop": true,
 "name": &"teleport",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oirkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv8fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3quk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21aje")
+}],
+"loop": false,
+"name": &"upgrade",
 "speed": 5.0
 }]
 
