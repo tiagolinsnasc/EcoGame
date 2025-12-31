@@ -246,7 +246,7 @@ func _physics_process(delta: float) -> void:
 		_start_cancel_window()
 
 	if Input.is_action_just_pressed("call_feroz"):
-		if pet_instance == null:
+		if pet_instance == null and Globals.flag_pw_feroz_enable:
 			spawn_pet()
 		else:
 			despawn_pet()
