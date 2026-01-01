@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Araci"
-run/main_scene="uid://d3vfhe2flhc0a"
+run/main_scene="uid://disrnmbi1psf"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

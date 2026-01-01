@@ -2,7 +2,10 @@ extends Area2D
 
 @export var next_level: String = ""
 @onready var transition: CanvasLayer = $"../interface/transition"
+@onready var anime: AnimationPlayer = $anime
 
+func _ready() -> void:
+	anime.play("move")
 
 func _on_body_entered(body: Node2D):
 	print("Objetivo atingido!")

@@ -31,7 +31,8 @@ extends CharacterBody2D
 ##Controle do PET (Feroz)
 @export var pet_scene: PackedScene = preload("res://actors/feroz.tscn")
 var pet_instance: Node = null
-
+#Fezor na nível 2. Instância já existe, não chamar novo
+@onready var feroz_s2: Node2D = get_node_or_null("../feroz")
 
 # ============================================================
 # CANCEL WINDOW - Desativa o ataque quando inicia a animação e logo após pula
@@ -245,7 +246,8 @@ func _physics_process(delta: float) -> void:
 		time_shoot = cooldown_tiro
 		_start_cancel_window()
 
-	if Input.is_action_just_pressed("call_feroz"):
+	#is_instance_valid garante que ele não duplica feroz quando ele já existe na fase 2
+	if Input.is_action_just_pressed("call_feroz") and !is_instance_valid(feroz_s2):		
 		if pet_instance == null and Globals.flag_pw_feroz_enable:
 			spawn_pet()
 		else:

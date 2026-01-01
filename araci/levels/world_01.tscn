@@ -1589,7 +1589,7 @@ position = Vector2(4452, -29)
 
 [node name="goal" parent="." instance=ExtResource("26_15tky")]
 editor_description = "Objetivo final. Marcado indicando que o estágio chegou ao fim."
-position = Vector2(8905, 263)
+position = Vector2(8918, 221)
 next_level = "res://levels/world_02.tscn"
 
 [node name="popup" type="StaticBody2D" parent="."]
