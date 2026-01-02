@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuu1ef4eo0cx0"]
+
+[ext_resource type="Script" uid="uid://clugt0ilyv8mj" path="res://scripts/peaceful_animals/peaceful_animals_base.gd" id="1_6n5kf"]
+[ext_resource type="Texture2D" uid="uid://cqeevkrmuj2vc" path="res://n_assets/n_scenes/elements/macuco.png" id="1_c584g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n5kf"]
+atlas = ExtResource("1_c584g")
+region = Rect2(0, 0, 30, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m88ws"]
+atlas = ExtResource("1_c584g")
+region = Rect2(30, 0, 30, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xaqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n5kf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m88ws")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uixwc"]
+size = Vector2(22, 20)
+
+[node name="macuco" type="CharacterBody2D"]
+collision_layer = 8192
+collision_mask = 256
+script = ExtResource("1_6n5kf")
+SPEED = 500.0
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_4xaqy")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.4289834
+speed_scale = 0.8
+
+[node name="colision" type="CollisionShape2D" parent="."]
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_uixwc")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(22, 1)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(1, 1)
+target_position = Vector2(19, 16)
+collision_mask = 256
+hit_from_inside = true

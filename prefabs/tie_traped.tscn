@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://blqnv2ldi7eh6"]
+
+[ext_resource type="Script" uid="uid://dp2r5j1e12x3f" path="res://scripts/animal_traped.gd" id="1_7hokl"]
+[ext_resource type="Texture2D" uid="uid://b6k3y38ts10n6" path="res://n_assets/n_scenes/elements/trapped_bird.png" id="2_7hokl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js2i7"]
+atlas = ExtResource("2_7hokl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbxtf"]
+atlas = ExtResource("2_7hokl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scr62"]
+atlas = ExtResource("2_7hokl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7doq2"]
+atlas = ExtResource("2_7hokl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h43th"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js2i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbxtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scr62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7doq2")
+}],
+"loop": true,
+"name": &"move",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toovc"]
+size = Vector2(22, 30)
+
+[node name="tie_traped" type="Node2D"]
+script = ExtResource("1_7hokl")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_h43th")
+animation = &"move"
+autoplay = "move"
+frame_progress = 0.100724846
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 512
+
+[node name="body" type="CollisionShape2D" parent="area"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_toovc")
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]

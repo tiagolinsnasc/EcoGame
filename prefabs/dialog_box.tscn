@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2sl64ov5r0e3"]
+
+[ext_resource type="Script" uid="uid://dl21b75o1jqm4" path="res://scripts/dialog_box.gd" id="1_d17km"]
+[ext_resource type="Texture2D" uid="uid://4pxsj234t834" path="res://n_assets/n_scenes/elements/Dialog_Box(16 x 16).png" id="2_d17km"]
+[ext_resource type="Texture2D" uid="uid://cn3qodu4t1y0" path="res://n_assets/n_scenes/elements/ok_btn.png" id="3_p3326"]
+
+[node name="dialog_box" type="MarginContainer"]
+process_mode = 3
+z_index = 302
+anchors_preset = -1
+anchor_left = -0.17500001
+anchor_top = -0.26700002
+anchor_right = 0.27600002
+anchor_bottom = -0.089
+offset_top = 0.120010376
+offset_right = -18.640015
+offset_bottom = -9.960003
+scale = Vector2(0.9187663, 1)
+size_flags_vertical = 6
+script = ExtResource("1_d17km")
+typing_speed = 0.02
+
+[node name="bg_dialog_box" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_d17km")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 4
+
+[node name="text_container" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+
+[node name="text_label" type="Label" parent="text_container"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.05882353, 1)
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="indicator" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("3_p3326")

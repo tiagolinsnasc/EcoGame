@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://cv3d74gba7jjh"]
+
+[ext_resource type="Script" uid="uid://clugt0ilyv8mj" path="res://scripts/peaceful_animals/peaceful_animals_base.gd" id="1_oe6fq"]
+[ext_resource type="Texture2D" uid="uid://dypquwg3qxr3s" path="res://n_assets/n_scenes/elements/jaguar_walk.png" id="2_xqbia"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho6up"]
+atlas = ExtResource("2_xqbia")
+region = Rect2(0, 0, 76, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxe51"]
+atlas = ExtResource("2_xqbia")
+region = Rect2(76, 0, 76, 49)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pxe51"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"atack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho6up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxe51")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0wtsc"]
+radius = 17.0
+height = 44.0
+
+[node name="jaguar" type="CharacterBody2D"]
+editor_description = "O sprite está virado para o lado contrários aos Raycasts, no entanto a animação começa para a esquerda, mesma direção dos Raycasts"
+z_index = 100
+collision_layer = 8192
+collision_mask = 256
+slide_on_ceiling = false
+script = ExtResource("1_oe6fq")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pxe51")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.7713675
+
+[node name="body" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_0wtsc")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 14)
+target_position = Vector2(-45.999996, 7.6293945e-06)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(1, 0.9999998)
+target_position = Vector2(-40.999996, 29.000008)
+collision_mask = 256
+hit_from_inside = true

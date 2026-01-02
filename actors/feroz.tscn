@@ -1,0 +1,141 @@
+[gd_scene load_steps=15 format=3 uid="uid://bsecwsynxsn8y"]
+
+[ext_resource type="Script" uid="uid://bnba5jujc64mx" path="res://scripts/feroz.gd" id="1_hc8tf"]
+[ext_resource type="Texture2D" uid="uid://d26l4lavhgd13" path="res://n_assets/n_tiles_actors/feroz.png" id="1_lp83t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p3gg"]
+size = Vector2(37, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb1fn"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(48, 132, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foe6v"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(96, 132, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70vaj"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(0, 40, 49, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m3k6"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(49, 40, 49, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c12i"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7argo"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_753cg"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(0, 132, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc8tf"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(0, 86, 48, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tll0"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(48, 86, 48, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct3uc"]
+atlas = ExtResource("1_lp83t")
+region = Rect2(96, 86, 48, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5p3gg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb1fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foe6v")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70vaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3m3k6")
+}],
+"loop": true,
+"name": &"barking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c12i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7argo")
+}],
+"loop": true,
+"name": &"idlle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_753cg")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hc8tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tll0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct3uc")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="feroz" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+z_index = 301
+collision_layer = 8192
+collision_mask = 256
+script = ExtResource("1_hc8tf")
+attack_cooldown = 20.0
+
+[node name="body" type="CollisionShape2D" parent="CharacterBody2D"]
+editor_description = "Ficou acima do srite para ter a noção de profundidade e para sobrepor o cenário da base."
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_5p3gg")
+
+[node name="animation" type="AnimationPlayer" parent="CharacterBody2D"]
+
+[node name="anime" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_5p3gg")
+animation = &"attack"
+autoplay = "idlle"
+frame = 1
+frame_progress = 0.34630197
+
+[node name="enemy_detect" type="RayCast2D" parent="CharacterBody2D"]
+target_position = Vector2(243, 0)
+collision_mask = 272
+
+[node name="ground_check" type="RayCast2D" parent="CharacterBody2D"]
+target_position = Vector2(31, 39)
+collision_mask = 272
+
+[node name="obstacle_check" type="RayCast2D" parent="CharacterBody2D"]
+position = Vector2(0, 7)
+target_position = Vector2(22, 0)
+collision_mask = 272

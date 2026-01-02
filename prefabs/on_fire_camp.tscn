@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgmeycxf7gsi6"]
+
+[ext_resource type="Texture2D" uid="uid://cnpg7mu7xfg0h" path="res://n_assets/n_scenes/elements/compfire.png" id="1_o5k8e"]
+[ext_resource type="Script" uid="uid://cgiyqnsp5spsb" path="res://scripts/fire_off.gd" id="1_q2vo2"]
+[ext_resource type="Texture2D" uid="uid://8vxpuaw7j10p" path="res://n_assets/n_scenes/elements/off_compfire.png" id="2_58ikw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qpob"]
+size = Vector2(55, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5k8e"]
+atlas = ExtResource("1_o5k8e")
+region = Rect2(2, 0, 26, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58ikw"]
+atlas = ExtResource("1_o5k8e")
+region = Rect2(28, 0, 26, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2vo2"]
+atlas = ExtResource("2_58ikw")
+region = Rect2(2, 0, 26, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvpmw"]
+atlas = ExtResource("2_58ikw")
+region = Rect2(28, 0, 26, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsfuh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5k8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58ikw")
+}],
+"loop": true,
+"name": &"action",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2vo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvpmw")
+}],
+"loop": true,
+"name": &"off",
+"speed": 1.0
+}]
+
+[node name="on_fire_camp" type="Node2D"]
+
+[node name="fire_off_area" type="Area2D" parent="."]
+collision_layer = 512
+script = ExtResource("1_q2vo2")
+score = 150
+
+[node name="collision" type="CollisionShape2D" parent="fire_off_area"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_6qpob")
+debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jsfuh")
+animation = &"off"
+autoplay = "action"
+frame = 1
+frame_progress = 0.76122636
+
+[connection signal="area_entered" from="fire_off_area" to="fire_off_area" method="_on_area_entered"]
+[connection signal="body_entered" from="fire_off_area" to="fire_off_area" method="_on_body_entered"]
