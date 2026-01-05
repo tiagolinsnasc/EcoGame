@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdhqrgqgwpjpy"]
+
+[ext_resource type="Script" uid="uid://dp2r5j1e12x3f" path="res://scripts/animal_traped.gd" id="1_50krm"]
+[ext_resource type="Texture2D" uid="uid://bya1t2hvx6q8v" path="res://n_assets/n_scenes/elements/trapped_jaguar.png" id="2_50krm"]
+[ext_resource type="AudioStream" uid="uid://dmbyvxdp88m81" path="res://sounds/coletables/points_gained.ogg" id="3_roq63"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roq63"]
+atlas = ExtResource("2_50krm")
+region = Rect2(0, 0, 52, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj3qk"]
+atlas = ExtResource("2_50krm")
+region = Rect2(52, 0, 52, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h43th"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roq63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj3qk")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toovc"]
+size = Vector2(44, 20)
+
+[node name="jaguar_traped" type="Node2D"]
+script = ExtResource("1_50krm")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_h43th")
+animation = &"move"
+autoplay = "move"
+frame = 1
+frame_progress = 0.29122284
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 512
+
+[node name="body" type="CollisionShape2D" parent="area"]
+position = Vector2(-5, 1)
+shape = SubResource("RectangleShape2D_toovc")
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_roq63")
+volume_db = 5.048
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]

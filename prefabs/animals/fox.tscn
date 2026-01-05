@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://jf3dqnoiq35n"]
+
+[ext_resource type="Script" uid="uid://5spc03ha7onb" path="res://scripts/peaceful_animals/animal_anteater.gd" id="1_kt1tq"]
+[ext_resource type="Texture2D" uid="uid://bdnb5v7avko8t" path="res://n_assets/n_scenes/elements/fox.png" id="2_kt1tq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt1tq"]
+atlas = ExtResource("2_kt1tq")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thkxk"]
+atlas = ExtResource("2_kt1tq")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xaqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt1tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thkxk")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uixwc"]
+size = Vector2(50, 26.25)
+
+[node name="fox" type="CharacterBody2D"]
+collision_layer = 8192
+collision_mask = 256
+script = ExtResource("1_kt1tq")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4xaqy")
+animation = &"walk"
+autoplay = "walk"
+frame = 1
+frame_progress = 0.7304062
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 1.875)
+shape = SubResource("RectangleShape2D_uixwc")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(39, 0)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(1, 1)
+target_position = Vector2(29, 22)
+collision_mask = 256
+hit_from_inside = true

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://r2fp7tkx4vvm"]
+
+[ext_resource type="Texture2D" uid="uid://54ildq3qdxk4" path="res://n_assets/n_scenes/elements/trap.png" id="1_6qpob"]
+[ext_resource type="Script" uid="uid://duor6p05ybjox" path="res://scripts/trap.gd" id="1_qscck"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qpob"]
+size = Vector2(29, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qscck"]
+atlas = ExtResource("1_6qpob")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2l1q"]
+atlas = ExtResource("1_6qpob")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsfuh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qscck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2l1q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2l1q")
+}],
+"loop": false,
+"name": &"action",
+"speed": 5.0
+}]
+
+[node name="trap" type="Node2D"]
+script = ExtResource("1_qscck")
+
+[node name="trap_area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="trap_area"]
+position = Vector2(-0.5, -2)
+shape = SubResource("RectangleShape2D_6qpob")
+debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jsfuh")
+animation = &"action"
+frame_progress = 1.0
+
+[connection signal="area_entered" from="trap_area" to="." method="_on_trap_area_area_entered"]

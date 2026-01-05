@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://mw4dtbvmckmu"]
+
+[ext_resource type="Texture2D" uid="uid://bs3b5khe5ktja" path="res://n_assets/n_scenes/elements/deadfire.png" id="1_nctrk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qpob"]
+size = Vector2(29, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nctrk"]
+atlas = ExtResource("1_nctrk")
+region = Rect2(2, 0, 26, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x1vf"]
+atlas = ExtResource("1_nctrk")
+region = Rect2(28, 0, 26, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sx7b1"]
+atlas = ExtResource("1_nctrk")
+region = Rect2(54, 0, 26, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsfuh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nctrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x1vf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sx7b1")
+}],
+"loop": true,
+"name": &"action",
+"speed": 1.0
+}]
+
+[node name="off_fire_camp" type="Node2D"]
+
+[node name="trap_area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="trap_area"]
+position = Vector2(-0.5, 1.5)
+shape = SubResource("RectangleShape2D_6qpob")
+debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jsfuh")
+animation = &"action"
+autoplay = "action"
+frame_progress = 1.0
+
+[connection signal="area_entered" from="trap_area" to="." method="_on_trap_area_area_entered"]

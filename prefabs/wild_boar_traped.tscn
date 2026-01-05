@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://blybxtxruhhih"]
+
+[ext_resource type="Texture2D" uid="uid://buhmwexwo43nr" path="res://n_assets/n_scenes/elements/trapped_wild_boar.png" id="1_2hq6m"]
+[ext_resource type="Script" uid="uid://dp2r5j1e12x3f" path="res://scripts/animal_traped.gd" id="1_dhk6a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhk6a"]
+atlas = ExtResource("1_2hq6m")
+region = Rect2(0, 0, 52, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyq1r"]
+atlas = ExtResource("1_2hq6m")
+region = Rect2(52, 0, 52, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h43th"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhk6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyq1r")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toovc"]
+size = Vector2(52, 31)
+
+[node name="wild_boar_traped" type="Node2D"]
+script = ExtResource("1_dhk6a")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_h43th")
+animation = &"move"
+autoplay = "move"
+frame = 1
+frame_progress = 0.37329966
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 512
+
+[node name="body" type="CollisionShape2D" parent="area"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_toovc")
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]

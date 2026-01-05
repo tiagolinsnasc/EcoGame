@@ -1,0 +1,195 @@
+[gd_scene load_steps=14 format=3 uid="uid://fp2fluhv4tkl"]
+
+[ext_resource type="Script" uid="uid://d23x1xcybo516" path="res://scripts/HUD_control.gd" id="1_d2vfn"]
+[ext_resource type="Texture2D" uid="uid://cqaffg3apibcq" path="res://n_assets/n_scenes/elements/evidence.png" id="2_4mrx2"]
+[ext_resource type="Texture2D" uid="uid://cj755sqb7aw6q" path="res://n_assets/n_scenes/elements/life.png" id="3_0mywj"]
+[ext_resource type="PackedScene" uid="uid://dc583oqntfdmr" path="res://prefabs/powerup_icon.tscn" id="3_4mrx2"]
+[ext_resource type="Texture2D" uid="uid://b2f5mtrs3121o" path="res://n_assets/n_scenes/elements/feroz_icon.png" id="4_0mywj"]
+[ext_resource type="Texture2D" uid="uid://c1yady5fo7u3x" path="res://n_assets/n_scenes/elements/notification.png" id="4_5nuor"]
+[ext_resource type="Texture2D" uid="uid://djhhl42wtcpav" path="res://n_assets/n_scenes/elements/superjump_icon.png" id="5_5nuor"]
+[ext_resource type="PackedScene" uid="uid://cld48nqlrn0gc" path="res://prefabs/pause_menu.tscn" id="5_oi3g5"]
+[ext_resource type="Script" uid="uid://cmp1wmf0e631p" path="res://scripts/transition.gd" id="6_65w62"]
+[ext_resource type="Texture2D" uid="uid://c0uwlw5hpsrs2" path="res://n_assets/n_scenes/elements/teleport_icon.png" id="6_oi3g5"]
+[ext_resource type="Shader" uid="uid://bbmgisch40bx7" path="res://shaders/transition_shader.gdshader" id="7_dwta8"]
+[ext_resource type="Script" uid="uid://1wrsvp04wutf" path="res://scripts/color_rect.gd" id="8_efhi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0d7r7"]
+shader = ExtResource("7_dwta8")
+shader_parameter/lines = 10.0
+shader_parameter/threshold = 0.0
+shader_parameter/line_color_a = Color(0.32579562, 0.3257957, 0, 1)
+shader_parameter/line_color_b = Color(0, 0, 0, 1)
+
+[node name="interface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="control" type="Control" parent="HUD"]
+z_index = 200
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d2vfn")
+
+[node name="container" type="MarginContainer" parent="HUD/control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="coins_conteiner" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="coins_icon" type="TextureRect" parent="HUD/control/container/coins_conteiner"]
+layout_mode = 2
+texture = ExtResource("2_4mrx2")
+
+[node name="coins_counter" type="Label" parent="HUD/control/container/coins_conteiner"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "0001"
+horizontal_alignment = 1
+
+[node name="score_container" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="score_label" type="Label" parent="HUD/control/container/score_container"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "PONTOS:"
+
+[node name="score_counter" type="Label" parent="HUD/control/container/score_container"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "000000"
+horizontal_alignment = 1
+
+[node name="powerups_container" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="powerupIcon" parent="HUD/control/container/powerups_container" instance=ExtResource("3_4mrx2")]
+layout_mode = 2
+icon_texture = ExtResource("4_0mywj")
+key_text = "Q"
+
+[node name="powerupIcon2" parent="HUD/control/container/powerups_container" instance=ExtResource("3_4mrx2")]
+layout_mode = 2
+icon_texture = ExtResource("5_5nuor")
+key_text = "W"
+
+[node name="powerupIcon3" parent="HUD/control/container/powerups_container" instance=ExtResource("3_4mrx2")]
+layout_mode = 2
+icon_texture = ExtResource("6_oi3g5")
+key_text = "T"
+
+[node name="life_conteiner" type="HBoxContainer" parent="HUD/control/container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="life_icon" type="TextureRect" parent="HUD/control/container/life_conteiner"]
+layout_mode = 2
+texture = ExtResource("3_0mywj")
+
+[node name="life_separator" type="Label" parent="HUD/control/container/life_conteiner"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "x"
+horizontal_alignment = 1
+
+[node name="life_counter" type="Label" parent="HUD/control/container/life_conteiner"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "03"
+horizontal_alignment = 1
+
+[node name="notification_box" type="Control" parent="HUD/control"]
+editor_description = "Notificação no canto inferior direito, aparece a partir de gatilhos e pode exibir uma imagem junto com o texto."
+visible = false
+anchors_preset = 0
+offset_left = 379.0
+offset_top = 291.0
+offset_right = 579.0
+offset_bottom = 351.0
+scale = Vector2(1.261, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HUD/control/notification_box"]
+modulate = Color(1, 1, 1, 0.9098039)
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 1
+anchors_preset = -1
+texture = ExtResource("4_5nuor")
+patch_margin_left = 21
+patch_margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/control/notification_box/NinePatchRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.117000006
+anchor_right = 0.952
+anchor_bottom = 0.883
+offset_left = -90.483765
+offset_top = -0.020000458
+offset_right = -0.07487488
+offset_bottom = 0.020000458
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/control/notification_box/NinePatchRect/HBoxContainer"]
+custom_minimum_size = Vector2(29, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HUD/control/notification_box/NinePatchRect/HBoxContainer"]
+custom_minimum_size = Vector2(145, 40)
+layout_mode = 2
+theme_override_constants/line_spacing = -6
+theme_override_font_sizes/font_size = 11
+text = "Você coletou uma evidência! Elas são importantes para finalizar a fase."
+autowrap_mode = 2
+justification_flags = 162
+
+[node name="pause_menu" parent="." instance=ExtResource("5_oi3g5")]
+
+[node name="transition" type="CanvasLayer" parent="."]
+script = ExtResource("6_65w62")
+
+[node name="color_rect" type="ColorRect" parent="transition"]
+z_index = 200
+material = SubResource("ShaderMaterial_0d7r7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("8_efhi4")

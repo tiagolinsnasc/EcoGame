@@ -1,0 +1,137 @@
+[gd_scene load_steps=15 format=3 uid="uid://frp3ffhtt8li"]
+
+[ext_resource type="Texture2D" uid="uid://fhmskuwye5q8" path="res://n_assets/n_scenes/elements/estorninho.png" id="1_433o2"]
+[ext_resource type="Script" uid="uid://dkr1q4mfbn2e7" path="res://scripts/enemies/animal_enemy_maina.gd" id="1_cj5fn"]
+[ext_resource type="Texture2D" uid="uid://dh517b6h4o20p" path="res://n_assets/n_scenes/elements/estorninhoHurt.png" id="2_cj5fn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0xqj"]
+atlas = ExtResource("1_433o2")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4giag"]
+atlas = ExtResource("1_433o2")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irtl7"]
+atlas = ExtResource("1_433o2")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsbg7"]
+atlas = ExtResource("2_cj5fn")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irtl7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0xqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4giag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irtl7")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsbg7")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y10go"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxv7g"]
+size = Vector2(18, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj5fn"]
+size = Vector2(28, 20)
+
+[sub_resource type="Animation" id="Animation_172ag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("maina:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h7w04"]
+resource_name = "flying"
+length = 2.0
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("maina:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(7, -104)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ims68"]
+_data = {
+&"RESET": SubResource("Animation_172ag"),
+&"flying": SubResource("Animation_h7w04")
+}
+
+[node name="maina" type="Node2D"]
+
+[node name="maina" type="CharacterBody2D" parent="."]
+editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox. Speed só funciona para seres terrestres, para aumentar a velocidade alterar o spped scale do animator"
+collision_layer = 16
+collision_mask = 258
+script = ExtResource("1_cj5fn")
+
+[node name="anime" type="AnimatedSprite2D" parent="maina"]
+sprite_frames = SubResource("SpriteFrames_irtl7")
+animation = &"flying"
+autoplay = "flying"
+
+[node name="body" type="CollisionShape2D" parent="maina"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_y10go")
+
+[node name="enemy_head" type="Area2D" parent="maina"]
+editor_description = "A mascara do hitbox está disabilitada (não ser morto pelo player"
+collision_layer = 64
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="maina/enemy_head"]
+position = Vector2(-1, -6.5)
+shape = SubResource("RectangleShape2D_kxv7g")
+debug_color = Color(0.9394873, 1.5209317e-05, 0.6213183, 0.41960785)
+
+[node name="enemy_hitbox" type="Area2D" parent="maina"]
+
+[node name="collision" type="CollisionShape2D" parent="maina/enemy_hitbox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_cj5fn")
+debug_color = Color(0.93344843, 0.15352938, 0.523355, 0.41960785)
+
+[node name="spawn_enemy" type="Marker2D" parent="."]
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ims68")
+}
+autoplay = "flying"
+speed_scale = 0.3

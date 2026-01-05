@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk5df6g8sayri"]
+
+[ext_resource type="Script" uid="uid://bi0jig86qwsxv" path="res://scripts/generic_damage_area.gd" id="1_6tchp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_le3as"]
+size = Vector2(325, 28)
+
+[node name="generic_damage_area" type="Area2D"]
+collision_layer = 1024
+script = ExtResource("1_6tchp")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_le3as")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

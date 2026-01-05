@@ -1,0 +1,168 @@
+[gd_scene load_steps=13 format=3 uid="uid://cgullcyxsqumo"]
+
+[ext_resource type="Script" uid="uid://d0jswj47cfvgi" path="res://scripts/enemies/animal_enemy_locust.gd" id="1_3vb7y"]
+[ext_resource type="Texture2D" uid="uid://c0hkyrw4ssnsa" path="res://n_assets/n_scenes/elements/locust.png" id="2_68xhr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vb7y"]
+atlas = ExtResource("2_68xhr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0wa4"]
+atlas = ExtResource("2_68xhr")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irtl7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vb7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0wa4")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 20.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y10go"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxv7g"]
+size = Vector2(18, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj5fn"]
+size = Vector2(23, 19)
+
+[sub_resource type="Animation" id="Animation_172ag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("locust:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("locust:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h7w04"]
+resource_name = "flying"
+length = 0.5
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("locust:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(7, -104)]
+}
+
+[sub_resource type="Animation" id="Animation_68xhr"]
+resource_name = "flying2"
+length = 0.7049
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("locust:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0973485, 0.20042337, 0.29968065, 0.40084675, 0.50201285, 0.60127014),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-66, 17), Vector2(-153, 16), Vector2(-211, -1), Vector2(-162, -20), Vector2(-106, -4), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("locust:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.29968065, 0.7049),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ims68"]
+_data = {
+&"RESET": SubResource("Animation_172ag"),
+&"flying1": SubResource("Animation_h7w04"),
+&"flying2": SubResource("Animation_68xhr")
+}
+
+[node name="locust" type="Node2D"]
+editor_description = "Gafanhoto sozinho em voo. Tem variação de movimento ativando a flag Anime Horizontal, caso contrário fará o movimento vertical"
+
+[node name="locust" type="CharacterBody2D" parent="."]
+editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox. Speed só funciona para seres terrestres, para aumentar a velocidade alterar o spped scale do animator"
+collision_layer = 16
+collision_mask = 258
+script = ExtResource("1_3vb7y")
+
+[node name="anime" type="AnimatedSprite2D" parent="locust"]
+sprite_frames = SubResource("SpriteFrames_irtl7")
+animation = &"flying"
+autoplay = "flying"
+frame_progress = 0.66809237
+
+[node name="body" type="CollisionShape2D" parent="locust"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_y10go")
+
+[node name="enemy_head" type="Area2D" parent="locust"]
+editor_description = "A mascara do hitbox está disabilitada (não ser morto pelo player"
+visible = false
+collision_layer = 64
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="locust/enemy_head"]
+position = Vector2(-1, -6.5)
+shape = SubResource("RectangleShape2D_kxv7g")
+debug_color = Color(0.9394873, 1.5209317e-05, 0.6213183, 0.41960785)
+
+[node name="enemy_hitbox" type="Area2D" parent="locust"]
+
+[node name="collision" type="CollisionShape2D" parent="locust/enemy_hitbox"]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_cj5fn")
+debug_color = Color(0.93344843, 0.15352938, 0.523355, 0.41960785)
+
+[node name="animator" type="AnimationPlayer" parent="locust"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_ims68")
+}
+speed_scale = 0.1
+
+[node name="spawn_enemy" type="Marker2D" parent="."]

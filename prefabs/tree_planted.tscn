@@ -1,0 +1,119 @@
+[gd_scene load_steps=16 format=3 uid="uid://b1e0uih2im2ye"]
+
+[ext_resource type="Texture2D" uid="uid://mmeirwso7eso" path="res://n_assets/n_scenes/elements/tree_planted.png" id="1_vibdd"]
+[ext_resource type="Script" uid="uid://bfflv7sihechi" path="res://scripts/tree_planted.gd" id="1_xx7el"]
+[ext_resource type="Texture2D" uid="uid://b1i7uabhepamj" path="res://n_assets/n_scenes/elements/embauba_seed.png" id="2_vibdd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx7el"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t2iy"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7mc3"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x38ql"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggq4k"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3taf"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33ort"]
+atlas = ExtResource("1_vibdd")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vibdd"]
+atlas = ExtResource("2_vibdd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3xgm"]
+atlas = ExtResource("2_vibdd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7aytu"]
+atlas = ExtResource("2_vibdd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ygwos"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx7el")
+}],
+"loop": true,
+"name": &"idlle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4t2iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7mc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x38ql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggq4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3taf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33ort")
+}],
+"loop": false,
+"name": &"rising",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vibdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3xgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7aytu")
+}],
+"loop": true,
+"name": &"seed",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2qlc"]
+size = Vector2(57, 116)
+
+[node name="tree_planted" type="Area2D"]
+z_index = 1
+collision_layer = 2048
+script = ExtResource("1_xx7el")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+z_as_relative = false
+position = Vector2(-3, -64)
+sprite_frames = SubResource("SpriteFrames_ygwos")
+animation = &"seed"
+autoplay = "seed"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-4.5, -58)
+shape = SubResource("RectangleShape2D_c2qlc")
+
+[node name="position_checkpoint" type="Marker2D" parent="."]
+editor_description = "O checkpoint gararate que, se o player estiver em uma plataforma flutuante, ele ao renascer não passe direto."
+position = Vector2(1, -29)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]

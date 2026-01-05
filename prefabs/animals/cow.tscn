@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://chcxpiv3gxllw"]
+
+[ext_resource type="Script" uid="uid://5spc03ha7onb" path="res://scripts/peaceful_animals/animal_anteater.gd" id="1_f4due"]
+[ext_resource type="Texture2D" uid="uid://bfsyssr4oybit" path="res://n_assets/n_scenes/elements/cow.png" id="2_f4due"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q82a1"]
+atlas = ExtResource("2_f4due")
+region = Rect2(0, 0, 126, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lry6"]
+atlas = ExtResource("2_f4due")
+region = Rect2(126, 0, 126, 81)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xaqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q82a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lry6")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uixwc"]
+size = Vector2(108, 73)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4due"]
+size = Vector2(111, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q82a1"]
+size = Vector2(455, 32)
+
+[node name="cow" type="CharacterBody2D"]
+collision_layer = 8208
+collision_mask = 257
+script = ExtResource("1_f4due")
+SPEED = 2000.0
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4xaqy")
+animation = &"walk"
+autoplay = "walk"
+frame = 1
+frame_progress = 0.15518422
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0.5)
+shape = SubResource("RectangleShape2D_uixwc")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(88, 0)
+collision_mask = 256
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(1, 1)
+target_position = Vector2(61, 40)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="enemy_hitbox" type="Area2D" parent="."]
+position = Vector2(-27, -19)
+collision_layer = 32
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(25.5, 19)
+shape = SubResource("RectangleShape2D_f4due")
+debug_color = Color(0.90198725, 0.028006515, 0.7500692, 0.41960785)
+
+[node name="detect" type="Area2D" parent="."]
+collision_mask = 129
+
+[node name="detector" type="CollisionShape2D" parent="detect"]
+position = Vector2(3.5, 13)
+shape = SubResource("RectangleShape2D_q82a1")
+
+[connection signal="body_entered" from="detect" to="." method="_on_detect_body_entered"]
+[connection signal="body_exited" from="detect" to="." method="_on_detect_body_exited"]

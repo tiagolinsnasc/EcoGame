@@ -1,0 +1,182 @@
+[gd_scene load_steps=22 format=3 uid="uid://cfsgj11b2edkd"]
+
+[ext_resource type="Script" uid="uid://dcd7i7v8nnirt" path="res://scripts/enemies/enemy_lumberjack.gd" id="1_qa0um"]
+[ext_resource type="Texture2D" uid="uid://bhw7xiw8n7tk7" path="res://n_assets/n_tiles_actors/Madereiro_sem_armas.png" id="1_ynqkg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfp1k"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(64, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s77r0"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(128, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ych4l"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(192, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ky6f"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(256, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i02ca"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(0, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqo4c"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(64, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qc4xy"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(0, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ljdm"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(64, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aspqh"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(128, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57anx"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(192, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cy5y"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(256, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06or2"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(320, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3dg3"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(384, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6703y"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(448, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rylra"]
+atlas = ExtResource("1_ynqkg")
+region = Rect2(512, 704, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s64gy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfp1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s77r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ych4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ky6f")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i02ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqo4c")
+}],
+"loop": false,
+"name": &"standing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qc4xy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ljdm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aspqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57anx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cy5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06or2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3dg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6703y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rylra")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ynqkg"]
+height = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0fep"]
+size = Vector2(22, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qa0um"]
+size = Vector2(22, 6)
+
+[node name="lumberjack" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 16
+collision_mask = 256
+script = ExtResource("1_qa0um")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s64gy")
+animation = &"standing"
+autoplay = "walk"
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("CapsuleShape2D_ynqkg")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 25)
+target_position = Vector2(25, 0)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 25)
+target_position = Vector2(18, 9)
+collision_mask = 256
+
+[node name="enemy_hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_a0fep")
+debug_color = Color(0.86362183, 0.15356258, 0.7897774, 0.41960785)
+
+[node name="enemy_head" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="enemy_head"]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_qa0um")
+debug_color = Color(0, 0.63529414, 0.16862746, 0.41960785)
+
+[connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
+[connection signal="area_entered" from="enemy_head" to="." method="_on_enemy_head_area_entered"]

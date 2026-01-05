@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://be7p8k1o2ya7p"]
+
+[ext_resource type="Script" uid="uid://bo7hr01n47pap" path="res://scripts/spikes_area.gd" id="1_1v8r8"]
+[ext_resource type="Texture2D" uid="uid://cpiu5pl3dyxdf" path="res://n_assets/n_scenes/elements/natural_spikes1.png" id="2_47aha"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_le3as"]
+size = Vector2(615, 28)
+
+[node name="spikes_area" type="Area2D"]
+collision_layer = 1024
+script = ExtResource("1_1v8r8")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_le3as")
+
+[node name="spikes" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(-0.75000435, 0)
+scale = Vector2(1.0024712, 1)
+texture = ExtResource("2_47aha")
+region_enabled = true
+region_rect = Rect2(1, 0, 607, 29)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

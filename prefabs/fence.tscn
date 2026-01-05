@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkiej7gw2hbfu"]
+
+[ext_resource type="Script" uid="uid://bodmuuid70hav" path="res://scripts/fence.gd" id="1_31vgw"]
+[ext_resource type="Texture2D" uid="uid://bnjtsjv3vdaou" path="res://n_assets/n_scenes/elements/fence.png" id="2_31vgw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qpob"]
+size = Vector2(24, 48)
+
+[node name="fence" type="Node2D"]
+script = ExtResource("1_31vgw")
+
+[node name="fence_area" type="Area2D" parent="."]
+editor_description = "Cerca. Com área de dano."
+collision_layer = 384
+collision_mask = 8194
+
+[node name="collision" type="CollisionShape2D" parent="fence_area"]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_6qpob")
+debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="taxture" type="Sprite2D" parent="."]
+texture = ExtResource("2_31vgw")
+
+[connection signal="area_entered" from="fence_area" to="." method="_on_fence_area_area_entered"]

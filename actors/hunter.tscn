@@ -1,0 +1,319 @@
+[gd_scene load_steps=34 format=3 uid="uid://b16lswcixmmi2"]
+
+[ext_resource type="Texture2D" uid="uid://cxkkqewqpjj3o" path="res://n_assets/n_tiles_actors/hunter.png" id="1_vua1l"]
+[ext_resource type="Script" uid="uid://b3kqao2evr65" path="res://scripts/enemies/enemy_hunter.gd" id="1_ygwgk"]
+[ext_resource type="Script" uid="uid://dvdkwa11c20yg" path="res://scripts/enemies/enemy_hitbox_hunter.gd" id="3_u2bqq"]
+[ext_resource type="Script" uid="uid://bpw51vspy4k6k" path="res://scripts/enemies/enemy_hunter_head.gd" id="4_u2bqq"]
+[ext_resource type="AudioStream" uid="uid://dmmtsav161kew" path="res://sounds/enemies/gunshot.ogg" id="5_hopy3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vua1l"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(0, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wjfi"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(64, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjlgn"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(128, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eenjl"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(192, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cwji"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(256, 1280, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw27q"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(0, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjjvj"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(64, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtgop"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(0, 1216, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygwgk"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(256, 1216, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2bqq"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(448, 1216, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hopy3"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(512, 1216, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf7ud"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(0, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evhaq"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(64, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yjlb"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(128, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qj4bx"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(192, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvkgx"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(256, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3os6f"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(320, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n24rm"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(384, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cavgt"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(448, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x4ky"]
+atlas = ExtResource("1_vua1l")
+region = Rect2(512, 704, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8wjfi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vua1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wjfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjlgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eenjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cwji")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw27q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjjvj")
+}],
+"loop": true,
+"name": &"idlle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtgop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygwgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2bqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hopy3")
+}],
+"loop": false,
+"name": &"shot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf7ud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evhaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yjlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qj4bx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvkgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3os6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n24rm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cavgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x4ky")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vua1l"]
+height = 44.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vua1l"]
+size = Vector2(25, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygwgk"]
+size = Vector2(22, 5)
+
+[sub_resource type="Animation" id="Animation_hopy3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("path/path_follow_hunter:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hunter_enemy/anime:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_u2bqq"]
+resource_name = "hunter_patrol"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("path/path_follow_hunter:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hunter_enemy/anime:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(-1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vf7ud"]
+_data = {
+&"RESET": SubResource("Animation_hopy3"),
+&"hunter_patrol": SubResource("Animation_u2bqq")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_vua1l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 233, 0)
+}
+point_count = 2
+
+[node name="hunter" type="Node2D"]
+
+[node name="hunter_enemy" type="CharacterBody2D" parent="." groups=["enemies"]]
+position = Vector2(-1, 1)
+collision_layer = 16
+script = ExtResource("1_ygwgk")
+
+[node name="anime" type="AnimatedSprite2D" parent="hunter_enemy"]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_8wjfi")
+animation = &"shot"
+autoplay = "walk"
+
+[node name="bullet_position" type="Marker2D" parent="hunter_enemy/anime"]
+position = Vector2(29, -1)
+
+[node name="body" type="CollisionShape2D" parent="hunter_enemy"]
+position = Vector2(-1, 8)
+shape = SubResource("CapsuleShape2D_vua1l")
+
+[node name="enemy_hitbox" type="Area2D" parent="hunter_enemy"]
+position = Vector2(-1, 0)
+collision_layer = 32
+script = ExtResource("3_u2bqq")
+
+[node name="collision" type="CollisionShape2D" parent="hunter_enemy/enemy_hitbox"]
+position = Vector2(1.5, 7.5)
+shape = SubResource("RectangleShape2D_vua1l")
+debug_color = Color(0.75686276, 0, 0.3529412, 0.41960785)
+
+[node name="enemy_head" type="Area2D" parent="hunter_enemy"]
+collision_layer = 64
+collision_mask = 4
+script = ExtResource("4_u2bqq")
+
+[node name="collision" type="CollisionShape2D" parent="hunter_enemy/enemy_head"]
+position = Vector2(1, -16.5)
+shape = SubResource("RectangleShape2D_ygwgk")
+debug_color = Color(0.10544186, 0.41417488, 0.84414715, 0.41960785)
+
+[node name="player_detect_left" type="RayCast2D" parent="hunter_enemy"]
+target_position = Vector2(-218, 0)
+
+[node name="player_detect_right" type="RayCast2D" parent="hunter_enemy"]
+target_position = Vector2(232, -1)
+
+[node name="shoot_timer" type="Timer" parent="hunter_enemy"]
+
+[node name="spaw_hunter" type="Marker2D" parent="."]
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vf7ud")
+}
+speed_scale = 0.2
+
+[node name="path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vua1l")
+
+[node name="path_follow_hunter" type="PathFollow2D" parent="path"]
+position = Vector2(-1, 1)
+rotates = false
+
+[node name="remote" type="RemoteTransform2D" parent="path/path_follow_hunter"]
+remote_path = NodePath("../../../hunter_enemy")
+
+[node name="shoot_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hopy3")
+
+[connection signal="animation_finished" from="hunter_enemy/anime" to="hunter_enemy" method="_on_animation_animation_finished"]
+[connection signal="body_entered" from="hunter_enemy/enemy_hitbox" to="hunter_enemy/enemy_hitbox" method="_on_body_entered"]
+[connection signal="area_entered" from="hunter_enemy/enemy_head" to="hunter_enemy/enemy_head" method="_on_area_entered"]

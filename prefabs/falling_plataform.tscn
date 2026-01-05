@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://br1aa6lq88kcq"]
+
+[ext_resource type="Script" uid="uid://i26mmjbb5r7y" path="res://scripts/falling_plataform.gd" id="1_wei8p"]
+[ext_resource type="Texture2D" uid="uid://bicp10p23m5oi" path="res://n_assets/n_scenes/elements/elements02.png" id="2_wei8p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wei8p"]
+size = Vector2(70, 11)
+
+[sub_resource type="Animation" id="Animation_wei8p"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_xwdb0"]
+resource_name = "shake"
+length = 0.4
+step = 0.0033
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h2sch"]
+_data = {
+&"RESET": SubResource("Animation_wei8p"),
+&"shake": SubResource("Animation_xwdb0")
+}
+
+[node name="falling-plataform" type="AnimatableBody2D"]
+position = Vector2(1, 0)
+collision_layer = 256
+collision_mask = 8321
+script = ExtResource("1_wei8p")
+
+[node name="colision_falling_plataform" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1.5)
+shape = SubResource("RectangleShape2D_wei8p")
+one_way_collision = true
+
+[node name="respawn_timer" type="Timer" parent="."]
+
+[node name="anime" type="AnimationPlayer" parent="."]
+root_node = NodePath("../respawn_timer")
+libraries = {
+&"": SubResource("AnimationLibrary_h2sch")
+}
+
+[node name="Elements02" type="Sprite2D" parent="."]
+texture = ExtResource("2_wei8p")
+region_enabled = true
+region_rect = Rect2(146, 192, 76, 12)
+
+[connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
