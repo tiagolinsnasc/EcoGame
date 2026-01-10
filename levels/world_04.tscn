@@ -2154,7 +2154,7 @@ position = Vector2(7601, 22)
 position = Vector2(13860, -521)
 
 [node name="Araci" parent="." instance=ExtResource("17_4kf1e")]
-position = Vector2(-2, 84)
+position = Vector2(19088, 450)
 
 [node name="araci_start_position" type="Marker2D" parent="."]
 editor_description = "Permite que o sistema use a localização do Mark2D para posicionar o Player no início do cenário, quando não tiver checkpointe obtido"
@@ -2521,6 +2521,7 @@ dialog_texts = Array[String](["Olá, jovem guerreira.", "Estamos distantes do no
 
 [node name="goal" parent="." instance=ExtResource("44_5gpcm")]
 position = Vector2(19507, 671)
+next_level = "res://levels/world_05.tscn"
 
 [editable path="objects/sand_slow2"]
 [editable path="objects/sand_slow3"]

@@ -2,6 +2,7 @@
 #de variáveis, caso tenha novos nós pode ser implementado aqui, sem problemas
 extends EnemyBase
 
+@export var animal_name = "gafanhoto"
 @onready var anime: AnimatedSprite2D = $anime
 @onready var animator: AnimationPlayer = $animator
 #Scale speed é tipico apenas das aves, é a velocidade vertical

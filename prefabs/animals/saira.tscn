@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://kitekjiuuyqc"]
+[gd_scene load_steps=13 format=3 uid="uid://kitekjiuuyqc"]
 
+[ext_resource type="Script" uid="uid://dpubbj44urk1p" path="res://scripts/peaceful_animals/animal_saira_name.gd" id="1_1qs5w"]
 [ext_resource type="Texture2D" uid="uid://dlgslncfs4pna" path="res://n_assets/n_scenes/elements/saira.png" id="1_m638v"]
+[ext_resource type="AudioStream" uid="uid://de81i63udenml" path="res://sounds/animals/saira_song.ogg" id="2_6sc3p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6sc3p"]
 atlas = ExtResource("1_m638v")
@@ -33,6 +35,9 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5p17"]
 radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sc3p"]
+size = Vector2(72, 43)
 
 [sub_resource type="Animation" id="Animation_tq25w"]
 length = 0.001
@@ -86,9 +91,10 @@ _data = {
 
 [node name="saira" type="Node2D"]
 
-[node name="saira" type="CharacterBody2D" parent="."]
+[node name="saira" type="CharacterBody2D" parent="." groups=["animals"]]
 collision_layer = 8192
 collision_mask = 2
+script = ExtResource("1_1qs5w")
 
 [node name="anime" type="AnimatedSprite2D" parent="saira"]
 scale = Vector2(0.47999817, 0.47999817)
@@ -102,9 +108,25 @@ frame_progress = 0.077936225
 position = Vector2(1, 3)
 shape = SubResource("CircleShape2D_j5p17")
 
+[node name="aux_area" type="Area2D" parent="saira"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="saira/aux_area"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_6sc3p")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)
+
 [node name="animator" type="AnimationPlayer" parent="."]
 root_node = NodePath("../saira")
 libraries = {
 &"": SubResource("AnimationLibrary_pfqbx")
 }
 autoplay = "move"
+
+[node name="saira_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_6sc3p")
+autoplay = true
+max_distance = 800.0
+parameters/looping = true

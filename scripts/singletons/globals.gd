@@ -12,10 +12,13 @@ var flag_grab_one_information = false
 var flag_grab_one_animal_in_trap = false
 var flag_stay_on_sand = false
 
+#Indica que já existe uma mensagem ativa na tela (serve para informações dos inimigos)
+var flag_message_active = false 
+
 #Controle de powerups
-var flag_pw_feroz_enable = false
-var flag_pw_superjump = false
-var flag_pw_teletransport = false
+var flag_pw_feroz_enable = true
+var flag_pw_superjump = true
+var flag_pw_teletransport = true
 
 #Criados para permitir o mecanismo de checkpoint:
 var araci = null #Carregado

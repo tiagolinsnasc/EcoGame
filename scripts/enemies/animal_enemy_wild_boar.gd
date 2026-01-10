@@ -3,6 +3,7 @@
 extends EnemyBase
 
 @onready var anime: AnimatedSprite2D = $anime
+@export var animal_name = "javali"
 
 func play_anim(anime_name: String) -> void:
 	anime.play(anime_name)
@@ -16,3 +17,5 @@ func _on_anime_animation_finished() -> void:
 
 func stomped() -> void:
 	pass
+	
+	

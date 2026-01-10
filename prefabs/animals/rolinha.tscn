@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://k4420xdyqa2f"]
+[gd_scene load_steps=18 format=3 uid="uid://k4420xdyqa2f"]
 
 [ext_resource type="Script" uid="uid://bj7retm0vvjhj" path="res://scripts/rolinha.gd" id="1_b145j"]
 [ext_resource type="Texture2D" uid="uid://c5hy6kx5244rs" path="res://n_assets/n_scenes/elements/rolinha.png" id="1_k2ro5"]
+[ext_resource type="Script" uid="uid://buawvk2g3rlyc" path="res://scripts/peaceful_animals/animal_rolinha_name.gd" id="2_acto3"]
+[ext_resource type="AudioStream" uid="uid://dgf5fiwyf4luc" path="res://sounds/animals/rolinha_wings.ogg" id="3_gwori"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k2ro5"]
 atlas = ExtResource("1_k2ro5")
@@ -70,6 +72,9 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b145j"]
 size = Vector2(123, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwori"]
+size = Vector2(72, 43)
+
 [sub_resource type="Animation" id="Animation_tq25w"]
 length = 0.001
 tracks/0/type = "value"
@@ -122,9 +127,10 @@ _data = {
 [node name="rolinha" type="Node2D"]
 script = ExtResource("1_b145j")
 
-[node name="rolinha" type="CharacterBody2D" parent="."]
+[node name="rolinha" type="CharacterBody2D" parent="." groups=["animals"]]
 collision_layer = 8192
 collision_mask = 2
+script = ExtResource("2_acto3")
 
 [node name="anime" type="AnimatedSprite2D" parent="rolinha"]
 scale = Vector2(0.47999817, 0.47999817)
@@ -144,12 +150,25 @@ shape = SubResource("CircleShape2D_j5p17")
 shape = SubResource("RectangleShape2D_b145j")
 debug_color = Color(0.66042894, 0.4870336, 0.46224105, 0.41960785)
 
+[node name="aux_area" type="Area2D" parent="rolinha"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="rolinha/aux_area"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_gwori")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)
+
 [node name="animator" type="AnimationPlayer" parent="."]
 root_node = NodePath("../rolinha")
 libraries = {
 &"": SubResource("AnimationLibrary_pfqbx")
 }
 autoplay = "onGround_move"
+
+[node name="wings_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gwori")
 
 [connection signal="body_entered" from="rolinha/onFly" to="." method="_on_on_fly_body_entered"]
 [connection signal="animation_finished" from="animator" to="." method="_on_animator_animation_finished"]

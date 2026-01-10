@@ -2,13 +2,13 @@
 #de variáveis, caso tenha novos nós pode ser implementado aqui, sem problemas
 extends EnemyBase
 
+@export var animal_name = "Mainá"
+
 @onready var anime: AnimatedSprite2D = $anime
 @onready var animator: AnimationPlayer = $"../animator"
 #Scale speed é tipico apenas das aves, é a velocidade vertical
 @export var velocity_scale_speed := 0.3
 
-func _ready():
-	animator.speed_scale = velocity_scale_speed
 
 func _physics_process(_delta: float) -> void:
 	pass
@@ -25,3 +25,8 @@ func _on_anime_animation_finished() -> void:
 
 func stomped() -> void:
 	pass
+
+
+func _ready():
+	animator.speed_scale = velocity_scale_speed
+	

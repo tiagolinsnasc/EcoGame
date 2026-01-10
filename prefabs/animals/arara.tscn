@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2d37lp6sidfm"]
+[gd_scene load_steps=13 format=3 uid="uid://d2d37lp6sidfm"]
 
 [ext_resource type="Texture2D" uid="uid://5tql15msm3j5" path="res://n_assets/n_scenes/elements/arara.png" id="1_72oo4"]
+[ext_resource type="Script" uid="uid://fbwuwqffdat4" path="res://scripts/peaceful_animals/animal_arara.gd" id="1_cn6o7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_72oo4"]
 atlas = ExtResource("1_72oo4")
@@ -40,6 +41,9 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5p17"]
 radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72oo4"]
+size = Vector2(33, 31)
 
 [sub_resource type="Animation" id="Animation_tq25w"]
 length = 0.001
@@ -93,9 +97,10 @@ _data = {
 
 [node name="arara" type="Node2D"]
 
-[node name="arara" type="CharacterBody2D" parent="."]
+[node name="arara" type="CharacterBody2D" parent="." groups=["animals"]]
 collision_layer = 8192
 collision_mask = 2
+script = ExtResource("1_cn6o7")
 
 [node name="anime" type="AnimatedSprite2D" parent="arara"]
 sprite_frames = SubResource("SpriteFrames_y5xkv")
@@ -107,6 +112,16 @@ frame_progress = 0.9811111
 [node name="collision" type="CollisionShape2D" parent="arara"]
 position = Vector2(-3, 3)
 shape = SubResource("CircleShape2D_j5p17")
+
+[node name="aux_area" type="Area2D" parent="arara"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="arara/aux_area"]
+position = Vector2(-2.5, 2.5)
+shape = SubResource("RectangleShape2D_72oo4")
+debug_color = Color(0.7921569, 0.42745098, 0.8980392, 0.41960785)
 
 [node name="animator" type="AnimationPlayer" parent="."]
 root_node = NodePath("../arara")

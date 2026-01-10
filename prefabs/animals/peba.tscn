@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl12un8ggjc7g"]
+[gd_scene load_steps=8 format=3 uid="uid://bl12un8ggjc7g"]
 
-[ext_resource type="Script" uid="uid://5spc03ha7onb" path="res://scripts/peaceful_animals/animal_anteater.gd" id="1_gg1ic"]
+[ext_resource type="Script" uid="uid://d4ewoedp1dyr0" path="res://scripts/peaceful_animals/animal_peba.gd" id="1_gg1ic"]
 [ext_resource type="Texture2D" uid="uid://b1blhqq75cfl5" path="res://n_assets/n_scenes/elements/peba.png" id="2_gg1ic"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gg1ic"]
@@ -28,10 +28,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uixwc"]
 size = Vector2(31, 14)
 
-[node name="peba" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gg1ic"]
+size = Vector2(35, 16)
+
+[node name="peba" type="CharacterBody2D" groups=["animals"]]
 collision_layer = 8192
 collision_mask = 256
 script = ExtResource("1_gg1ic")
+animal_name = "tatú-peba"
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4xaqy")
@@ -55,3 +59,13 @@ position = Vector2(1, 1)
 target_position = Vector2(29, 22)
 collision_mask = 256
 hit_from_inside = true
+
+[node name="aux_area" type="Area2D" parent="."]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="aux_area"]
+position = Vector2(2.5, 1)
+shape = SubResource("RectangleShape2D_gg1ic")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)

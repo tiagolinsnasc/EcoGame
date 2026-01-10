@@ -71,6 +71,8 @@ var jump_buffer: float = 0.0
 @onready var ray_right: RayCast2D = $ray_right
 @onready var ray_left: RayCast2D = $ray_left
 @onready var araci_start_position: Marker2D = $"../araci_start_position"
+@onready var curiosity: Area2D = $curiosity
+
 
 var knockback_vector := Vector2.ZERO
 var knockback_power := 20
@@ -103,7 +105,11 @@ func _ready() -> void:
 	jump_velocity = -sqrt(2.0 * gravity * jump_height)
 	#Atualiza a instância de Araci em globals
 	Globals.araci = self
-
+	
+	#Processamento para informações sobre os animais
+	curiosity.area_entered.connect(_on_curiosity_area_entered)
+	curiosity.area_exited.connect(_on_curiosity_area_exited)
+	
 # ============================================================
 # Funções do PET
 # ============================================================
@@ -237,6 +243,7 @@ func _physics_process(delta: float) -> void:
 	# --------------------------------------------------------
 	var input_dir := Input.get_axis("ui_left", "ui_right")
 
+	
 	# Apex bonus → mais controle no topo do pulo
 	var apex: float = clamp(abs(velocity.y) / 200.0, 0.0, 1.0)
 	var apex_speed: float = lerp(apex_bonus, 0.0, apex)
@@ -246,7 +253,8 @@ func _physics_process(delta: float) -> void:
 		if input_dir != 0.0:
 			velocity.x = move_toward(velocity.x, input_dir * (max_speed + apex_speed), acceleration * delta)
 			animation.scale.x = input_dir
-
+			curiosity.scale.x = input_dir #move a área de curiosidade
+			
 			# Cancel window: movimento cancela ataque/tiro
 			if can_cancel and estado in ["shoot", "atack"]:
 				estado = "run"
@@ -325,6 +333,7 @@ func _physics_process(delta: float) -> void:
 		if collision.get_collider().has_method("has_collided_with"):
 			collision.get_collider().has_collided_with(collision, self)
 
+
 	# --------------------------------------------------------
 	# ANIMAÇÕES BASEADAS NO ESTADO
 	# --------------------------------------------------------
@@ -345,6 +354,8 @@ func _physics_process(delta: float) -> void:
 			animation.play("pet_attack")
 		"teleport":
 			animation.play("teleport")
+	
+
 
 
 # ============================================================
@@ -363,7 +374,7 @@ func _start_cancel_window() -> void:
 @onready var hurt_sound: AudioStreamPlayer2D = $hurt_sound
 
 func take_damage(knockback_force := Vector2.ZERO, duration := 0.25) -> void:
-	# ✅ evita dano repetido
+	# evita dano repetido
 	if invincible:
 		return
 
@@ -387,7 +398,7 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25) -> void:
 		queue_free()
 		emit_signal("player_has_died")
 
-	# ✅ aplica knockback
+	# aplica knockback
 	knockback_vector = knockback_force
 
 	# Tween para suavizar knockback e piscada
@@ -523,3 +534,126 @@ func _teleport():
 		estado = "run" if abs(velocity.x) > 10 else "idle"
 	else:
 		estado = "jump"
+
+
+############ INFORMAÇÕES DOS ANIMAIS ######################
+#A lógica de informações dos animais foi centralizada em Araci, os animais requerem uma variável script
+#associada a uma characterBody2d contendo uma aux_area marcada como ly_info (deve colidir com curiosity).
+#Lembrar de colocar os animais no grupo animals (a função requer isso)
+
+#Biblioteca de informações
+var animals_info := {
+	"arara azul": {
+		"descricao": "Arara azul da Mata Atlântica, nativa e símbolo vibrante da biodiversidade.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"boi": {
+		"descricao": "Boi, espécie exótica introduzida, importante na pecuária brasileira.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"caramujo africano": {
+		"descricao": "Caramujo africano, espécie exótica invasora que ameaça ecossistemas locais.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"cobra coral verdadeira": {
+		"descricao": "Cobra coral verdadeira, nativa da Mata Atlântica, venenosa e colorida.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"gafanhoto": {
+		#"descricao": "Gafanhoto, inseto nativo, essencial no equilíbrio ecológico da Caatinga e Mata Atlântica.",
+		"descricao": "Em enxames, os gafanhotos, devastam lavouras e exigem controle químico ou biológico.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"gralha cancão": {
+		"descricao": "Gralha cancão, ave nativa da Caatinga, conhecida pelo canto forte e marcante.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"javali": {
+		"descricao": "Javali, espécie exótica invasora, ameaça cultivos e fauna nativa brasileira.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"macuco": {
+		"descricao": "Macuco, ave nativa da Mata Atlântica, discreta e habitante do sub-bosque.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"mainá": {
+		"descricao": "Mainá, ave exótica introduzida, adaptada a áreas urbanas e agrícolas.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"onça pintada": {
+		"descricao": "Onça pintada, nativa da Mata Atlântica, maior felino das Américas e predador topo.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"raposa da caatinga": {
+		"descricao": "Cachorro-do-mato, ou Raposa da Caatinga é nativa, ágil e adaptada ao clima semiárido do Nordeste.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"rolinha caldo de feijão": {
+		"descricao": "Rolinha caldo de feijão, ave nativa, comum em áreas abertas da Caatinga.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"sabiá de laranjeira": {
+		"descricao": "Sabiá de laranjeira, nativa da Mata Atlântica, ave símbolo do Brasil.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"saira sete cores": {
+		"descricao": "Saíra sete cores, nativa da Mata Atlântica, famosa pela plumagem vibrante.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"tamanduá-bandeira": {
+		"descricao": "Tamanduá-bandeira, nativo da Mata Atlântica e Caatinga, especialista em formigas.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"tatú-peba": {
+		"descricao": "Tatú-peba, nativo da Caatinga, escavador ágil com carapaça resistente.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"teiu": {
+		"descricao": "Teiú, lagarto nativo da Caatinga e Mata Atlântica, robusto e onívoro.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	},
+	"tie sangue": {
+		"descricao": "Tiê-sangue, nativo da Mata Atlântica, ave de plumagem vermelha intensa.",
+		"icone": "res://icon.svg",
+		"tempo": 5.0
+	}
+}
+
+var current_animal_name: String = ""   # guarda o nome do animal mais próximo
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("interact") and current_animal_name != "":
+		var info = animals_info.get(current_animal_name, null)
+		if info != null:
+			var icon = load(info["icone"])
+			if info:
+				Globals.show_side_mensage(info["descricao"], icon, info["tempo"])
+
+func _on_curiosity_area_entered(area: Area2D) -> void:
+	var parent = area.get_parent()
+	if parent.is_in_group("animals") and "animal_name" in parent:
+		current_animal_name = parent.animal_name.to_lower()
+		#print("Araci está perto de:", current_animal_name)
+
+func _on_curiosity_area_exited(area: Area2D) -> void:
+	var parent = area.get_parent()
+	if "animal_name" in parent and parent.is_in_group("animals") and parent.animal_name.to_lower() == current_animal_name:
+		current_animal_name = ""
+		#print("Araci se afastou do animal")

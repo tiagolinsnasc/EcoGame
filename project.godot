@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Araci"
-run/main_scene="uid://b4ac07chpkwuh"
+run/main_scene="uid://dcm32gwaqyk48"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -30,6 +30,7 @@ window/stretch/mode="viewport"
 
 enemies="Grupo de inimigos"
 player_stomp=""
+animals=""
 
 [input]
 
@@ -91,6 +92,7 @@ teleport={
 2d_physics/layer_13="ly_camera_zone"
 2d_physics/layer_14="ly_animals"
 2d_physics/layer_15="ly_reserved"
+2d_physics/layer_16="ly_info"
 
 [rendering]
 

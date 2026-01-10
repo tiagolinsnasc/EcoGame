@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://nqgw18mplheq"]
+[gd_scene load_steps=10 format=3 uid="uid://nqgw18mplheq"]
 
-[ext_resource type="Script" uid="uid://dh6qlibvgpvne" path="res://scripts/enemies/animal_enemy_wild_boar.gd" id="1_o3w5c"]
+[ext_resource type="Script" uid="uid://d1f53g7t5l4j3" path="res://scripts/enemies/animal_enemy_african_snail.gd" id="1_o3w5c"]
 [ext_resource type="Texture2D" uid="uid://bhv6hfml54b4h" path="res://n_assets/n_scenes/elements/african_snail.png" id="2_o3w5c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ossi"]
@@ -49,11 +49,13 @@ height = 24.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrgn4"]
 size = Vector2(28.5, 17)
 
-[node name="african_snail" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3w5c"]
+size = Vector2(33, 31)
+
+[node name="african_snail" type="CharacterBody2D" groups=["animals", "enemies"]]
 collision_layer = 16
 collision_mask = 257
 script = ExtResource("1_o3w5c")
-speed = 200.0
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5snv5")
@@ -87,3 +89,13 @@ collision_mask = 2
 position = Vector2(1.75, 6.5)
 shape = SubResource("RectangleShape2D_qrgn4")
 debug_color = Color(0.90198725, 0.028006515, 0.7500692, 0.41960785)
+
+[node name="aux_area" type="Area2D" parent="."]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="aux_area"]
+position = Vector2(-2.5, 2.5)
+shape = SubResource("RectangleShape2D_o3w5c")
+debug_color = Color(0.7921569, 0.42745098, 0.8980392, 0.41960785)

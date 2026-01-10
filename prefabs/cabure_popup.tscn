@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjp0412nixqac"]
+[gd_scene load_steps=6 format=3 uid="uid://bjp0412nixqac"]
 
 [ext_resource type="Texture2D" uid="uid://bqfhn41q87u1j" path="res://n_assets/n_scenes/elements/cabure.png" id="1_86322"]
 [ext_resource type="Script" uid="uid://bi5wr0he3m4ip" path="res://scripts/hit_pop.gd" id="2_g3tjt"]
+[ext_resource type="AudioStream" uid="uid://b603jkynfouju" path="res://sounds/animals/cabure_song.ogg" id="3_g3tjt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vmtb"]
 size = Vector2(12, 13.5)
@@ -30,5 +31,12 @@ dialog_texts = Array[String](["Yaguareté, nossa protetora, foi morta, provavelm
 position = Vector2(7.500061, 18.450073)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_4ub3r")
+
+[node name="cabure_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_g3tjt")
+volume_db = -23.223
+autoplay = true
+max_distance = 500.0
+parameters/looping = true
 
 [connection signal="body_entered" from="hit_pop" to="hit_pop" method="_on_body_entered"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://jf3dqnoiq35n"]
+[gd_scene load_steps=8 format=3 uid="uid://jf3dqnoiq35n"]
 
-[ext_resource type="Script" uid="uid://5spc03ha7onb" path="res://scripts/peaceful_animals/animal_anteater.gd" id="1_kt1tq"]
+[ext_resource type="Script" uid="uid://clugt0ilyv8mj" path="res://scripts/peaceful_animals/peaceful_animals_base.gd" id="1_kt1tq"]
 [ext_resource type="Texture2D" uid="uid://bdnb5v7avko8t" path="res://n_assets/n_scenes/elements/fox.png" id="2_kt1tq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kt1tq"]
@@ -28,10 +28,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uixwc"]
 size = Vector2(50, 26.25)
 
-[node name="fox" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt1tq"]
+size = Vector2(72, 43)
+
+[node name="fox" type="CharacterBody2D" groups=["animals"]]
 collision_layer = 8192
 collision_mask = 256
 script = ExtResource("1_kt1tq")
+animal_name = "raposa da caatinga"
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4xaqy")
@@ -55,3 +59,13 @@ position = Vector2(1, 1)
 target_position = Vector2(29, 22)
 collision_mask = 256
 hit_from_inside = true
+
+[node name="aux_area" type="Area2D" parent="."]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="aux_area"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_kt1tq")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)

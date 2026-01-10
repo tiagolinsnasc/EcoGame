@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://byaex8827x8m6"]
+
+[ext_resource type="Script" uid="uid://vagiyt5f7ea2" path="res://scripts/info_animal.gd" id="1_f1exe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vntg7"]
+size = Vector2(116, 957)
+
+[node name="get_info" type="Node2D"]
+editor_description = "Área invisível utilizada para mostrar informações sobre os animais e outros ítens do jogo."
+script = ExtResource("1_f1exe")
+
+[node name="area_info" type="Area2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="area_info"]
+position = Vector2(49, -369.5)
+shape = SubResource("RectangleShape2D_vntg7")
+debug_color = Color(0.043868177, 0.04420446, 0.03207392, 0.41960785)
+
+[connection signal="body_entered" from="area_info" to="." method="_on_area_info_body_entered"]

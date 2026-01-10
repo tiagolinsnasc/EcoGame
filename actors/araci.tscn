@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://ba3xbkuiqhtyn"]
+[gd_scene load_steps=59 format=3 uid="uid://ba3xbkuiqhtyn"]
 
 [ext_resource type="Script" uid="uid://bb2ju11ra7y1h" path="res://scripts/araci.gd" id="1_wp837"]
 [ext_resource type="Texture2D" uid="uid://dsakuawpkov3a" path="res://n_assets/n_tiles_actors/Araci_machado.png" id="2_mtxgc"]
@@ -399,10 +399,13 @@ size = Vector2(31, 1.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_422x3"]
 size = Vector2(32, 50)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2safi"]
+size = Vector2(156, 78)
+
 [node name="Araci" type="CharacterBody2D"]
-collision_mask = 2448
+collision_mask = 35216
 script = ExtResource("1_wp837")
-teleport_distance = 128.0
+teleport_distance = 200.0
 
 [node name="animator" type="AnimationPlayer" parent="."]
 
@@ -466,6 +469,14 @@ stream = ExtResource("8_5ifwc")
 
 [node name="teleport" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_2safi")
+
+[node name="curiosity" type="Area2D" parent="."]
+collision_mask = 32768
+
+[node name="collision" type="CollisionShape2D" parent="curiosity"]
+position = Vector2(61, -13)
+shape = SubResource("RectangleShape2D_2safi")
+debug_color = Color(0.077518396, 0.081537865, 0.08419029, 0.41960785)
 
 [connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
 [connection signal="body_entered" from="stompbox" to="stompbox" method="_on_body_entered"]

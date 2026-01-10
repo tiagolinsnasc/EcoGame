@@ -6,6 +6,7 @@ var is_active = false
 
 #Imagem da arvore
 var tree_image := preload("res://n_assets/n_scenes/elements/checkPointIcon.png")
+@onready var collect_sound: AudioStreamPlayer2D = $collect_sound
 
 func _on_body_entered(body: Node2D):
 	if body.name != "Araci" or is_active:
@@ -17,7 +18,8 @@ func _on_body_entered(body: Node2D):
 		Globals.flag_grab_one_checkpoint = true
 
 func activate_checkpoit():
-	print("Araci entrou")
+	print("Pegou chekpoint")
+	collect_sound.play()
 	Globals.current_checkpoint = position_checkpoint
 	anime.play("rising")
 	is_active = true

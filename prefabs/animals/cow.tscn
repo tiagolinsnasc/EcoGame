@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://chcxpiv3gxllw"]
+[gd_scene load_steps=10 format=3 uid="uid://chcxpiv3gxllw"]
 
 [ext_resource type="Script" uid="uid://5spc03ha7onb" path="res://scripts/peaceful_animals/animal_anteater.gd" id="1_f4due"]
 [ext_resource type="Texture2D" uid="uid://bfsyssr4oybit" path="res://n_assets/n_scenes/elements/cow.png" id="2_f4due"]
@@ -34,10 +34,14 @@ size = Vector2(111, 74)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q82a1"]
 size = Vector2(455, 32)
 
-[node name="cow" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4lry6"]
+size = Vector2(120, 80)
+
+[node name="cow" type="CharacterBody2D" groups=["animals", "enemies"]]
 collision_layer = 8208
 collision_mask = 257
 script = ExtResource("1_f4due")
+animal_name = "boi"
 SPEED = 2000.0
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
@@ -80,6 +84,16 @@ collision_mask = 129
 [node name="detector" type="CollisionShape2D" parent="detect"]
 position = Vector2(3.5, 13)
 shape = SubResource("RectangleShape2D_q82a1")
+
+[node name="aux_area" type="Area2D" parent="."]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="aux_area"]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_4lry6")
+debug_color = Color(0.61000425, 0.6385198, 0.071236975, 0.41960785)
 
 [connection signal="body_entered" from="detect" to="." method="_on_detect_body_entered"]
 [connection signal="body_exited" from="detect" to="." method="_on_detect_body_exited"]

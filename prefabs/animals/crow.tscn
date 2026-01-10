@@ -1,0 +1,177 @@
+[gd_scene load_steps=18 format=3 uid="uid://qtcnw8gg1rnf"]
+
+[ext_resource type="Texture2D" uid="uid://di5684e5v22m4" path="res://n_assets/n_scenes/elements/crow.png" id="1_iaqsq"]
+[ext_resource type="Script" uid="uid://5g3mrnnkavgy" path="res://scripts/peaceful_animals/animal_crow.gd" id="1_wwybk"]
+[ext_resource type="Script" uid="uid://b60vx0h15q5c3" path="res://scripts/peaceful_animals/animal_crow_name.gd" id="2_6n0ph"]
+[ext_resource type="AudioStream" uid="uid://c47wioroab48k" path="res://sounds/animals/crow_song.ogg" id="3_068pi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwybk"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_068pi"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n0ph"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55bbm"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm6cy"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(0, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yff2v"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(40, 40, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8rfa"]
+atlas = ExtResource("1_iaqsq")
+region = Rect2(80, 40, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y5xkv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwybk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_068pi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n0ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55bbm")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm6cy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yff2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8rfa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j5p17"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_068pi"]
+size = Vector2(25, 21)
+
+[sub_resource type="Animation" id="Animation_6n0ph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_068pi"]
+resource_name = "fly_route"
+length = 8.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3666667, 7.98),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(78, 13), Vector2(668, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 7.98),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(-1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_55bbm"]
+_data = {
+&"RESET": SubResource("Animation_6n0ph"),
+&"fly_route": SubResource("Animation_068pi")
+}
+
+[node name="crow" type="Node2D"]
+script = ExtResource("1_wwybk")
+animal_name = "gralha cancão"
+
+[node name="crow" type="CharacterBody2D" parent="." groups=["animals"]]
+scale = Vector2(-1, 1)
+collision_layer = 8192
+collision_mask = 2
+script = ExtResource("2_6n0ph")
+
+[node name="anime" type="AnimatedSprite2D" parent="crow"]
+scale = Vector2(0.47999817, 0.47999817)
+sprite_frames = SubResource("SpriteFrames_y5xkv")
+animation = &"fly"
+
+[node name="collision" type="CollisionShape2D" parent="crow"]
+position = Vector2(1, 3)
+shape = SubResource("CircleShape2D_j5p17")
+
+[node name="aux_area" type="Area2D" parent="crow"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="crow/aux_area"]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_068pi")
+debug_color = Color(0.39596388, 0.65104973, 0.6993981, 0.41960785)
+
+[node name="crow_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_068pi")
+autoplay = true
+max_distance = 1000.0
+parameters/looping = true
+
+[node name="animation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../crow")
+libraries = {
+&"": SubResource("AnimationLibrary_55bbm")
+}

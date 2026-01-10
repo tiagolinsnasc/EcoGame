@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=4 uid="uid://b4ac07chpkwuh"]
+[gd_scene load_steps=89 format=4 uid="uid://b4ac07chpkwuh"]
 
 [ext_resource type="Script" uid="uid://rrcccix26aeh" path="res://scripts/world.gd" id="1_gmex4"]
 [ext_resource type="Texture2D" uid="uid://cfmvolocmwr6i" path="res://n_assets/n_scenes/bgs/5 - Sky_color.png" id="2_gmex4"]
@@ -25,7 +25,9 @@
 [ext_resource type="PackedScene" uid="uid://c738o3mpr3is3" path="res://prefabs/goal.tscn" id="26_15tky"]
 [ext_resource type="PackedScene" uid="uid://bs7xct0fss16l" path="res://prefabs/animals/anteater.tscn" id="27_qh8on"]
 [ext_resource type="PackedScene" uid="uid://be7p8k1o2ya7p" path="res://prefabs/spikes_area.tscn" id="29_7k4mt"]
+[ext_resource type="PackedScene" uid="uid://kitekjiuuyqc" path="res://prefabs/animals/saira.tscn" id="29_ud1nb"]
 [ext_resource type="PackedScene" uid="uid://dienyhwvyyjae" path="res://prefabs/fallzone.tscn" id="30_14a6h"]
+[ext_resource type="PackedScene" uid="uid://x1yhxbdj4y7t" path="res://prefabs/animals/sabia.tscn" id="30_lqgom"]
 [ext_resource type="PackedScene" uid="uid://fp2fluhv4tkl" path="res://prefabs/interface.tscn" id="32_0uwfl"]
 [ext_resource type="PackedScene" uid="uid://dqt0jckn53c02" path="res://prefabs/animals/tie.tscn" id="34_ud1nb"]
 [ext_resource type="PackedScene" uid="uid://d2ux85q33ohvw" path="res://actors/yaguarete.tscn" id="35_lqgom"]
@@ -1634,7 +1636,7 @@ position = Vector2(8138, 194)
 dialog_texts = Array[String](["Olá, aventureira!", "Yaguareté, nossa protetora, foi morta, provavelmente por caçadores.", "Pare os invasores e continue coletando as avidências.", "A floresta precisa de você!"])
 
 [node name="Araci" parent="." instance=ExtResource("13_brbtt")]
-position = Vector2(-95, 153)
+position = Vector2(-47, 170)
 
 [node name="araci_start_position" type="Marker2D" parent="."]
 editor_description = "Permite que o sistema use a localização do Mark2D para posicionar o Player no início do cenário, quando não tiver checkpointe obtido"
@@ -2031,6 +2033,18 @@ position = Vector2(7704, 247)
 [node name="anteater2" parent="peaceful_animals" instance=ExtResource("27_qh8on")]
 position = Vector2(4596, 198)
 
+[node name="saira" parent="peaceful_animals" instance=ExtResource("29_ud1nb")]
+position = Vector2(3899, -17)
+
+[node name="saira2" parent="peaceful_animals" instance=ExtResource("29_ud1nb")]
+position = Vector2(6197, -103)
+
+[node name="sabia" parent="peaceful_animals" instance=ExtResource("30_lqgom")]
+position = Vector2(7391, -60)
+
+[node name="sabia2" parent="peaceful_animals" instance=ExtResource("30_lqgom")]
+position = Vector2(4834, -94)
+
 [node name="spikes_area" parent="." instance=ExtResource("29_7k4mt")]
 position = Vector2(2863, 246)
 
@@ -2050,6 +2064,8 @@ debug_color = Color(0.6333662, 0.52785146, 0.058974892, 0.41960785)
 position = Vector2(8275, 251)
 collision_layer = 8192
 collision_mask = 256
+
+[node name="informations" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="popup/hit_pop" to="popup/hit_pop" method="_on_body_entered"]
 [connection signal="body_entered" from="popup/first_contact" to="popup/first_contact" method="_on_body_entered"]

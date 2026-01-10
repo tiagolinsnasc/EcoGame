@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://frp3ffhtt8li"]
+[gd_scene load_steps=17 format=3 uid="uid://frp3ffhtt8li"]
 
 [ext_resource type="Texture2D" uid="uid://fhmskuwye5q8" path="res://n_assets/n_scenes/elements/estorninho.png" id="1_433o2"]
 [ext_resource type="Script" uid="uid://dkr1q4mfbn2e7" path="res://scripts/enemies/animal_enemy_maina.gd" id="1_cj5fn"]
 [ext_resource type="Texture2D" uid="uid://dh517b6h4o20p" path="res://n_assets/n_scenes/elements/estorninhoHurt.png" id="2_cj5fn"]
+[ext_resource type="AudioStream" uid="uid://bedxylvmai4bh" path="res://sounds/animals/maina_song.ogg" id="4_hlw78"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0xqj"]
 atlas = ExtResource("1_433o2")
@@ -54,6 +55,9 @@ size = Vector2(18, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cj5fn"]
 size = Vector2(28, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlw78"]
+size = Vector2(29.5, 20.5)
+
 [sub_resource type="Animation" id="Animation_172ag"]
 length = 0.001
 tracks/0/type = "value"
@@ -95,7 +99,7 @@ _data = {
 
 [node name="maina" type="Node2D"]
 
-[node name="maina" type="CharacterBody2D" parent="."]
+[node name="maina" type="CharacterBody2D" parent="." groups=["animals", "enemies"]]
 editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox. Speed só funciona para seres terrestres, para aumentar a velocidade alterar o spped scale do animator"
 collision_layer = 16
 collision_mask = 258
@@ -121,11 +125,23 @@ shape = SubResource("RectangleShape2D_kxv7g")
 debug_color = Color(0.9394873, 1.5209317e-05, 0.6213183, 0.41960785)
 
 [node name="enemy_hitbox" type="Area2D" parent="maina"]
+collision_layer = 32
+collision_mask = 2
 
 [node name="collision" type="CollisionShape2D" parent="maina/enemy_hitbox"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_cj5fn")
 debug_color = Color(0.93344843, 0.15352938, 0.523355, 0.41960785)
+
+[node name="aux_area" type="Area2D" parent="maina"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="maina/aux_area"]
+position = Vector2(0.25, 3.25)
+shape = SubResource("RectangleShape2D_hlw78")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)
 
 [node name="spawn_enemy" type="Marker2D" parent="."]
 
@@ -135,3 +151,9 @@ libraries = {
 }
 autoplay = "flying"
 speed_scale = 0.3
+
+[node name="maina_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hlw78")
+autoplay = true
+max_distance = 800.0
+parameters/looping = true

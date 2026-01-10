@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cv3d74gba7jjh"]
+[gd_scene load_steps=11 format=3 uid="uid://cv3d74gba7jjh"]
 
 [ext_resource type="Script" uid="uid://clugt0ilyv8mj" path="res://scripts/peaceful_animals/peaceful_animals_base.gd" id="1_oe6fq"]
 [ext_resource type="Texture2D" uid="uid://dypquwg3qxr3s" path="res://n_assets/n_scenes/elements/jaguar_walk.png" id="2_xqbia"]
@@ -48,13 +48,17 @@ _data = {
 &"roar": SubResource("Animation_jgido")
 }
 
-[node name="jaguar" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rskld"]
+size = Vector2(72, 43)
+
+[node name="jaguar" type="CharacterBody2D" groups=["animals"]]
 editor_description = "O sprite está virado para o lado contrários aos Raycasts, no entanto a animação começa para a esquerda, mesma direção dos Raycasts"
 z_index = 100
 collision_layer = 8192
 collision_mask = 256
 slide_on_ceiling = false
 script = ExtResource("1_oe6fq")
+animal_name = "onça pintada"
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pxe51")
@@ -89,3 +93,13 @@ volume_db = 2.773
 autoplay = true
 max_distance = 660.0
 parameters/looping = true
+
+[node name="aux_area" type="Area2D" parent="."]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="aux_area"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_rskld")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)

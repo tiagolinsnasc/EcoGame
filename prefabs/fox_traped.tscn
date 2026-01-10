@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck7g1uishorpa"]
+
+[ext_resource type="Script" uid="uid://dp2r5j1e12x3f" path="res://scripts/animal_traped.gd" id="1_8i7lw"]
+[ext_resource type="Texture2D" uid="uid://cvr6tut1wqvdn" path="res://n_assets/n_scenes/elements/fox_trap.png" id="2_8i7lw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktmnm"]
+atlas = ExtResource("2_8i7lw")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5klgt"]
+atlas = ExtResource("2_8i7lw")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h43th"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktmnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5klgt")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toovc"]
+size = Vector2(52, 31)
+
+[node name="fox_traped" type="Node2D"]
+script = ExtResource("1_8i7lw")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_h43th")
+animation = &"move"
+autoplay = "move"
+frame_progress = 0.37329966
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 512
+
+[node name="body" type="CollisionShape2D" parent="area"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_toovc")
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]

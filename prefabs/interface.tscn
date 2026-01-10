@@ -172,6 +172,7 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="HUD/control/notification_box/NinePatchRect/HBoxContainer"]
 custom_minimum_size = Vector2(145, 40)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/line_spacing = -6
 theme_override_font_sizes/font_size = 11
 text = "Você coletou uma evidência! Elas são importantes para finalizar a fase."

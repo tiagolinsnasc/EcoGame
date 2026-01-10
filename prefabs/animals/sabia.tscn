@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://x1yhxbdj4y7t"]
+[gd_scene load_steps=13 format=3 uid="uid://x1yhxbdj4y7t"]
 
+[ext_resource type="Script" uid="uid://ceejr6bpe8cby" path="res://scripts/peaceful_animals/animal_sabia_name.gd" id="1_peb76"]
 [ext_resource type="Texture2D" uid="uid://2nkcx4e6mgx" path="res://n_assets/n_scenes/elements/sabia.png" id="1_tq25w"]
+[ext_resource type="AudioStream" uid="uid://b2tcevhwk6hk3" path="res://sounds/animals/sabia_laranjeira.ogg" id="2_1tq73"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1tq73"]
 atlas = ExtResource("1_tq25w")
@@ -33,6 +35,9 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5p17"]
 radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tq73"]
+size = Vector2(72, 43)
 
 [sub_resource type="Animation" id="Animation_tq25w"]
 length = 0.001
@@ -86,9 +91,10 @@ _data = {
 
 [node name="sabia" type="Node2D"]
 
-[node name="sabia" type="CharacterBody2D" parent="."]
+[node name="sabia" type="CharacterBody2D" parent="." groups=["animals"]]
 collision_layer = 8192
 collision_mask = 2
+script = ExtResource("1_peb76")
 
 [node name="anime" type="AnimatedSprite2D" parent="sabia"]
 scale = Vector2(0.47999817, 0.47999817)
@@ -102,9 +108,25 @@ frame_progress = 0.30702567
 position = Vector2(1, 3)
 shape = SubResource("CircleShape2D_j5p17")
 
+[node name="aux_area" type="Area2D" parent="sabia"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="sabia/aux_area"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_1tq73")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)
+
 [node name="animator" type="AnimationPlayer" parent="."]
 root_node = NodePath("../sabia")
 libraries = {
 &"": SubResource("AnimationLibrary_pfqbx")
 }
 autoplay = "move"
+
+[node name="sabia_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_1tq73")
+volume_db = -12.117
+autoplay = true
+parameters/looping = true

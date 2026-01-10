@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhr78op1qxo35"]
+[gd_scene load_steps=10 format=3 uid="uid://dhr78op1qxo35"]
 
 [ext_resource type="Script" uid="uid://dh6qlibvgpvne" path="res://scripts/enemies/animal_enemy_wild_boar.gd" id="1_2wjfe"]
 [ext_resource type="Texture2D" uid="uid://c1dul03fwq2ir" path="res://n_assets/n_scenes/elements/wild_boar_run.png" id="3_h286j"]
+[ext_resource type="AudioStream" uid="uid://b522vmbvkc8sr" path="res://sounds/animals/wild_boar.ogg" id="3_p4edo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x5q3x"]
 atlas = ExtResource("3_h286j")
@@ -42,7 +43,10 @@ height = 54.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrgn4"]
 size = Vector2(61, 38)
 
-[node name="wild_boar" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4edo"]
+size = Vector2(63, 40)
+
+[node name="wild_boar" type="CharacterBody2D" groups=["animals", "enemies"]]
 collision_layer = 16
 collision_mask = 257
 script = ExtResource("1_2wjfe")
@@ -79,3 +83,20 @@ collision_mask = 2
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_qrgn4")
 debug_color = Color(0.90198725, 0.028006515, 0.7500692, 0.41960785)
+
+[node name="wild_boar_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_p4edo")
+autoplay = true
+max_distance = 500.0
+attenuation = 0.9012505
+parameters/looping = true
+
+[node name="aux_area" type="Area2D" parent="."]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="aux_area"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_p4edo")
+debug_color = Color(0.39596388, 0.65104973, 0.6993981, 0.41960785)

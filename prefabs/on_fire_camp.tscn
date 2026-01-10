@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgmeycxf7gsi6"]
+[gd_scene load_steps=11 format=3 uid="uid://bgmeycxf7gsi6"]
 
 [ext_resource type="Texture2D" uid="uid://cnpg7mu7xfg0h" path="res://n_assets/n_scenes/elements/compfire.png" id="1_o5k8e"]
 [ext_resource type="Script" uid="uid://cgiyqnsp5spsb" path="res://scripts/fire_off.gd" id="1_q2vo2"]
 [ext_resource type="Texture2D" uid="uid://8vxpuaw7j10p" path="res://n_assets/n_scenes/elements/off_compfire.png" id="2_58ikw"]
+[ext_resource type="AudioStream" uid="uid://c0dw1jd5vyxdx" path="res://sounds/system/fire.ogg" id="4_bvpmw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qpob"]
 size = Vector2(55, 30)
@@ -59,6 +60,13 @@ score = 150
 position = Vector2(-0.5, -1)
 shape = SubResource("RectangleShape2D_6qpob")
 debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="fire_sound" type="AudioStreamPlayer2D" parent="fire_off_area"]
+stream = ExtResource("4_bvpmw")
+volume_db = 2.02
+autoplay = true
+max_distance = 200.0
+parameters/looping = true
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jsfuh")
