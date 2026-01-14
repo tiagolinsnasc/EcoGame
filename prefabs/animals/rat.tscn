@@ -41,7 +41,7 @@ radius = 7.0
 height = 24.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrgn4"]
-size = Vector2(42, 16)
+size = Vector2(30, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3w5c"]
 size = Vector2(46, 20)
@@ -60,7 +60,7 @@ frame = 1
 frame_progress = 0.822185
 
 [node name="body" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2(0, -2)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_tbcpb")
 
@@ -77,18 +77,17 @@ collision_mask = 256
 hit_from_inside = true
 
 [node name="enemy_hitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 32
 collision_mask = 2
 
 [node name="collision" type="CollisionShape2D" parent="enemy_hitbox"]
-position = Vector2(-1, -1)
+z_index = 5
+position = Vector2(5, -1)
 shape = SubResource("RectangleShape2D_qrgn4")
 debug_color = Color(0.90198725, 0.028006515, 0.7500692, 0.41960785)
 
 [node name="aux_area" type="Area2D" parent="."]
 editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
-visible = false
 collision_layer = 32768
 collision_mask = 2
 

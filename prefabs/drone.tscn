@@ -1,11 +1,52 @@
-[gd_scene load_steps=18 format=3 uid="uid://o7bv3h7sv70y"]
+[gd_scene load_steps=30 format=3 uid="uid://o7bv3h7sv70y"]
 
 [ext_resource type="Script" uid="uid://b81xk14dpsmpi" path="res://scripts/enemies/enemy_drone.gd" id="1_xrf1e"]
 [ext_resource type="Texture2D" uid="uid://dus568dvh23q" path="res://n_assets/n_scenes/elements/drone.png" id="2_xrf1e"]
 [ext_resource type="AudioStream" uid="uid://b4i56nj05q5by" path="res://sounds/enemies/drone.ogg" id="3_t5og5"]
+[ext_resource type="AudioStream" uid="uid://bnhonyg6ek11y" path="res://sounds/enemies/explosion.ogg" id="4_kxjgf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qpob"]
 size = Vector2(42, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xn7l"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(0, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipd0o"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(60, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvp1s"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(120, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syctm"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(180, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6xa6"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(240, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrq4r"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(300, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pioal"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(360, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6k22"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(420, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd2hp"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(480, 300, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ben2o"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(120, 300, 60, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5og5"]
 atlas = ExtResource("2_xrf1e")
@@ -23,17 +64,29 @@ region = Rect2(0, 100, 60, 50)
 atlas = ExtResource("2_xrf1e")
 region = Rect2(60, 100, 60, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xrf1e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqht6"]
 atlas = ExtResource("2_xrf1e")
 region = Rect2(0, 50, 60, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mqht6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_imsfi"]
 atlas = ExtResource("2_xrf1e")
 region = Rect2(60, 50, 60, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_imsfi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8qxk"]
 atlas = ExtResource("2_xrf1e")
 region = Rect2(120, 50, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3whm"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(0, 250, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yomat"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(60, 250, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i08kc"]
+atlas = ExtResource("2_xrf1e")
+region = Rect2(120, 250, 60, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o8u5i"]
 atlas = ExtResource("2_xrf1e")
@@ -43,16 +96,48 @@ region = Rect2(0, 200, 60, 50)
 atlas = ExtResource("2_xrf1e")
 region = Rect2(60, 200, 60, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6xn7l"]
-atlas = ExtResource("2_xrf1e")
-region = Rect2(0, 150, 60, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ipd0o"]
-atlas = ExtResource("2_xrf1e")
-region = Rect2(60, 150, 60, 50)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_jsfuh"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xn7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipd0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvp1s")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_syctm")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_c6xa6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrq4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pioal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6k22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bd2hp")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ben2o")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t5og5")
@@ -61,7 +146,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_kxjgf")
 }],
 "loop": true,
-"name": &"fly",
+"name": &"fly_controlled",
 "speed": 5.0
 }, {
 "frames": [{
@@ -72,21 +157,35 @@ animations = [{
 "texture": SubResource("AtlasTexture_hk1ke")
 }],
 "loop": true,
-"name": &"follow",
+"name": &"fly_on_independent",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xrf1e")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mqht6")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_imsfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8qxk")
 }],
 "loop": true,
-"name": &"search",
+"name": &"idle_on_controlled",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3whm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yomat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i08kc")
+}],
+"loop": true,
+"name": &"idle_on_independent",
 "speed": 1.0
 }, {
 "frames": [{
@@ -99,23 +198,13 @@ animations = [{
 "loop": false,
 "name": &"shake",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6xn7l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ipd0o")
-}],
-"loop": true,
-"name": &"target",
-"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrf1e"]
 radius = 268.02985
 
 [node name="drone" type="Node2D"]
+editor_description = "Deve estar dentro do n do controlador para morrer quando o controlador morrer. Se for de um controlador dentro de um grupo (boss_squad) ele também deve estar no grupo, não apenas o pai."
 script = ExtResource("1_xrf1e")
 
 [node name="damage_area" type="Area2D" parent="."]
@@ -129,8 +218,7 @@ debug_color = Color(0.972549, 0, 0.3137255, 0.41960785)
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jsfuh")
-animation = &"shake"
-autoplay = "fly"
+animation = &"explosion"
 
 [node name="detect_area" type="Area2D" parent="."]
 collision_layer = 2048
@@ -147,6 +235,11 @@ stream = ExtResource("3_t5og5")
 autoplay = true
 max_distance = 500.0
 parameters/looping = true
+
+[node name="explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_kxjgf")
+volume_db = 5.049
+max_distance = 1000.0
 
 [connection signal="area_entered" from="damage_area" to="." method="_on_damage_area_area_entered"]
 [connection signal="area_entered" from="detect_area" to="." method="_on_detect_area_area_entered"]

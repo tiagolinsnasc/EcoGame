@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://cve5riwke1137"]
+
+[ext_resource type="Script" uid="uid://bpcdkcfgjwqpo" path="res://scripts/enemies/enemy_drone_controller.gd" id="1_hlpqr"]
+[ext_resource type="Texture2D" uid="uid://dwqqyd7xgnbf0" path="res://n_assets/n_tiles_actors/drone_controller.png" id="2_hlpqr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joq88"]
+atlas = ExtResource("2_hlpqr")
+region = Rect2(320, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1gi0"]
+atlas = ExtResource("2_hlpqr")
+region = Rect2(384, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y6h8"]
+atlas = ExtResource("2_hlpqr")
+region = Rect2(448, 448, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s64gy"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"hurt",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joq88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1gi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y6h8")
+}],
+"loop": true,
+"name": &"standing",
+"speed": 1.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ynqkg"]
+height = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0fep"]
+size = Vector2(22, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qa0um"]
+size = Vector2(22, 6)
+
+[node name="drone_controller" type="CharacterBody2D" groups=["enemies"]]
+editor_description = "Controlador de drone. Pode ter mais de um drone controlado, basta adicionar o drone como filho deste nó."
+collision_layer = 16
+collision_mask = 256
+script = ExtResource("1_hlpqr")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s64gy")
+animation = &"standing"
+autoplay = "standing"
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("CapsuleShape2D_ynqkg")
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 25)
+target_position = Vector2(25, 0)
+collision_mask = 256
+hit_from_inside = true
+
+[node name="ground_detector" type="RayCast2D" parent="."]
+position = Vector2(0, 25)
+target_position = Vector2(18, 9)
+collision_mask = 256
+
+[node name="enemy_hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_a0fep")
+debug_color = Color(0.86362183, 0.15356258, 0.7897774, 0.41960785)
+
+[node name="enemy_head" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="enemy_head"]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_qa0um")
+debug_color = Color(0, 0.63529414, 0.16862746, 0.41960785)
+
+[connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
+[connection signal="area_entered" from="enemy_head" to="." method="_on_enemy_head_area_entered"]

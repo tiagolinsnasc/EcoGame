@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Araci"
-run/main_scene="uid://b4ac07chpkwuh"
+run/main_scene="uid://dcm32gwaqyk48"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -31,6 +31,8 @@ window/stretch/mode="viewport"
 enemies="Grupo de inimigos"
 player_stomp=""
 animals=""
+boss_squad="Grupo dos inimigos que voltam quando o player morre no final, antes de matar o boos."
+player="Contém apenas o player, para facilitar ações."
 
 [input]
 
@@ -93,6 +95,8 @@ teleport={
 2d_physics/layer_14="ly_animals"
 2d_physics/layer_15="ly_reserved"
 2d_physics/layer_16="ly_info"
+2d_physics/layer_17="truck"
+2d_physics/layer_20="layer 20"
 
 [rendering]
 

@@ -673,6 +673,11 @@ var animals_info := {
 	"descricao": "Rato doméstico, pequeno roedor urbano, adaptável e associado a ambientes humanos.",
 	"icone": "res://icon.svg",
 	"tempo": 3.0
+	},
+	"pombo": {
+	"descricao": "Pombos-domésticos, são considerados uma praga urbana, um risco à saúde pública",
+	"icone": "res://icon.svg",
+	"tempo": 3.0
 	}
 }
 

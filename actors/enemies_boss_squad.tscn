@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://d31orbgbmlrt6"]
+
+[ext_resource type="PackedScene" uid="uid://b3yywnh2pcj1d" path="res://actors/dt_boss.tscn" id="1_qsj1r"]
+[ext_resource type="PackedScene" uid="uid://3yl7x7apjdgw" path="res://actors/female_guard.tscn" id="2_klo2y"]
+[ext_resource type="PackedScene" uid="uid://cwwnffua10aeo" path="res://actors/shooter.tscn" id="3_p5ic6"]
+[ext_resource type="PackedScene" uid="uid://cfsgj11b2edkd" path="res://actors/lumberjack.tscn" id="4_2msg8"]
+[ext_resource type="PackedScene" uid="uid://dwy76msdh12gq" path="res://actors/miner.tscn" id="5_fhnb5"]
+[ext_resource type="PackedScene" uid="uid://b4tm6lbvn4p23" path="res://prefabs/animals/rat.tscn" id="6_cl3ng"]
+[ext_resource type="PackedScene" uid="uid://cnrioc3pxgi53" path="res://prefabs/checkpoint.tscn" id="7_lns1d"]
+[ext_resource type="PackedScene" uid="uid://clv0aut5e2j6k" path="res://actors/double_drone_controller.tscn" id="8_qtrp7"]
+
+[node name="enemies_boss_squad" type="Node2D"]
+
+[node name="dt_boss" parent="." instance=ExtResource("1_qsj1r")]
+position = Vector2(10551, 160)
+rotation = -3.1415925
+scale = Vector2(1, -1)
+
+[node name="female_guard" parent="." groups=["boss_squad"] instance=ExtResource("2_klo2y")]
+position = Vector2(10417, 212)
+
+[node name="shooter" parent="." groups=["boss_squad"] instance=ExtResource("3_p5ic6")]
+position = Vector2(11006, 217)
+
+[node name="lumberjack" parent="." groups=["boss_squad"] instance=ExtResource("4_2msg8")]
+position = Vector2(11376, 218)
+
+[node name="shooter2" parent="." groups=["boss_squad"] instance=ExtResource("3_p5ic6")]
+position = Vector2(11554, 220)
+
+[node name="shooter4" parent="." groups=["boss_squad"] instance=ExtResource("3_p5ic6")]
+position = Vector2(9901, 218)
+
+[node name="female_guard2" parent="." groups=["boss_squad"] instance=ExtResource("2_klo2y")]
+position = Vector2(11881, 220)
+
+[node name="shooter3" parent="." groups=["boss_squad"] instance=ExtResource("3_p5ic6")]
+position = Vector2(12099, 220)
+
+[node name="miner" parent="." groups=["boss_squad"] instance=ExtResource("5_fhnb5")]
+position = Vector2(12345, 219)
+
+[node name="rat6" parent="." groups=["boss_squad"] instance=ExtResource("6_cl3ng")]
+position = Vector2(12882, 240)
+speed = 800.0
+flip_sprite = false
+
+[node name="rat7" parent="." groups=["boss_squad"] instance=ExtResource("6_cl3ng")]
+position = Vector2(12526, 240)
+speed = 800.0
+flip_sprite = false
+
+[node name="checkpoint" parent="." instance=ExtResource("7_lns1d")]
+position = Vector2(13060, 245)
+
+[node name="drone_controller" parent="." groups=["boss_squad"] instance=ExtResource("8_qtrp7")]
+position = Vector2(11284, 74)
+
+[node name="drone_controller3" parent="." groups=["boss_squad"] instance=ExtResource("8_qtrp7")]
+position = Vector2(10234, 43)
+
+[node name="drone_controller2" parent="." groups=["boss_squad"] instance=ExtResource("8_qtrp7")]
+position = Vector2(12714, 219)
+
+[editable path="rat6"]
+[editable path="rat7"]

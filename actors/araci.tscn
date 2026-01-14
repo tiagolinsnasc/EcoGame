@@ -459,13 +459,13 @@ size = Vector2(26, 45)
 size = Vector2(31, 1.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_422x3"]
-size = Vector2(32, 50)
+size = Vector2(32, 49)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2safi"]
 size = Vector2(137, 97)
 
-[node name="Araci" type="CharacterBody2D"]
-collision_mask = 35216
+[node name="Araci" type="CharacterBody2D" groups=["player"]]
+collision_mask = 101776
 script = ExtResource("1_wp837")
 teleport_distance = 200.0
 
@@ -500,7 +500,7 @@ collision_layer = 2
 collision_mask = 1200
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(-1, -1)
+position = Vector2(-1, -1.5)
 shape = SubResource("RectangleShape2D_422x3")
 debug_color = Color(0.9019608, 0, 0.101960786, 0.39215687)
 

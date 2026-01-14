@@ -1,0 +1,124 @@
+[gd_scene load_steps=13 format=3 uid="uid://7wg1hampnlwy"]
+
+[ext_resource type="Script" uid="uid://ddla3sktntkjq" path="res://scripts/truck_boss.gd" id="1_am6nw"]
+[ext_resource type="Texture2D" uid="uid://cs3gjsdr85psv" path="res://n_assets/n_scenes/elements/cargo_truck.png" id="1_xe568"]
+[ext_resource type="AudioStream" uid="uid://bvo37b58lhp6r" path="res://sounds/machines/truck_move.ogg" id="3_jecii"]
+
+[sub_resource type="Animation" id="Animation_58a38"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("truck:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4nspo"]
+resource_name = "move"
+length = 120.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("truck:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20.027218, 40.01316, 59.977715, 79.970184),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(700, 0), Vector2(1400, 0), Vector2(2100, 0), Vector2(2800, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_58a38"]
+_data = {
+&"RESET": SubResource("Animation_58a38"),
+&"move": SubResource("Animation_4nspo")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vafyd"]
+size = Vector2(270, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_am6nw"]
+size = Vector2(193, 633)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_am6nw"]
+atlas = ExtResource("1_xe568")
+region = Rect2(0, 0, 300, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtc62"]
+atlas = ExtResource("1_xe568")
+region = Rect2(300, 0, 300, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsfuh"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"action",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_am6nw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtc62")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xe568"]
+size = Vector2(538.5, 439)
+
+[node name="machine_cargo_truck" type="Node2D"]
+
+[node name="truck" type="CharacterBody2D" parent="."]
+collision_layer = 65536
+collision_mask = 17
+script = ExtResource("1_am6nw")
+
+[node name="animation" type="AnimationPlayer" parent="truck"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_58a38")
+}
+
+[node name="collision" type="CollisionShape2D" parent="truck"]
+position = Vector2(0, 34)
+shape = SubResource("RectangleShape2D_vafyd")
+debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
+
+[node name="body_cabin" type="CollisionShape2D" parent="truck"]
+position = Vector2(123.5, -264.5)
+shape = SubResource("RectangleShape2D_am6nw")
+
+[node name="anime" type="AnimatedSprite2D" parent="truck"]
+sprite_frames = SubResource("SpriteFrames_jsfuh")
+animation = &"move"
+frame = 1
+frame_progress = 0.8709814
+
+[node name="move_sound" type="AudioStreamPlayer2D" parent="truck"]
+stream = ExtResource("3_jecii")
+autoplay = true
+max_distance = 50.0
+attenuation = 2.6390157
+parameters/looping = true
+
+[node name="detect_player" type="Area2D" parent="truck"]
+
+[node name="collision" type="CollisionShape2D" parent="truck/detect_player"]
+position = Vector2(-238.75, -167)
+shape = SubResource("RectangleShape2D_xe568")
+debug_color = Color(0.59404373, 0.52404267, 0.4355465, 0.41960785)
+
+[connection signal="body_entered" from="truck/detect_player" to="truck" method="_on_detect_player_body_entered"]
+[connection signal="body_exited" from="truck/detect_player" to="truck" method="_on_detect_player_body_exited"]

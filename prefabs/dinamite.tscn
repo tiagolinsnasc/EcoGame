@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cq4di0hqoxfcb"]
+[gd_scene load_steps=17 format=3 uid="uid://cq4di0hqoxfcb"]
 
 [ext_resource type="Texture2D" uid="uid://dahrwkhtqt2qk" path="res://n_assets/n_scenes/elements/dinamite.png" id="1_ivuxx"]
 [ext_resource type="Script" uid="uid://cuivghk7jbcwr" path="res://scripts/dinamite_active.gd" id="1_rj2ow"]
@@ -85,41 +85,51 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_rj2ow"]
 radius = 56.008926
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tg8i3"]
+size = Vector2(11, 17)
+
 [node name="dinamite" type="Node2D"]
 editor_description = "Dinamite, explode quando o player chaga a uma distância específica, mas depende de um ocntadoe (em segundos), 5 segundos é o máximo para adequar ao final do som de fogo no pavio."
+
+[node name="dinamite" type="CharacterBody2D" parent="."]
+collision_mask = 65792
 script = ExtResource("1_rj2ow")
 
-[node name="activation_area" type="Area2D" parent="."]
+[node name="activation_area" type="Area2D" parent="dinamite"]
 collision_layer = 128
 collision_mask = 2
 
-[node name="collision" type="CollisionShape2D" parent="activation_area"]
+[node name="collision" type="CollisionShape2D" parent="dinamite/activation_area"]
 position = Vector2(0.5, 5)
 shape = SubResource("RectangleShape2D_vafyd")
 debug_color = Color(0.35024676, 0.4889043, 0.98589724, 0.41960785)
 
-[node name="anime" type="AnimatedSprite2D" parent="."]
+[node name="anime" type="AnimatedSprite2D" parent="dinamite"]
 sprite_frames = SubResource("SpriteFrames_jsfuh")
-animation = &"action"
+animation = &"stay"
 autoplay = "stay"
 
-[node name="damage_area" type="Area2D" parent="."]
+[node name="damage_area" type="Area2D" parent="dinamite"]
 collision_layer = 32
 collision_mask = 2
 monitoring = false
 
-[node name="damage_collision" type="CollisionShape2D" parent="damage_area"]
+[node name="damage_collision" type="CollisionShape2D" parent="dinamite/damage_area"]
 position = Vector2(-1, -7)
 shape = SubResource("CircleShape2D_rj2ow")
 debug_color = Color(0.973368, 0, 0.437854, 0.41960785)
 
-[node name="wick_fire_sound" type="AudioStreamPlayer2D" parent="."]
+[node name="wick_fire_sound" type="AudioStreamPlayer2D" parent="dinamite"]
 stream = ExtResource("3_tg8i3")
 max_distance = 200.0
 
-[node name="explosion_sound" type="AudioStreamPlayer2D" parent="."]
+[node name="explosion_sound" type="AudioStreamPlayer2D" parent="dinamite"]
 stream = ExtResource("4_b7f0j")
 
-[connection signal="area_entered" from="activation_area" to="." method="_on_activation_area_area_entered"]
-[connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
-[connection signal="area_entered" from="damage_area" to="." method="_on_damage_area_area_entered"]
+[node name="body" type="CollisionShape2D" parent="dinamite"]
+position = Vector2(0.5, 5.5)
+shape = SubResource("RectangleShape2D_tg8i3")
+
+[connection signal="area_entered" from="dinamite/activation_area" to="dinamite" method="_on_activation_area_area_entered"]
+[connection signal="animation_finished" from="dinamite/anime" to="dinamite" method="_on_anime_animation_finished"]
+[connection signal="area_entered" from="dinamite/damage_area" to="dinamite" method="_on_damage_area_area_entered"]

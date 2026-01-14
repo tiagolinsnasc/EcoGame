@@ -1,10 +1,10 @@
 extends Area2D
-
+#Compartilhado entre atiradores
 #Dano ao pular na cabeça do inimigo
 func _on_area_entered(area: Area2D) -> void:
 	print(area.name)
 	if area.name == "stompbox":
-		print("Ganhou pontos:"+ str(get_parent().enemy_score))
+		#print("Ganhou pontos:"+ str(get_parent().enemy_score))
 		
 		var player := area.get_parent()
 		player.velocity.y = player.jump_velocity

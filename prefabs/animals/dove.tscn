@@ -1,0 +1,221 @@
+[gd_scene load_steps=18 format=3 uid="uid://dspg6u0lufyps"]
+
+[ext_resource type="Script" uid="uid://037rblkj260f" path="res://scripts/enemies/animal_enemy_dove.gd" id="1_txsn1"]
+[ext_resource type="Texture2D" uid="uid://c1f6jgo7ekvf" path="res://n_assets/n_scenes/elements/dove.png" id="2_r4t0x"]
+[ext_resource type="AudioStream" uid="uid://bedxylvmai4bh" path="res://sounds/animals/maina_song.ogg" id="4_jtssg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87axg"]
+atlas = ExtResource("2_r4t0x")
+region = Rect2(42, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_074o0"]
+atlas = ExtResource("2_r4t0x")
+region = Rect2(63, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtssg"]
+atlas = ExtResource("2_r4t0x")
+region = Rect2(84, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2uq2"]
+atlas = ExtResource("2_r4t0x")
+region = Rect2(105, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txsn1"]
+atlas = ExtResource("2_r4t0x")
+region = Rect2(0, 0, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4t0x"]
+atlas = ExtResource("2_r4t0x")
+region = Rect2(21, 0, 21, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irtl7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87axg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_074o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtssg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2uq2")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txsn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4t0x")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y10go"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxv7g"]
+size = Vector2(18, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj5fn"]
+size = Vector2(28, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlw78"]
+size = Vector2(29.5, 20.5)
+
+[sub_resource type="Animation" id="Animation_172ag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dove:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dove:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h7w04"]
+resource_name = "flying"
+length = 6.0
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dove:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.2, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(113, 0), Vector2(688, -170)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dove:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(-1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("dove/anime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.9900937, 2.1900938, 2.190194, 2.190294),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": [&"idle", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"idle", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"fly", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"", 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ims68"]
+_data = {
+&"RESET": SubResource("Animation_172ag"),
+&"flying": SubResource("Animation_h7w04")
+}
+
+[node name="dove" type="Node2D"]
+editor_description = "Pombo"
+
+[node name="dove" type="CharacterBody2D" parent="." groups=["animals", "enemies"]]
+editor_description = "Lembrar que aqui, o AnimatedSprite2D deve ter o mesmo nome utilizado em hitbox (no script), assim como o nome da animação deve ser igual ao que foi chamado no script de hitbox. Speed só funciona para seres terrestres, para aumentar a velocidade alterar o spped scale do animator"
+collision_layer = 16
+collision_mask = 258
+script = ExtResource("1_txsn1")
+
+[node name="anime" type="AnimatedSprite2D" parent="dove"]
+sprite_frames = SubResource("SpriteFrames_irtl7")
+animation = &"idle"
+
+[node name="body" type="CollisionShape2D" parent="dove"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_y10go")
+
+[node name="enemy_head" type="Area2D" parent="dove"]
+editor_description = "A mascara do hitbox está disabilitada (não ser morto pelo player"
+collision_layer = 64
+collision_mask = 4
+
+[node name="collision" type="CollisionShape2D" parent="dove/enemy_head"]
+position = Vector2(-1, -6.5)
+shape = SubResource("RectangleShape2D_kxv7g")
+debug_color = Color(0.9394873, 1.5209317e-05, 0.6213183, 0.41960785)
+
+[node name="enemy_hitbox" type="Area2D" parent="dove"]
+collision_layer = 32
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="dove/enemy_hitbox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_cj5fn")
+debug_color = Color(0.93344843, 0.15352938, 0.523355, 0.41960785)
+
+[node name="aux_area" type="Area2D" parent="dove"]
+editor_description = "Área utilizada para que o player detecte os animais, consigo mi"
+collision_layer = 32768
+collision_mask = 2
+
+[node name="colision" type="CollisionShape2D" parent="dove/aux_area"]
+position = Vector2(0.25, 3.25)
+shape = SubResource("RectangleShape2D_hlw78")
+debug_color = Color(0.784106, 0.55720806, 3.85046e-07, 0.41960785)
+
+[node name="spawn_enemy" type="Marker2D" parent="."]
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ims68")
+}
+autoplay = "flying"
+speed_scale = 0.3
+
+[node name="dove_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jtssg")
+max_distance = 500.0
+parameters/looping = true
