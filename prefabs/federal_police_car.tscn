@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2ppqse552ubd"]
+
+[ext_resource type="Texture2D" uid="uid://b8jir8soloppv" path="res://n_assets/n_scenes/elements/federal_police_car.png" id="1_3f1cl"]
+[ext_resource type="AudioStream" uid="uid://dk38v603ug0ck" path="res://sounds/machines/police_siren.ogg" id="2_byvnn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ph0"]
+size = Vector2(161, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byvnn"]
+atlas = ExtResource("1_3f1cl")
+region = Rect2(0, 0, 165, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f62gs"]
+atlas = ExtResource("1_3f1cl")
+region = Rect2(165, 0, 165, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h66ye"]
+atlas = ExtResource("1_3f1cl")
+region = Rect2(330, 0, 165, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b3ph0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byvnn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f62gs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byvnn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f62gs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h66ye")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="federal_police_car" type="Node2D"]
+
+[node name="police_car" type="CharacterBody2D" parent="."]
+collision_mask = 256
+
+[node name="car_body" type="CollisionShape2D" parent="police_car"]
+position = Vector2(-2.5, 1)
+shape = SubResource("RectangleShape2D_b3ph0")
+
+[node name="anime" type="AnimatedSprite2D" parent="police_car"]
+sprite_frames = SubResource("SpriteFrames_b3ph0")
+autoplay = "default"
+frame = 4
+frame_progress = 0.6769958
+
+[node name="police_siren" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_byvnn")
+autoplay = true
+max_distance = 1000.0
+parameters/looping = true

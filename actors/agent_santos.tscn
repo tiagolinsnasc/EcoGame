@@ -1,0 +1,119 @@
+[gd_scene load_steps=16 format=3 uid="uid://ucremkhce8lc"]
+
+[ext_resource type="Texture2D" uid="uid://cje5o20abdw7l" path="res://n_assets/n_tiles_actors/policial_santos.png" id="2_vlapy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xo088"]
+size = Vector2(72, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3hdj"]
+size = Vector2(23, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wxsi"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(0, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dpo6"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(64, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlc50"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(0, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlapy"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(64, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k6hx"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(128, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbuun"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(192, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iensx"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(256, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbyv5"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(320, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4xk2"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(384, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hthu"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(448, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muhgw"]
+atlas = ExtResource("2_vlapy")
+region = Rect2(512, 704, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3hdj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wxsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dpo6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlc50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlapy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6k6hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbuun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iensx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbyv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4xk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hthu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muhgw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="agent_Santos" type="CharacterBody2D"]
+collision_layer = 16384
+collision_mask = 258
+
+[node name="detect" type="Area2D" parent="."]
+collision_layer = 32768
+
+[node name="collision" type="CollisionShape2D" parent="detect"]
+position = Vector2(3, 2)
+shape = SubResource("RectangleShape2D_xo088")
+debug_color = Color(0.043833695, 0.62692535, 0.49928087, 0.41960785)
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_m3hdj")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m3hdj")
+animation = &"walk"

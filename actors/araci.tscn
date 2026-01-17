@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://ba3xbkuiqhtyn"]
+[gd_scene load_steps=79 format=3 uid="uid://ba3xbkuiqhtyn"]
 
 [ext_resource type="Script" uid="uid://bb2ju11ra7y1h" path="res://scripts/araci.gd" id="1_wp837"]
 [ext_resource type="Texture2D" uid="uid://dsakuawpkov3a" path="res://n_assets/n_tiles_actors/Araci_machado.png" id="2_mtxgc"]
@@ -10,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://d08hwshhp0sp" path="res://sounds/araci/level_up.ogg" id="7_scgmy"]
 [ext_resource type="AudioStream" uid="uid://bndgcqcxbj8ir" path="res://sounds/araci/whistle.ogg" id="8_5ifwc"]
 [ext_resource type="AudioStream" uid="uid://5vkqdbir8wxj" path="res://sounds/araci/teleport.ogg" id="9_2safi"]
+[ext_resource type="Script" uid="uid://8t3yjl0tupj7" path="res://scripts/speech_bubble.gd" id="11_yhp4d"]
+[ext_resource type="Texture2D" uid="uid://55wal77uprt1" path="res://n_assets/n_scenes/elements/speech_bubble.png" id="12_8g7fx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtxgc"]
 atlas = ExtResource("2_mtxgc")
@@ -218,6 +220,42 @@ region = Rect2(256, 2304, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_21aje"]
 atlas = ExtResource("3_n0p0v")
 region = Rect2(192, 2304, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1frbj"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(0, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lnx5"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(64, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ema2b"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(128, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtnuu"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(192, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3yh8"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(256, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tybxv"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(320, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoerj"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(384, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3on4"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(448, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jk7w"]
+atlas = ExtResource("3_n0p0v")
+region = Rect2(512, 704, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0yxgj"]
 animations = [{
@@ -450,6 +488,38 @@ animations = [{
 "loop": false,
 "name": &"upgrade",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1frbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lnx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ema2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtnuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3yh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tybxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoerj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3on4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jk7w")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wp837"]
@@ -476,7 +546,9 @@ z_index = 300
 texture_filter = 1
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_0yxgj")
-animation = &"read"
+animation = &"walk"
+frame = 6
+frame_progress = 0.32066002
 
 [node name="body" type="CollisionShape2D" parent="."]
 editor_description = "Apenas deve detectar chão, paredes e física em geral. Não deve aceitar dano."
@@ -539,6 +611,44 @@ collision_mask = 32768
 position = Vector2(51.5, -22.5)
 shape = SubResource("RectangleShape2D_2safi")
 debug_color = Color(0.077518396, 0.081537865, 0.08419029, 0.41960785)
+
+[node name="speech_bubble" type="Node2D" parent="."]
+editor_description = "Serve para manter a fala em balões em qualquer personagem. (mantenha o script, ele é universal)"
+visible = false
+script = ExtResource("11_yhp4d")
+
+[node name="background" type="NinePatchRect" parent="speech_bubble"]
+offset_left = -87.0
+offset_top = -61.0
+offset_right = 97.0
+offset_bottom = -26.0
+texture = ExtResource("12_8g7fx")
+region_rect = Rect2(0, 0, 16.087046, 16)
+patch_margin_left = 2
+patch_margin_top = 3
+patch_margin_right = 2
+patch_margin_bottom = 4
+
+[node name="Label" type="Label" parent="speech_bubble/background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_top = 0.177
+anchor_right = 0.95100003
+anchor_bottom = 0.76400006
+offset_left = 0.08799982
+offset_top = 0.007999897
+offset_right = 0.015991211
+offset_bottom = 0.0099983215
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 3
+vertical_alignment = 3
+autowrap_mode = 3
+justification_flags = 161
 
 [connection signal="animation_finished" from="anime" to="." method="_on_anime_animation_finished"]
 [connection signal="body_entered" from="stompbox" to="stompbox" method="_on_body_entered"]

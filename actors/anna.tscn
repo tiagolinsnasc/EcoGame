@@ -1,0 +1,161 @@
+[gd_scene load_steps=19 format=3 uid="uid://nmttg7xvlcs7"]
+
+[ext_resource type="Script" uid="uid://csjbp4q54xw4m" path="res://scripts/anna.gd" id="1_xo088"]
+[ext_resource type="Texture2D" uid="uid://dng1c4cl6dkx2" path="res://n_assets/n_tiles_actors/Anna.png" id="2_3lrfw"]
+[ext_resource type="Script" uid="uid://8t3yjl0tupj7" path="res://scripts/speech_bubble.gd" id="3_os4m1"]
+[ext_resource type="Texture2D" uid="uid://55wal77uprt1" path="res://n_assets/n_scenes/elements/speech_bubble.png" id="4_4mk5p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xo088"]
+size = Vector2(72, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3hdj"]
+size = Vector2(23, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os4m1"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(0, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mk5p"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(64, 1600, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lrfw"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(0, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktqtc"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(64, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddx4t"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(128, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io4mi"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(192, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i20k0"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(256, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pwxb"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(320, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuong"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(384, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdrwy"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(448, 704, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd2yv"]
+atlas = ExtResource("2_3lrfw")
+region = Rect2(512, 704, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3hdj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os4m1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mk5p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lrfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktqtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddx4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io4mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i20k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pwxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uuong")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdrwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd2yv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Anna" type="CharacterBody2D"]
+collision_layer = 16384
+collision_mask = 258
+script = ExtResource("1_xo088")
+
+[node name="detect" type="Area2D" parent="."]
+collision_layer = 32768
+
+[node name="collision" type="CollisionShape2D" parent="detect"]
+position = Vector2(3, 2)
+shape = SubResource("RectangleShape2D_xo088")
+debug_color = Color(0.043833695, 0.62692535, 0.49928087, 0.41960785)
+
+[node name="body" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_m3hdj")
+
+[node name="anime" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m3hdj")
+animation = &"idle"
+
+[node name="speech_bubble" type="Node2D" parent="."]
+editor_description = "Serve para manter a fala em balões em qualquer personagem. (mantenha o script, ele é universal)"
+visible = false
+script = ExtResource("3_os4m1")
+
+[node name="background" type="NinePatchRect" parent="speech_bubble"]
+offset_left = -87.0
+offset_top = -61.0
+offset_right = 97.0
+offset_bottom = -26.0
+texture = ExtResource("4_4mk5p")
+region_rect = Rect2(0, 0, 16.087046, 16)
+patch_margin_left = 2
+patch_margin_top = 3
+patch_margin_right = 2
+patch_margin_bottom = 4
+
+[node name="Label" type="Label" parent="speech_bubble/background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_top = 0.177
+anchor_right = 0.95100003
+anchor_bottom = 0.76400006
+offset_left = 0.08799982
+offset_top = 0.007999897
+offset_right = 0.015991211
+offset_bottom = 0.0099983215
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 3
+vertical_alignment = 3
+autowrap_mode = 3
+justification_flags = 161

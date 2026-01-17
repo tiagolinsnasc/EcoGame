@@ -36,6 +36,24 @@ var pet_instance: Node = null
 @onready var whistle: AudioStreamPlayer2D = $whistle
 @onready var teleport: AudioStreamPlayer2D = $teleport
 
+#Controle do pulo
+var can_jump: bool = true
+
+func disable_jump():
+	can_jump = false
+
+func enable_jump():
+	can_jump = true
+	
+#Forçar caminhada (em vez de corrida)
+var force_walk: bool = false
+
+func enable_walk():
+	force_walk = true
+
+func disable_walk():
+	force_walk = false
+	
 ##Assobia para chama o pet
 func wistle_to_call():
 	whistle.play()
@@ -43,6 +61,22 @@ func wistle_to_call():
 ##Som do teletransporte
 func teleport_sound():
 	teleport.play()
+
+#Paralisar player (fica parado apena na animação de Idle)
+var is_paralyzed: bool = false
+
+##Paralisa os movimentos do player
+func paralyze_player():
+	is_paralyzed = true
+	velocity = Vector2.ZERO
+	estado = "idle"
+	animation.play("idle")
+	
+
+##Retorna os movimento do player
+func release_player():
+	is_paralyzed = false
+
 
 # ============================================================
 # CANCEL WINDOW - Desativa o ataque quando inicia a animação e logo após pula
@@ -157,6 +191,12 @@ func play_upgrade():
 
 func _physics_process(delta: float) -> void:
 	var on_floor := is_on_floor()
+	
+	#Condição onde o player está paralizado, não realiza qualquer tipo de movimento
+	if is_paralyzed:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return   # sai da função aqui
 
 	#Trata da aniamção de leitura na interação com i
 	if estado == "read":
@@ -211,14 +251,15 @@ func _physics_process(delta: float) -> void:
 	if jump_buffer > 0.0 and (coyote_timer > 0.0 or can_cancel):
 		#Macanimsmo do superpulo pular x vezes mais quando segura o W + BARRA
 		# Se W (superjump) estiver pressionado e flag ativa
-		if Input.is_action_pressed("call_superjump") and Globals.flag_pw_superjump:
+		if Input.is_action_pressed("call_superjump") and Globals.flag_pw_superjump and can_jump:
 			#print("Superpulo")
 			var super_height = jump_height * superjump_factor  # aumenta altura do pulo
 			var super_velocity = -sqrt(2.0 * gravity * super_height)
 			velocity.y = super_velocity
 		else:
 			# Pulo normal
-			velocity.y = jump_velocity
+			if can_jump:
+				velocity.y = jump_velocity
 
 		jump_buffer = 0.0
 		coyote_timer = 0.0
@@ -351,7 +392,13 @@ func _physics_process(delta: float) -> void:
 		"atack":
 			animation.play("atack")
 		"run":
-			animation.play("run")
+			if force_walk:
+				#Força a animação de caminhada
+				animation.play("walk")
+				#Reduz a velocidade do player
+				velocity.x *= 0.4   # reduz 60% a velocidade
+			else:
+				animation.play("run")
 		"idle":
 			animation.play("idle")
 		"hurt":
@@ -708,3 +755,12 @@ func _on_curiosity_area_exited(area: Area2D) -> void:
 	if "animal_name" in parent and parent.is_in_group("animals") and parent.animal_name.to_lower() == current_animal_name:
 		current_animal_name = ""
 		#print("Araci se afastou do animal")
+
+
+##Falas em balão
+
+@onready var speech_bubble: Node2D = $speech_bubble
+
+##Permite a exibição de falas em um balão
+func say(text: String, time: float):
+	speech_bubble.show_message(text, time)

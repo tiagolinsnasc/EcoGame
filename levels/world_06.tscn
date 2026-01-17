@@ -3554,6 +3554,7 @@ dialog_texts = Array[String](["Bem-vinda à cidade.", "Além da amaeaça humana,
 
 [node name="goal" parent="." instance=ExtResource("55_jekts")]
 position = Vector2(14212, 206)
+next_level = "res://levels/world_07.tscn"
 
 [node name="machines" type="Node2D" parent="."]
 

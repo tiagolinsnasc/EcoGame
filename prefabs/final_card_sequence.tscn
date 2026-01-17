@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://cti7di40xb4ed"]
+
+[ext_resource type="Script" uid="uid://ccg8u5fc78dkw" path="res://scripts/final_card_sequence.gd" id="1_h0rux"]
+[ext_resource type="AudioStream" uid="uid://spx4tb0wt17r" path="res://n_assets/n_cuts/sounds/guardian_da_floresta.ogg" id="2_1xvye"]
+
+[sub_resource type="Animation" id="Animation_h0rux"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1xvye"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f57nv"]
+_data = {
+&"RESET": SubResource("Animation_1xvye"),
+&"fade_in": SubResource("Animation_h0rux")
+}
+
+[node name="final_card_sequence" type="Control"]
+editor_description = "Cena final com os cards e textos apresentando o desfecho da história."
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_h0rux")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 602.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_f57nv")
+}
+
+[node name="background_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1xvye")
+autoplay = true
+parameters/looping = true

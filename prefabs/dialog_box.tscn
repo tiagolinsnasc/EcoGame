@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2sl64ov5r0e3"]
 
 [ext_resource type="Script" uid="uid://dl21b75o1jqm4" path="res://scripts/dialog_box.gd" id="1_d17km"]
-[ext_resource type="Texture2D" uid="uid://4pxsj234t834" path="res://n_assets/n_scenes/elements/Dialog_Box(16 x 16).png" id="2_d17km"]
+[ext_resource type="Texture2D" uid="uid://55wal77uprt1" path="res://n_assets/n_scenes/elements/speech_bubble.png" id="2_d17km"]
 [ext_resource type="Texture2D" uid="uid://cn3qodu4t1y0" path="res://n_assets/n_scenes/elements/ok_btn.png" id="3_p3326"]
 
 [node name="dialog_box" type="MarginContainer"]

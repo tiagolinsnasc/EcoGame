@@ -2755,6 +2755,7 @@ debug_color = Color(0.84288317, 0.38123745, 7.70092e-07, 0.41960785)
 
 [node name="goal" parent="." instance=ExtResource("43_tbuq4")]
 position = Vector2(18086, 176)
+next_level = "res://levels/world_06.tscn"
 
 [node name="machines" type="Node2D" parent="."]
 
@@ -2821,22 +2822,18 @@ position = Vector2(11174, 665)
 
 [node name="dinamite3" parent="explosives" instance=ExtResource("35_bldeh")]
 position = Vector2(13900, 697)
-explosion_timer = 5.0
 
 [node name="dinamite4" parent="explosives" instance=ExtResource("35_bldeh")]
 position = Vector2(11856, 726)
-explosion_timer = 20.0
 
 [node name="dinamite6" parent="explosives" instance=ExtResource("35_bldeh")]
 position = Vector2(16004, 669)
-explosion_timer = 1.0
 
 [node name="dinamite7" parent="explosives" instance=ExtResource("35_bldeh")]
 position = Vector2(16473, 665)
 
 [node name="dinamite8" parent="explosives" instance=ExtResource("35_bldeh")]
 position = Vector2(16871, 661)
-explosion_timer = 1.0
 
 [connection signal="body_entered" from="objects/trigger_truck_move" to="objects/trigger_truck_move" method="_on_body_entered"]
 [connection signal="body_entered" from="objects/interruptor" to="objects/interruptor" method="_on_body_entered"]

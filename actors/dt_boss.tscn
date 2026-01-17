@@ -80,39 +80,39 @@ region = Rect2(320, 960, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7vmys"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(0, 704, 64, 64)
+region = Rect2(128, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ni8d"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(64, 704, 64, 64)
+region = Rect2(192, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5isy5"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(128, 704, 64, 64)
+region = Rect2(256, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tfr8f"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(192, 704, 64, 64)
+region = Rect2(320, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wyb3b"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(256, 704, 64, 64)
+region = Rect2(384, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g5nj7"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(320, 704, 64, 64)
+region = Rect2(448, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_61bhf"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(384, 704, 64, 64)
+region = Rect2(512, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_glypf"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(448, 704, 64, 64)
+region = Rect2(576, 1408, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ff3oe"]
 atlas = ExtResource("2_pfupr")
-region = Rect2(512, 704, 64, 64)
+region = Rect2(640, 1408, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s64gy"]
 animations = [{
@@ -229,7 +229,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ff3oe")
 }],
-"loop": false,
+"loop": true,
 "name": &"walk",
 "speed": 5.0
 }]
@@ -252,12 +252,13 @@ life = 3
 
 [node name="anime" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s64gy")
-animation = &"laught"
+animation = &"walk"
 autoplay = "idle"
 frame = 1
-frame_progress = 0.6389111
+frame_progress = 0.5892491
 
 [node name="body" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, 5.5)
 shape = SubResource("RectangleShape2D_pfupr")
 
@@ -273,6 +274,7 @@ target_position = Vector2(18, 9)
 collision_mask = 256
 
 [node name="enemy_hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 2
 
@@ -282,6 +284,7 @@ shape = SubResource("RectangleShape2D_a0fep")
 debug_color = Color(0.86362183, 0.15356258, 0.7897774, 0.41960785)
 
 [node name="enemy_head" type="Area2D" parent="."]
+visible = false
 collision_layer = 64
 collision_mask = 4
 
@@ -302,6 +305,7 @@ stream = ExtResource("5_b2sa2")
 volume_db = 11.107
 
 [node name="life_bar" type="Node2D" parent="."]
+visible = false
 
 [node name="progress_bar" type="ProgressBar" parent="life_bar"]
 offset_left = -13.0
