@@ -7,7 +7,8 @@ var on = true
 
 func _ready() -> void:
 	Globals.stat_disponible_firecamp += 1
-	Globals.stat_disponible_score =+ score
+	Globals.add_disponible_score_stat(score)
+	
 
 func _on_body_entered(body: Node2D) -> void:
 	if Globals.is_player(body) and on:

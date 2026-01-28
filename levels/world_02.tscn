@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://c76yqjr5h0bgv"]
+[gd_scene load_steps=80 format=4 uid="uid://c76yqjr5h0bgv"]
 
 [ext_resource type="Script" uid="uid://rrcccix26aeh" path="res://scripts/world.gd" id="1_n1cxq"]
 [ext_resource type="Texture2D" uid="uid://cfmvolocmwr6i" path="res://n_assets/n_scenes/bgs/5 - Sky_color.png" id="2_tfcbk"]
@@ -45,6 +45,8 @@
 [ext_resource type="Script" uid="uid://dpijviqaje55r" path="res://scripts/fire_off_info.gd" id="37_qe4fd"]
 [ext_resource type="PackedScene" uid="uid://lntsrumo4fv5" path="res://prefabs/life.tscn" id="38_iek0w"]
 [ext_resource type="Script" uid="uid://c25p0wfgiy7bd" path="res://scripts/habilitar_feroz.gd" id="38_n1cxq"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qyqtd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rwgp"]
 shader = ExtResource("4_oyd7s")
@@ -2394,6 +2396,14 @@ position = Vector2(134, 135)
 script = ExtResource("1_n1cxq")
 stage_number = 2
 
+[node name="fundoBranco" type="TextureRect" parent="."]
+visible = false
+offset_left = -698.0
+offset_top = -2670.0
+offset_right = 19060.0
+offset_bottom = 3791.0
+texture = SubResource("CanvasTexture_qyqtd")
+
 [node name="Paralax2D" type="Node2D" parent="."]
 
 [node name="BG_5_blue_sky" type="Parallax2D" parent="Paralax2D"]
@@ -2404,6 +2414,14 @@ repeat_size = Vector2(700, 0)
 [node name="05" type="Sprite2D" parent="Paralax2D/BG_5_blue_sky"]
 texture_repeat = 2
 position = Vector2(159.00003, -96.218735)
+scale = Vector2(701, 645.5625)
+texture = ExtResource("2_tfcbk")
+region_enabled = true
+region_rect = Rect2(0, 0, 1, 1)
+
+[node name="06" type="Sprite2D" parent="Paralax2D/BG_5_blue_sky"]
+texture_repeat = 2
+position = Vector2(159, -742)
 scale = Vector2(701, 645.5625)
 texture = ExtResource("2_tfcbk")
 region_enabled = true
@@ -2431,6 +2449,13 @@ repeat_size = Vector2(700, 0)
 texture_repeat = 2
 material = SubResource("ShaderMaterial_8rwgp")
 position = Vector2(164.00002, -29.5)
+scale = Vector2(2.4652777, 1.7740384)
+texture = ExtResource("5_ymwab")
+
+[node name="03_top_clouds2" type="Sprite2D" parent="Paralax2D/BG_3_top_clouds"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_8rwgp")
+position = Vector2(166.00002, -329.00003)
 scale = Vector2(2.4652777, 1.7740384)
 texture = ExtResource("5_ymwab")
 
@@ -2497,7 +2522,6 @@ tile_map_data = PackedByteArray("AAD0AhEAAgAAAAAAAAD1AhEAAgAAAAAAAAD2AhEAAgAAAAA
 tile_set = SubResource("TileSet_av01a")
 
 [node name="bg_in_transparet_water1" type="ColorRect" parent="level"]
-visible = false
 offset_left = 15520.463
 offset_top = 157.0
 offset_right = 15888.071
@@ -2505,7 +2529,6 @@ offset_bottom = 417.0
 color = Color(0.38039216, 0.5372549, 0.54901963, 1)
 
 [node name="bg_in_transparet_water2" type="ColorRect" parent="level"]
-visible = false
 offset_left = 14800.23
 offset_top = 224.0
 offset_right = 15521.462
@@ -2612,7 +2635,7 @@ position = Vector2(16982, 30)
 next_level = "res://levels/world_03.tscn"
 
 [node name="Araci" parent="." instance=ExtResource("19_6ki2q")]
-position = Vector2(-75, 162)
+position = Vector2(28, 52)
 
 [node name="feroz" parent="." instance=ExtResource("31_wjrim")]
 position = Vector2(9421, 361)

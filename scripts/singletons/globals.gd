@@ -2,11 +2,12 @@ extends Node
 #Equivalente a evidência
 var coins := 0
 var score := 0
-var player_life := 3
+var player_life := 0
 
 #Variáveis de estatisticas
 var stat_game_time := 0.0 #Em segundos
 var stat_disponible_score := 0 
+
 var stat_disponible_evidences := 0 #ok
 
 var stat_disponible_lifes := 0 #ok
@@ -20,6 +21,12 @@ var stat_firecamp_eliminated := 0 #ok
 var stat_die_number := 0 
 var stat_enemy_eliminated := 0
 var stat_disponible_enemy := 0
+
+#Nova mecânica - incremento dos superpoderes com base na pontuação
+#incremento a ser multiplicado pelo superjump_factor
+var superjump_adiction := 1.0
+#incremento a ser multiplicado pelo teleport_distance
+var teleport_distance_adiction :=  1.0
 
 #Flags que auxiliam na exibição das primeira informações sobre os ítens coletados/gatilhos
 var flag_grab_one_life = false
@@ -46,6 +53,11 @@ var pet = null
 #Contadores para o estágio 3 - mecânica de plantar árvores
 var count_planted_trees_w3 = 0
 var max_planted_trees_w3 = 5
+
+##Adiciona a pontuação disponível às estatísticas (deve ser chamada na instanciação do elemento)
+func add_disponible_score_stat(score_added: int):
+	print("Score disponvel de ("+str(score_added)+") Total:" + str(stat_disponible_score))
+	stat_disponible_score += score_added
 
 ##Retorna true se a quantidade de árvores plantadas for maior ou igual ao mínimo necessário para eliminar os gafanhotos
 func eliminate_locust():
@@ -307,6 +319,7 @@ func get_stats_text() -> String:
 
 	return """Tempo de jogo: %s
 Pontuação: %s
+Pontuação disponível: %s
 Evidências disponíveis: %s
 Evidências coletadas: %s (%s%%)
 Vidas disponíveis: %s
@@ -317,6 +330,7 @@ Vidas perdidas: %s
 Inimigos eliminados: %s (%s%%)
 Inimigos: %s""" % [
 		time_str,
+		score,
 		stat_disponible_score,
 		stat_disponible_evidences,
 		coins, evidence_percent,
@@ -328,3 +342,39 @@ Inimigos: %s""" % [
 		stat_enemy_eliminated, enemy_percent,
 		stat_disponible_enemy
 	]
+
+##Retorna o nível do superpulo e aumenta a altura em 10% N2 e 20% N3 para cada nível (L1: 4200; L2 4850; L3: 5550)
+func superjump_level() -> int:
+	#print("Score em:"+str(score))
+	if score < 4200:#Nivel 1
+		#print("Superpulo no nível 1:"+str(score))
+		superjump_adiction = 1 #aumento de 0
+		return 1
+		
+	if score >= 4200 and score < 4850: #Nivel 2
+		#print("Superpulo no nível 2 (10%):"+str(score))
+		superjump_adiction = 1.1 #aumento de 10%
+		return 2
+	
+	if score >= 4850: #Nivel 3
+		#print("Superpulo no nível 3 (30%):"+str(score))
+		superjump_adiction = 1.3 #aumento de 30%
+		return 3
+		
+	return 1
+
+##Retorna o nível do teleport (L1: 6150; L2: 7150; L3:8150)
+func teleport_level():
+	if score < 6150:#Nivel 1
+		teleport_distance_adiction = 1.0 #aumento de 0%
+		return 1
+	
+	if score >= 6150 and score < 7150: #Nivel 3
+		teleport_distance_adiction = 1.1 #aumento de 10%
+		return 2
+	
+	if score >= 7150: #Nivel 3
+		teleport_distance_adiction = 1.3 #aumento de 20%
+		return 3
+		
+	return 1

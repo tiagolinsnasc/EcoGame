@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://dcm32gwaqyk48"]
+[gd_scene load_steps=61 format=4 uid="uid://dcm32gwaqyk48"]
 
 [ext_resource type="Script" uid="uid://rrcccix26aeh" path="res://scripts/world.gd" id="1_32yk7"]
 [ext_resource type="Texture2D" uid="uid://cxbyvg17wg0j5" path="res://n_assets/n_scenes/bgs/world6/5 - Sky_color.png" id="2_0my74"]
@@ -39,6 +39,8 @@
 [ext_resource type="PackedScene" uid="uid://cq4di0hqoxfcb" path="res://prefabs/dinamite.tscn" id="38_gdl5q"]
 [ext_resource type="PackedScene" uid="uid://dienyhwvyyjae" path="res://prefabs/fallzone.tscn" id="38_yffiw"]
 [ext_resource type="PackedScene" uid="uid://c738o3mpr3is3" path="res://prefabs/goal.tscn" id="55_jekts"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7irup"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rwgp"]
 shader = ExtResource("4_aemky")
@@ -3089,6 +3091,14 @@ position = Vector2(134, 135)
 script = ExtResource("1_32yk7")
 stage_number = 6
 
+[node name="fundoBranco" type="TextureRect" parent="."]
+visible = false
+offset_left = -698.0
+offset_top = -2670.0
+offset_right = 19060.0
+offset_bottom = 3791.0
+texture = SubResource("CanvasTexture_7irup")
+
 [node name="Paralax2D" type="Node2D" parent="."]
 
 [node name="BG_5_blue_sky" type="Parallax2D" parent="Paralax2D"]
@@ -3098,8 +3108,8 @@ repeat_size = Vector2(700, 0)
 
 [node name="05" type="Sprite2D" parent="Paralax2D/BG_5_blue_sky"]
 texture_repeat = 2
-position = Vector2(159.00003, -338.21875)
-scale = Vector2(701, 1129.5625)
+position = Vector2(159.00003, -765.21875)
+scale = Vector2(701, 1983.5624)
 texture = ExtResource("2_0my74")
 region_enabled = true
 region_rect = Rect2(0, 0, 1, 1)
@@ -3445,12 +3455,10 @@ position = Vector2(12345, 219)
 [node name="rat6" parent="boss_enemies_squad" groups=["boss_squad"] instance=ExtResource("17_cqt52")]
 position = Vector2(12882, 240)
 speed = 800.0
-flip_sprite = false
 
 [node name="rat7" parent="boss_enemies_squad" groups=["boss_squad"] instance=ExtResource("17_cqt52")]
 position = Vector2(12526, 240)
 speed = 800.0
-flip_sprite = false
 
 [node name="drone_controller" parent="boss_enemies_squad" groups=["boss_squad"] instance=ExtResource("32_7irup")]
 position = Vector2(11284, 74)

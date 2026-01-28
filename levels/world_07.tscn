@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://cgft5s4m2mvpf"]
+[gd_scene load_steps=57 format=4 uid="uid://cgft5s4m2mvpf"]
 
 [ext_resource type="Script" uid="uid://rrcccix26aeh" path="res://scripts/world.gd" id="1_sejcc"]
 [ext_resource type="Texture2D" uid="uid://cxbyvg17wg0j5" path="res://n_assets/n_scenes/bgs/world6/5 - Sky_color.png" id="2_s0drr"]
@@ -29,6 +29,8 @@
 [ext_resource type="PackedScene" uid="uid://cb4v4tski4aq2" path="res://prefabs/civil_police_car.tscn" id="29_6qhvh"]
 [ext_resource type="PackedScene" uid="uid://fp2fluhv4tkl" path="res://prefabs/interface.tscn" id="35_prkmg"]
 [ext_resource type="PackedScene" uid="uid://c738o3mpr3is3" path="res://prefabs/goal.tscn" id="38_rnpiw"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6qhvh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8rwgp"]
 shader = ExtResource("4_xih0p")
@@ -3429,6 +3431,14 @@ position = Vector2(134, 135)
 script = ExtResource("1_sejcc")
 stage_number = 6
 
+[node name="fundoBranco" type="TextureRect" parent="."]
+visible = false
+offset_left = -698.0
+offset_top = -2670.0
+offset_right = 19060.0
+offset_bottom = 3791.0
+texture = SubResource("CanvasTexture_6qhvh")
+
 [node name="Paralax2D" type="Node2D" parent="."]
 
 [node name="BG_5_blue_sky" type="Parallax2D" parent="Paralax2D"]
@@ -3621,6 +3631,9 @@ monitorable = false
 monitoring = false
 monitorable = false
 
+[node name="speech_bubble" parent="actors/dt_boss" index="10"]
+visible = false
+
 [node name="animator_report" type="AnimationPlayer" parent="actors"]
 libraries = {
 &"": SubResource("AnimationLibrary_6qhvh")
@@ -3658,7 +3671,7 @@ shape = SubResource("RectangleShape2D_bata5")
 position = Vector2(1619, 199)
 
 [node name="federal_police_car" parent="." instance=ExtResource("28_8uyt1")]
-position = Vector2(1742, 206)
+position = Vector2(1801, 199)
 
 [node name="federal_police_car2" parent="." instance=ExtResource("28_8uyt1")]
 position = Vector2(2132, 201)

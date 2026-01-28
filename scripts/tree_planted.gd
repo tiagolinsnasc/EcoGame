@@ -11,6 +11,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	grow()
 
+func _ready() -> void:
+	Globals.add_disponible_score_stat(score)
+
 func _on_anime_animation_finished() -> void:
 	if anime.animation == "rising":
 		anime.play("idlle")

@@ -124,6 +124,8 @@ func disable_all_collisions(node: Node) -> void:
 	# (ex.: $CollisionShape2D diretamente no CharacterBody2D)
 	if node == self and has_node("CollisionShape2D"):
 		$"CollisionShape2D".set_deferred("disabled", true)
+	
+	life_progress_bar.visible = false
 
 func eliminate_all_enemies():
 	var squad = get_tree().get_nodes_in_group("boss_squad")

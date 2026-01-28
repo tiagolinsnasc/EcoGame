@@ -16,7 +16,10 @@ var direction := 1
 var is_dead := false
 
 func _ready() -> void:
-	Globals.stat_disponible_score += enemy_score
+	#evita que os animais que herdam enemy_base tenha os pontos atribuidos
+	if !self.is_in_group("animals"): 
+		Globals.add_disponible_score_stat(enemy_score)
+	
 	Globals.stat_disponible_enemy += 1
 
 func _physics_process(delta: float) -> void:

@@ -17,10 +17,57 @@ func _ready():
 	Globals.update_teleport_visibility()
 	Globals.ambient_player = ambient_sound
 	
+#Icones variáveis do estado dos poweups
+var pw_sj_icon_l1 = preload("res://n_assets/n_scenes/elements/superjump_icon_l1.png")
+var pw_sj_icon_l2 = preload("res://n_assets/n_scenes/elements/superjump_icon_l2.png")
+var pw_sj_icon_l3 = preload("res://n_assets/n_scenes/elements/superjump_icon_l3.png")
+
+var pw_tp_icon_l1 = preload("res://n_assets/n_scenes/elements/teleport_icon_l1.png")
+var pw_tp_icon_l2 = preload("res://n_assets/n_scenes/elements/teleport_icon_l2.png")
+var pw_tp_icon_l3 = preload("res://n_assets/n_scenes/elements/teleport_icon_l3.png")
+
+#Flag para exibir mensagens de evolução de powerups
+var flag_pw_sj_l2 = false;
+var flag_pw_sj_l3 = false;
+
+var flag_pw_tp_l2 = false;
+var flag_pw_tp_l3 = false;
+
 func _process(_delta: float):
 	coins_counter.text = str("%02d" % Globals.coins)
 	score_counter.text = str("%06d" % Globals.score)
 	life_counter.text = str("%02d" % Globals.player_life)
+	
+	#Cuida da dinâmica de mostrar na tela os íncones com a evolução dos superpoderes
+	#superjump_level e teleport_level já alteram o fator de multiplicação do superpulo e teleport
+	var v_superjump_level = Globals.superjump_level();
+	#print("Nivel do superpulo: "+str(v_superjump_level))
+	if v_superjump_level == 1:
+		super_jump.icon.texture = pw_sj_icon_l1
+	elif v_superjump_level == 2:
+		if not flag_pw_sj_l2:#Mensagem do aumento
+			Globals.show_side_mensage("A altura do super pulo aumentou em 10%!",pw_sj_icon_l2,5.0)
+			flag_pw_sj_l2 = true	
+		super_jump.icon.texture = pw_sj_icon_l2
+	elif v_superjump_level == 3:
+		if not flag_pw_sj_l3:#Mensagem do aumento
+			Globals.show_side_mensage("A altura do super pulo aumentou em 30%!",pw_sj_icon_l3,5.0)
+			flag_pw_sj_l3 = true
+		super_jump.icon.texture = pw_sj_icon_l3
+		
+	if Globals.teleport_level() == 1:
+		teleport.icon.texture = pw_tp_icon_l1
+	elif Globals.teleport_level() == 2:
+		if not flag_pw_tp_l2:#Mensagem do aumento
+			Globals.show_side_mensage("Distância de teletransporte aumentou em 10%!",pw_tp_icon_l2,5.0)
+			flag_pw_tp_l2 = true	
+		teleport.icon.texture = pw_tp_icon_l2
+	elif Globals.teleport_level() == 3:
+		if not flag_pw_tp_l3:#Mensagem do aumento
+			Globals.show_side_mensage("Distância de teletransporte aumentou em 30%!",pw_tp_icon_l3,5.0)
+			flag_pw_tp_l3 = true	
+		teleport.icon.texture = pw_tp_icon_l2
+		teleport.icon.texture = pw_tp_icon_l3
 
 @onready var notification_box = $notification_box
 @onready var notif_label = $notification_box/NinePatchRect/HBoxContainer/Label

@@ -29,7 +29,7 @@ func _ready() -> void:
 	shoot_timer.stop()             # começa parado 
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout) #ADD
 	Globals.stat_disponible_enemy += 1
-	Globals.stat_disponible_score = enemy_score
+	Globals.add_disponible_score_stat(enemy_score)
 
 #Transferido para o script do hitbox - removido - problemas com o tempo de execução do hurt
 #func _on_animation_animation_finished() -> void:

@@ -26,6 +26,7 @@ extends CharacterBody2D
 @export var jump_buffer_time := 0.12            
 
 @export var teleport_distance := 64.0   # distância em pixels
+
 @export var teleport_delay := 0.1       # tempo "sumido" antes de reaparecer
 
 ##Controle do PET (Feroz)
@@ -242,7 +243,7 @@ func _physics_process(delta: float) -> void:
 		# Se W (superjump) estiver pressionado e flag ativa
 		if Input.is_action_pressed("call_superjump") and Globals.flag_pw_superjump and can_jump:
 			#print("Superpulo")
-			var super_height = jump_height * superjump_factor  # aumenta altura do pulo
+			var super_height = jump_height * superjump_factor * Globals.superjump_adiction  # aumenta altura do pulo
 			var super_velocity = -sqrt(2.0 * gravity * super_height)
 			velocity.y = super_velocity
 		else:
@@ -574,7 +575,7 @@ func _teleport():
 	if dir == 0:
 		dir = 1
 
-	var target_pos = global_position + Vector2(teleport_distance * dir, 0)
+	var target_pos = global_position + Vector2(teleport_distance * Globals.teleport_distance_adiction * dir, 0)
 
 	var space_state = get_world_2d().direct_space_state
 
